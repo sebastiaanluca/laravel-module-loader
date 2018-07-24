@@ -57,8 +57,6 @@ class ModuleLoader
             $this->autoload($name, $path);
             $this->register($name, $path);
         }
-
-        dd($this->getAutoloader()->getPrefixesPsr4());
     }
 
     /**
@@ -129,10 +127,9 @@ class ModuleLoader
      */
     private function register(string $name, string $path) : void
     {
-        // TODO: register service provider
+        $provider = $this->getServiceProvider($name, $path);
 
-        //        (new ProviderRepository($this->app, new Filesystem(), $this->getCachedServicesPath()))
-        //            ->load($this->get('providers', []));
+        app()->register($provider);
     }
 
     /**
