@@ -1,0 +1,52 @@
+{
+    "name": "sebastiaanluca/laravel-module-loader",
+    "type": "library",
+    "description": "A lightweight package to split your code into individual modules.",
+    "keywords": [
+        "Laravel",
+        "module",
+        "modules"
+    ],
+    "homepage": "https://github.com/sebastiaanluca/laravel-module-loader",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sebastiaan Luca",
+            "email": "hello@sebastiaanluca.com",
+            "homepage": "https://www.sebastiaanluca.com",
+            "role": "Author"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "laravel/framework": "^5.6"
+    },
+    "require-dev": {
+        "kint-php/kint": "^2.2",
+        "orchestra/testbench": "^3.6",
+        "phpunit/phpunit": "^7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "SebastiaanLuca\\Module\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SebastiaanLuca\\Module\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SebastiaanLuca\\Module\\ModuleServiceProvider"
+            ]
+        }
+    }
+}
