@@ -12,12 +12,17 @@ class ModuleProvider extends Provider
     /**
      * @var string
      */
-    private $packageName;
+    private $moduleDirectory;
 
     /**
      * @var string
      */
     private $classDirectory;
+
+    /**
+     * @var string
+     */
+    private $packageName;
 
     /**
      * Register the application services.
@@ -46,7 +51,9 @@ class ModuleProvider extends Provider
      */
     protected function registerConfiguration() : void
     {
-        $configuration = "{$this->getClassDirectory()}/../../config/{$this->getPackageName()}.php";
+        $name = $this->getLowercasePackageName();
+
+        $configuration = "{$this->getModulePath()}/config/{$name}.php";
 
         if (! file_exists($configuration)) {
             return;
@@ -54,7 +61,7 @@ class ModuleProvider extends Provider
 
         $this->mergeConfigFrom(
             $configuration,
-            $this->getPackageName()
+            $name
         );
     }
 
@@ -64,13 +71,14 @@ class ModuleProvider extends Provider
      */
     protected function registerFactories() : void
     {
-        if (! app()->environment(config("{$this->getPackageName()}.development_environments"))) {
+        $devEnvironments = config("{$this->getLowercasePackageName()}.development_environments");
+
+        if (! app()->environment($devEnvironments)) {
             return;
         }
 
         $this->app->make(Factory::class)->load(
-            // FIXME
-            $this->getModule()->getPath() . '/database/factories'
+            $this->getModulePath() . '/database/factories'
         );
     }
 
@@ -83,7 +91,7 @@ class ModuleProvider extends Provider
             [
                 "{$this->getClassDirectory()}/../../config" => config_path("{$this->getPackageName()}.php"),
             ],
-            $this->getPackageName()
+            "* {$this->getPackageName()} (configuration)"
         );
     }
 
@@ -92,14 +100,32 @@ class ModuleProvider extends Provider
      */
     protected function bootResources() : void
     {
-        // FIXME
-        $this->loadMigrationsFrom($this->getModule()->getPath() . '/database/migrations');
-        $this->loadTranslationsFrom($this->getModule()->getPath() . '/resources/lang', $this->getPackageName());
-        $this->loadJsonTranslationsFrom($this->getModule()->getPath() . '/resources/lang');
+        $this->loadMigrationsFrom($this->getModulePath() . '/database/migrations');
+        $this->loadTranslationsFrom($this->getModulePath() . '/resources/lang', $this->getLowercasePackageName());
+        $this->loadJsonTranslationsFrom($this->getModulePath() . '/resources/lang');
 
-        if (file_exists($views = $this->getModule()->getPath() . '/resources/views')) {
-            $this->loadViewsFrom($views, $this->getPackageName());
+        $views = $this->getModulePath() . '/resources/views';
+
+        if (file_exists($views)) {
+            $this->loadViewsFrom($views, $this->getLowercasePackageName());
         }
+    }
+
+    /**
+     * @return string
+     */
+    protected function getModulePath() : string
+    {
+        // Some primitive caching
+        if ($this->moduleDirectory) {
+            return $this->moduleDirectory;
+        }
+
+        return $this->moduleDirectory = str_replace(
+            '/src/Providers',
+            '',
+            $this->getClassDirectory()
+        );
     }
 
     /**
@@ -130,42 +156,23 @@ class ModuleProvider extends Provider
      */
     protected function getPackageName() : string
     {
-        dd($this->getClassDirectory());
-
         // Some primitive caching
         if ($this->packageName) {
             return $this->packageName;
         }
 
-        // TODO
-        return str_replace('/', '.', $this->getPackageName());
+        return $this->packageName = str_replace(
+            'ServiceProvider',
+            '',
+            class_basename($this)
+        );
     }
 
-    //    /**
-    //     * The lowercase name of the package.
-    //     *
-    //     * @return string
-    //     */
-    //    protected function getPackageName() : string
-    //    {
-    //        if ($this->packageName) {
-    //            return $this->packageName;
-    //        }
-    //
-    //        $configuration = $this->getClassDirectory() . '/../../module.json';
-    //
-    //        if (! file_exists($configuration)) {
-    //            throw ModuleException::unableToResolveModuleName();
-    //        }
-    //
-    //        $name = file_get_contents($configuration);
-    //        $name = json_decode($name);
-    //        $name = object_get($name, 'alias');
-    //
-    //        if (is_null($name)) {
-    //            throw ModuleException::unableToResolveModuleName();
-    //        }
-    //
-    //        return $this->packageName = $name;
-    //    }
+    /**
+     * @return string
+     */
+    protected function getLowercasePackageName() : string
+    {
+        return mb_strtolower($this->getPackageName());
+    }
 }
