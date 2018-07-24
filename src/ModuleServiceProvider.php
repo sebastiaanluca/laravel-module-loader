@@ -63,7 +63,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     private function getConfigurationPath() : string
     {
-        return __DIR__ . '/../config/config.php';
+        return __DIR__ . '/../config/module-loader.php';
     }
 
     /**
