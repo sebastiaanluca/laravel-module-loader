@@ -52,7 +52,22 @@ TODO
 
 ### Optional configuration
 
-TODO
+#### Paths
+
+Add or remove paths to load modules from.
+
+```php
+/*
+ * An array of paths to scan for modules.
+ */
+'paths' => [
+
+    base_path('modules'),
+    base_path('domain'),
+    base_path('packages'),
+
+],
+```
 
 ## License
 
