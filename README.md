@@ -54,7 +54,6 @@ ShoppingCart
 - [How to install](#how-to-install)
 - [How to use](#how-to-use)
     - [Creating a module](#creating-a-module)
-    - [Optional configuration](#optional-configuration)
 - [License](#license)
 - [Change log](#change-log)
 - [Testing](#testing)
