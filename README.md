@@ -1,4 +1,4 @@
-# A lightweight package to split your code into individual modules
+# A lightweight package to split your code into contextual modules
 
 <a href="https://packagist.org/packages/sebastiaanluca/laravel-module-loader"><img src="https://poser.pugx.org/sebastiaanluca/laravel-module-loader/version" alt="Latest stable release"></img></a>
 <a href="LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="Software license"></img></a>
@@ -9,6 +9,44 @@
 <a href="https://packagist.org/packages/sebastiaanluca"><img src="https://img.shields.io/badge/link-other_packages-lightgrey.svg" alt="View my other packages and projects"></img></a>
 <a href="https://twitter.com/sebastiaanluca"><img src="https://img.shields.io/twitter/follow/sebastiaanluca.svg?style=social" alt="Follow @sebastiaanluca on Twitter"></img></a>
 <a href="https://twitter.com/intent/tweet?text=A%20lightweight%20Laravel%20package%20to%20split%20your%20code%20into%20individual%20modules.%20Via%20@sebastiaanluca%20https://github.com/sebastiaanluca/laravel-module-loader"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social" alt="Share this package on Twitter"></img></a>
+
+Laravel Module Loader helps you organize your project by organizing your domain code in contextual modules.
+
+By default, Laravel provides you with an `app/` directory to put all your classes in. In medium to large projects, you usually end up having a monolithic `app/` directory with tens or hundreds of directories and classes. To make *some* sense of that, they're typically organized per *type of class* (e.g. providers, services, models, …) too.
+
+An alternative to that is organizing your code in groups that belong in the same context, i.e. modules. Since you usually develop one feature at a time, it makes it easier for you and other developers to find related code when working in that context. For instance, grouping everything for users, documents, and a shopping cart under a `User`, `Document`, and `ShoppingCart` module respectively:
+
+```
+User
+    database
+        factories
+        migrations
+        seeds
+    resources
+        lang
+        views
+    src
+        Commands
+        Jobs
+        Models
+        Providers
+            UserServiceProvider
+    tests
+        UserTestCase
+
+Document
+    resources
+        lang
+    src
+        Models
+        Providers
+            DocumentServiceProvider
+
+ShoppingCart
+    src
+        Providers
+            ShoppingCartServiceProvider
+```
 
 ## Table of contents
 
@@ -42,31 +80,43 @@ composer require sebastiaanluca/laravel-module-loader
 
 ### Creating a module
 
-TODO
-
 - Manually for now
 - Module directory
-- `src` directory
-- `src/Providers` directory
-- Service provider with correct naming
+- Only requirement is a `src/Providers` directory and a service provider with correct naming
 
-### Optional configuration
+### Migrations
 
-#### Paths
+- In /database/migrations (keep an overview) or /modules/YourModule/database/migrations (keep in context)
+- Autoloaded by this package
+- Module migrations combined with app migrations based on prefixed date and time
 
-Add or remove paths to load modules from.
+### Factories
+
+- In /database/factories or /modules/YourModule/database/factories
+- Both directories get scanned
+- Autoloaded by this package if your module has a `/modules/YourModule/database/factories` directory
+
+### Seeders
+
+- In /database/seeds or /modules/YourModule/database/seeds
+- Not namespaced
+- No special handling in this package, manual usage
+- Called in DatabaseSeeder or with the `--class` CLI option
+
+### Translations
+
+- In /resources/lang or /modules/YourModule/resources/lang
+- Prefixed with the module name (converted to _snake\_case_): `@lang('your-module::subdirectory/file.key')` (subdirectory optional, provided as example)
+
+### Views
+
+- In /resources/views or /modules/YourModule/resources/views
+- Prefixed with the module name (converted to _snake\_case_): `view('your-module::subdirectory.view')` (subdirectory optional, provided as example)
+
+### Publishing a module's configuration
 
 ```php
-/*
- * An array of paths to scan for modules.
- */
-'paths' => [
-
-    base_path('modules'),
-    base_path('domain'),
-    base_path('packages'),
-
-],
+php artisan vendor:publish
 ```
 
 ## License
