@@ -10,7 +10,7 @@
 <a href="https://twitter.com/sebastiaanluca"><img src="https://img.shields.io/twitter/follow/sebastiaanluca.svg?style=social" alt="Follow @sebastiaanluca on Twitter"></img></a>
 <a href="https://twitter.com/intent/tweet?text=A%20lightweight%20Laravel%20package%20to%20split%20your%20code%20into%20individual%20modules.%20Via%20@sebastiaanluca%20https://github.com/sebastiaanluca/laravel-module-loader"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social" alt="Share this package on Twitter"></img></a>
 
-**Laravel Module Loader helps you organize your project by organizing your domain code in contextual modules.**
+**Laravel Module Loader helps you organize your project by splitting your domain code in contextual modules.**
 
 By default, Laravel provides you with an `app/` directory to put all your classes in. In medium to large projects, you usually end up having a monolithic `app/` directory with tens or hundreds of directories and classes. To make *some* sense of that, they're typically organized per *type of class* (e.g. providers, services, models, …) too.
 
