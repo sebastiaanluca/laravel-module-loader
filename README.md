@@ -17,34 +17,34 @@ By default, Laravel provides you with an `app/` directory to put all your classe
 An alternative to that is organizing your code in groups that belong in the same context, i.e. modules. Since you usually develop one feature at a time, it makes it easier for you and other developers to find related code when working in that context. For instance, grouping everything for users, documents, and a shopping cart under a `User`, `Document`, and `ShoppingCart` module respectively:
 
 ```
-User
-    database
-        factories
-        migrations
-        seeds
-    resources
-        lang
-        views
-    src
-        Commands
-        Jobs
-        Models
-        Providers
+User/
+    database/
+        factories/
+        migrations/
+        seeds/
+    resources/
+        lang/
+        views/
+    src/
+        Commands/
+        Jobs/
+        Models/
+        Providers/
             UserServiceProvider
-    tests
+    tests/
         UserTestCase
 
-Document
-    resources
-        lang
-    src
-        Models
-        Providers
+Document/
+    resources/
+        lang/
+    src/
+        Models/
+        Providers/
             DocumentServiceProvider
 
-ShoppingCart
-    src
-        Providers
+ShoppingCart/
+    src/
+        Providers/
             ShoppingCartServiceProvider
 ```
 
@@ -83,7 +83,36 @@ composer require sebastiaanluca/laravel-module-loader
 - Module directory
 - Only requirement is a `src/Providers` directory and a service provider with correct naming
 
+### Individual module configuration
+
+_Optional_
+
+By default, each module can contain a configuration file. You can use this group related settings.
+
+The name of the configuration file is important if you want it auto-loaded. Take for instance a `ShoppingCart` module:
+
+```
+modules/
+    ShoppingCart/
+        config/
+            shopping-cart.php
+```
+
+#### Publishing a module's configuration
+
+If you don't want the configuration to reside in the module itself, you can either copy or move it to the root `/config` directory. Another option is to publish it like you would do for a package configuration file (i.e. let Laravel copy it for you):
+
+```php
+php artisan vendor:publish
+```
+
+Then choose `* YourModule (configuration)` from the list.
+
+Note that configuration files in the root `/config` directory take precedence over the ones in your module. If a same key is encountered in both files, the one from within your module will be omitted.
+
 ### Migrations
+
+_Optional_
 
 - In /database/migrations (keep an overview) or /modules/YourModule/database/migrations (keep in context)
 - Autoloaded by this package
@@ -91,11 +120,15 @@ composer require sebastiaanluca/laravel-module-loader
 
 ### Factories
 
+_Optional_
+
 - In /database/factories or /modules/YourModule/database/factories
 - Both directories get scanned
 - Autoloaded by this package if your module has a `/modules/YourModule/database/factories` directory
 
 ### Seeders
+
+_Optional_
 
 - In /database/seeds or /modules/YourModule/database/seeds
 - Not namespaced
@@ -104,19 +137,17 @@ composer require sebastiaanluca/laravel-module-loader
 
 ### Translations
 
+_Optional_
+
 - In /resources/lang or /modules/YourModule/resources/lang
 - Prefixed with the module name (converted to _snake\_case_): `@lang('your-module::subdirectory/file.key')` (subdirectory optional, provided as example)
 
 ### Views
 
+_Optional_
+
 - In /resources/views or /modules/YourModule/resources/views
 - Prefixed with the module name (converted to _snake\_case_): `view('your-module::subdirectory.view')` (subdirectory optional, provided as example)
-
-### Publishing a module's configuration
-
-```php
-php artisan vendor:publish
-```
 
 ## License
 
