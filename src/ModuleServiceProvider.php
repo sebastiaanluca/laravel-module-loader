@@ -25,6 +25,8 @@ class ModuleServiceProvider extends ServiceProvider
         });
 
         $this->app->bind($this->getShortPackageName(), ModuleLoader::class);
+
+        app(ModuleLoader::class)->load();
     }
 
     /**
@@ -33,8 +35,6 @@ class ModuleServiceProvider extends ServiceProvider
     public function boot() : void
     {
         $this->registerPublishableResources();
-
-        app(ModuleLoader::class)->load();
     }
 
     /**

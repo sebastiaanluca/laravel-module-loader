@@ -112,12 +112,14 @@ class ModuleLoader
     {
         $this->getAutoloader()->addPsr4(
             $name . '\\',
-            $path . '/'
+            $path . '/src',
+            true
         );
 
         $this->getAutoloader()->addPsr4(
             $name . '\\Tests\\',
-            $path . '/tests/'
+            $path . '/tests',
+            true
         );
     }
 
@@ -128,6 +130,11 @@ class ModuleLoader
     private function register(string $name, string $path) : void
     {
         $provider = $this->getServiceProvider($name, $path);
+
+        $find = [base_path('modules/' . $name . '/src'), '/', '.php'];
+        $replace = [$name, '\\', ''];
+
+        $provider = str_replace($find, $replace, $provider);
 
         app()->register($provider);
     }
