@@ -122,10 +122,9 @@ class ModuleLoader
             true
         );
 
-        $this->getAutoloader()->add('', [
-            $path . '/database/factories',
-            $path . '/database/seeds',
-        ]);
+        $classmap = $this->files->directories($path . '/database', true);
+
+        $this->getAutoloader()->add('', $classmap);
     }
 
     /**
