@@ -6,6 +6,7 @@ namespace SebastiaanLuca\Module;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
+use SebastiaanLuca\Module\Commands\RegisterModuleAutoloading;
 use SebastiaanLuca\Module\Services\ModuleLoader;
 
 class ModuleServiceProvider extends ServiceProvider
@@ -26,7 +27,9 @@ class ModuleServiceProvider extends ServiceProvider
 
         $this->app->bind($this->getShortPackageName(), ModuleLoader::class);
 
-        app(ModuleLoader::class)->load();
+        app(ModuleLoader::class)->load(
+            $autoload = config($this->getShortPackageName() . '.runtime_autoloading')
+        );
     }
 
     /**

@@ -82,6 +82,7 @@ composer require sebastiaanluca/laravel-module-loader
 - Manually for now
 - Module directory
 - Only requirement is a `src/Providers` directory and a service provider with correct naming
+- Execute command to update composer.json autoload section (link to config option to enable runtime autoloading)
 
 ### Individual module configuration
 
@@ -148,6 +149,14 @@ _Optional_
 
 - In /resources/views or /modules/YourModule/resources/views
 - Prefixed with the module name (converted to _snake\_case_): `view('your-module::subdirectory.view')` (subdirectory optional, provided as example)
+
+## Configuration
+
+### Runtime autoloading
+
+This package supports runtime autoloading of all modules and their non-namespaced database directories. A bit slower, but you don't have to keep your composer.json updated.
+
+Enable `runtime_autoloading` in the package's configuration and remove your module entries from composer.json's autoload sections.
 
 ## License
 

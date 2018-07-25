@@ -9,7 +9,11 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Added
 
 - Autoload factories
-- Autoload seeds
+- Autoload seeders
+
+### Changed
+
+- Allow user to switch between default or runtime module autoloading. 
 
 ## 0.1.0 (2018-07-25)
 
