@@ -27,6 +27,10 @@ class ModuleServiceProvider extends ServiceProvider
 
         $this->app->bind($this->getShortPackageName(), ModuleLoader::class);
 
+        $this->commands([
+            RegisterModuleAutoloading::class,
+        ]);
+
         app(ModuleLoader::class)->load(
             $autoload = config($this->getShortPackageName() . '.runtime_autoloading')
         );

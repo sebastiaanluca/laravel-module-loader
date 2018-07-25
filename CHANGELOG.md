@@ -13,7 +13,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ### Changed
 
-- Allow user to switch between default or runtime module autoloading. 
+- Allow user to switch between default or runtime module autoloading 
 
 ## 0.1.0 (2018-07-25)
 

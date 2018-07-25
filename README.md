@@ -154,9 +154,14 @@ _Optional_
 
 ### Runtime autoloading
 
-This package supports runtime autoloading of all modules and their non-namespaced database directories. A bit slower, but you don't have to keep your composer.json updated.
+This package supports runtime autoloading of all modules and their non-namespaced database directories.
 
 Enable `runtime_autoloading` in the package's configuration and remove your module entries from composer.json's autoload sections.
+
+Note that there are some trade-offs to enabling this:
+
+- You cannot generate an authorative classmap using `composer dumpautoload -a` (usually in production)
+- It's a bit slower (yet hardly noticeable), but you don't have to keep your composer.json updated
 
 ## License
 
