@@ -122,7 +122,7 @@ class ModuleLoader
             true
         );
 
-        $this->getAutoloader()->addClassMap([
+        $this->getAutoloader()->add('', [
             $path . '/database/factories',
             $path . '/database/seeds',
         ]);
