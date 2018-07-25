@@ -6,6 +6,11 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+### Added
+
+- Autoload factories
+- Autoload seeds
+
 ## 0.1.0 (2018-07-25)
 
 ### Added

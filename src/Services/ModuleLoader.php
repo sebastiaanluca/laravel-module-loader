@@ -121,6 +121,11 @@ class ModuleLoader
             $path . '/tests',
             true
         );
+
+        $this->getAutoloader()->addClassMap([
+            $path . '/database/factories',
+            $path . '/database/seeds',
+        ]);
     }
 
     /**
