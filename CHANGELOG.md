@@ -6,6 +6,8 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 0.1.0 (2018-07-25)
+
 ### Added
 
 - Added module service provider
