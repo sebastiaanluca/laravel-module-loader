@@ -122,7 +122,11 @@ class ModuleLoader
             true
         );
 
-        $classmap = $this->files->directories($path . '/database', true);
+        if (! file_exists($databasePath = $path . '/database')) {
+            return;
+        }
+
+        $classmap = $this->files->directories($databasePath, true);
 
         $this->getAutoloader()->add('', $classmap);
     }
