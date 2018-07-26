@@ -119,17 +119,17 @@ class ModuleLoader
             true
         );
 
-        $this->getAutoloader()->addPsr4(
-            $name . '\\Tests\\',
-            $path . '/tests',
-            true
-        );
-
-        if (! file_exists($databasePath = $path . '/database')) {
-            return;
+        if (file_exists($testsPath = $path . 'tests/')) {
+            $this->getAutoloader()->addPsr4(
+                $name . '\\Tests\\',
+                $path . '/tests',
+                true
+            );
         }
 
-        $this->autoloadClassmap($databasePath);
+        if (file_exists($databasePath = $path . '/database')) {
+            $this->autoloadClassmap($databasePath);
+        }
     }
 
     /**
