@@ -115,7 +115,9 @@ class RegisterModuleAutoloading extends Command
         $this->mergeConfigValue($config, 'autoload.psr-4', $psr4);
         $this->mergeConfigValue($config, 'autoload-dev.psr-4', $psr4Dev);
 
-        file_put_contents($composerPath, json_encode($config, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+        $config = json_encode($config, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
+        file_put_contents($composerPath, $config . PHP_EOL);
     }
 
     /**

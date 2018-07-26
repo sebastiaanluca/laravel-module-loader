@@ -6,6 +6,12 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 0.2.2 (2018-07-26)
+
+### Fixed
+
+- Add final new line to generated composer.json
+
 ## 0.2.1 (2018-07-26)
 
 ### Changed
