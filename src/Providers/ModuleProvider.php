@@ -71,7 +71,7 @@ class ModuleProvider extends Provider
      */
     protected function registerFactories() : void
     {
-        $devEnvironments = config("{$this->getLowercasePackageName()}.development_environments");
+        $devEnvironments = config('module-loader.development_environments');
 
         if (! app()->environment($devEnvironments)) {
             return;

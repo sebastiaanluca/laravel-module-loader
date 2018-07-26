@@ -42,31 +42,34 @@ class ModuleLoader
 
     /**
      * Scan and load all modules.
+     *
+     * @param bool $autoload
+     *
+     * @return void
      */
-    public function load() : void
+    public function load(bool $autoload = false) : void
     {
-        $paths = $this->config['paths'];
+        $this->modules = $this->scan();
 
-        $this->autoloader = $this->getAutoloader();
-
-        $this->modules = $this->scan($paths);
-
-        $this->modules = $this->filterNonModules($this->modules);
+        if ($autoload) {
+            foreach ($this->modules as $name => $path) {
+                $this->autoload($name, $path);
+            }
+        }
 
         foreach ($this->modules as $name => $path) {
-            $this->autoload($name, $path);
-            $this->register($name, $path);
+            $this->registerProvider($name, $path);
         }
     }
 
     /**
-     * @param array|null $paths
-     *
      * @return array
      * @throws \SebastiaanLuca\Module\Exceptions\ModuleLoaderException
      */
-    private function scan(?array $paths) : array
+    public function scan() : array
     {
+        $paths = $this->config['paths'];
+
         if ($paths === null || empty($paths)) {
             return [];
         }
@@ -87,7 +90,7 @@ class ModuleLoader
             }
         }
 
-        return $modules;
+        return $this->filterNonModules($modules);
     }
 
     /**
@@ -121,20 +124,35 @@ class ModuleLoader
             $path . '/tests',
             true
         );
+
+        if (! file_exists($databasePath = $path . '/database')) {
+            return;
+        }
+
+        $this->autoloadClassmap($databasePath);
     }
 
     /**
      * @param string $name
      * @param string $path
      */
-    private function register(string $name, string $path) : void
+    private function registerProvider(string $name, string $path) : void
     {
         $provider = $this->getServiceProvider($name, $path);
+
+        if ($provider === null) {
+            return;
+        }
 
         $find = [base_path('modules/' . $name . '/src'), '/', '.php'];
         $replace = [$name, '\\', ''];
 
         $provider = str_replace($find, $replace, $provider);
+
+        // Do not register providers that don't have their namespace loaded
+        if (! class_exists($provider)) {
+            return;
+        }
 
         app()->register($provider);
     }
@@ -149,6 +167,21 @@ class ModuleLoader
         }
 
         return $this->autoloader = require base_path('vendor/autoload.php');
+    }
+
+    /**
+     * @param string $path
+     */
+    private function autoloadClassmap(string $path) : void
+    {
+        $classmap = $this->files->directories($path);
+
+        $this->getAutoloader()->add('', $classmap);
+
+        // Recursively load all non-namespaced classes
+        foreach ($classmap as $directory) {
+            $this->autoloadClassmap($directory);
+        }
     }
 
     /**

@@ -83,6 +83,16 @@ composer require sebastiaanluca/laravel-module-loader
 - Module directory
 - Only requirement is a `src/Providers` directory and a service provider with correct naming
 
+### Refresh modules 
+
+If you're not using runtime autoloading (disabled by default). (link to config option to enable runtime autoloading)
+
+- Execute `php artisan module:refresh`
+- Scans all your modules directories and writes autoload configuration to composer.json
+- Your existing composer.json is saved
+- Only writes classmap and PSR4 autoload and autoload-dev sections
+- Duplicate autoload entries (classmap and PSR4) are omitted
+
 ### Individual module configuration
 
 _Optional_
@@ -148,6 +158,20 @@ _Optional_
 
 - In /resources/views or /modules/YourModule/resources/views
 - Prefixed with the module name (converted to _snake\_case_): `view('your-module::subdirectory.view')` (subdirectory optional, provided as example)
+
+## Configuration
+
+### Runtime autoloading
+
+This package supports runtime autoloading of all modules and their non-namespaced database directories.
+
+Enable `runtime_autoloading` in the package's configuration and remove your module entries from composer.json's autoload sections.
+
+Note that there are some trade-offs to enabling this:
+
+- You cannot generate an authorative classmap using `composer dumpautoload -a` (usually in production)
+- It's a bit slower (yet hardly noticeable), but you don't have to keep your composer.json updated
+- PHPStorm (and perhaps other IDEs) don't automatically tag your modules and their tests as namespaced sources
 
 ## License
 

@@ -3,6 +3,11 @@
 return [
 
     /*
+     * Scan and autoload your modules at runtime.
+     */
+    'runtime_autoloading' => false,
+
+    /*
      * An array of paths to scan for modules.
      */
     'paths' => [

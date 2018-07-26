@@ -6,6 +6,19 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 0.2.0 (2018-07-26)
+
+### Added
+
+- Autoload factories
+- Autoload seeders
+- Write autoload config to composer.json
+- Added command to refresh modules
+
+### Changed
+
+- Allow user to switch between default or runtime module autoloading 
+
 ## 0.1.0 (2018-07-25)
 
 ### Added
