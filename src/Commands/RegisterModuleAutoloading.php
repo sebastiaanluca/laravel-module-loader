@@ -53,7 +53,10 @@ class RegisterModuleAutoloading extends Command
             $this->getAutoloadConfig($modules)
         );
 
-        $this->info('Modules autoloading config written to composer.json!');
+        $this->info(sprintf(
+            'Wrote composer.json autoload configuration for %s modules',
+            count($modules)
+        ));
     }
 
     /**

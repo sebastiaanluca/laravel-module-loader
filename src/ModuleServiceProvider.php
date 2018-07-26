@@ -6,6 +6,7 @@ namespace SebastiaanLuca\Module;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
+use SebastiaanLuca\Module\Commands\RefreshModules;
 use SebastiaanLuca\Module\Commands\RegisterModuleAutoloading;
 use SebastiaanLuca\Module\Services\ModuleLoader;
 
@@ -29,6 +30,7 @@ class ModuleServiceProvider extends ServiceProvider
 
         $this->commands([
             RegisterModuleAutoloading::class,
+            RefreshModules::class,
         ]);
 
         app(ModuleLoader::class)->load(
