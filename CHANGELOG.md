@@ -10,6 +10,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 - Autoload factories
 - Autoload seeders
+- Write autoload config to composer.json
 
 ### Changed
 
