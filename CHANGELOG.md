@@ -6,6 +6,8 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 0.2.1 (2018-07-26)
+
 ### Changed
 
 - Only autoload or write autoload config for tests if the directory exists
