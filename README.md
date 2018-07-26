@@ -54,6 +54,16 @@ ShoppingCart/
 - [How to install](#how-to-install)
 - [How to use](#how-to-use)
     - [Creating a module](#creating-a-module)
+    - [Refreshing modules](#refreshing-modules)
+    - [Individual module configuration](#individual-module-configuration)
+        - [Publishing a module's configuration](#publishing-a-modules-configuration)
+    - [Migrations](#migrations)
+    - [Factories](#factories)
+    - [Seeders](#seeders)
+    - [Translations](#translations)
+    - [Views](#views)
+- [Configuration](#configuration)
+    - [Runtime autoloading](#runtime-autoloading)
 - [License](#license)
 - [Change log](#change-log)
 - [Testing](#testing)
@@ -83,7 +93,7 @@ composer require sebastiaanluca/laravel-module-loader
 - Module directory
 - Only requirement is a `src/Providers` directory and a service provider with correct naming
 
-### Refresh modules 
+### Refreshing modules 
 
 If you're not using runtime autoloading (disabled by default). (link to config option to enable runtime autoloading)
 

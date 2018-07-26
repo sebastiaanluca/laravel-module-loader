@@ -18,9 +18,9 @@
         }
     ],
     "require": {
-        "php": "^7.2",
         "ext-json": "*",
-        "laravel/framework": "^5.6"
+        "laravel/framework": "^5.6",
+        "php": "^7.2"
     },
     "require-dev": {
         "kint-php/kint": "^2.2",
@@ -37,9 +37,6 @@
             "SebastiaanLuca\\Module\\Tests\\": "tests"
         }
     },
-    "scripts": {
-        "test": "vendor/bin/phpunit"
-    },
     "config": {
         "sort-packages": true
     },
@@ -49,5 +46,8 @@
                 "SebastiaanLuca\\Module\\ModuleServiceProvider"
             ]
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
     }
 }
