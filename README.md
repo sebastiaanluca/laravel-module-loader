@@ -90,8 +90,8 @@ composer require sebastiaanluca/laravel-module-loader
 ### Creating a module
 
 - Manually for now
-- Module directory
-- Only requirement is a `src/Providers` directory and a service provider with correct naming
+- Module directory with a `src/` directory (any other directory without `src/` in it is ignored)
+- (optional) `src/Providers` directory and a service provider with correct naming which will be registered automatically
 
 ### Refreshing modules 
 

@@ -101,8 +101,8 @@ class ModuleLoader
     private function filterNonModules(array $modules) : array
     {
         return collect($modules)
-            ->reject(function ($path, $name) {
-                return $this->getServiceProvider($name, $path) === null;
+            ->filter(function ($path, $name) {
+                return file_exists($path . '/src');
             })
             ->toArray();
     }
@@ -149,7 +149,8 @@ class ModuleLoader
 
         $provider = str_replace($find, $replace, $provider);
 
-        // Do not register providers that don't have their namespace loaded
+        // Do not register providers that don't exist or
+        // don't have their namespace loaded
         if (! class_exists($provider)) {
             return;
         }
