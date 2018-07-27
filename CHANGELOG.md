@@ -6,6 +6,12 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 0.2.4 (2018-07-27)
+
+### Changed
+
+- Make service provider optional, just check for a `src/` directory
+
 ## 0.2.3 (2018-07-27)
 
 ### Fixed
