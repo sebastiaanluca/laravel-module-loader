@@ -6,6 +6,12 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 0.2.3 (2018-07-27)
+
+### Fixed
+
+- Fixed PSR 4 autoload directories (forgot to add `src/` 👀)
+
 ## 0.2.2 (2018-07-26)
 
 ### Fixed
