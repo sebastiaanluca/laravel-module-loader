@@ -14,7 +14,7 @@ class RegisterModuleAutoloading extends Command
      *
      * @var string
      */
-    protected $signature = 'modules:autoload';
+    protected $signature = 'modules:autoload {--K|keep : Keep existing module autoload entries}';
 
     /**
      * The console command description.
@@ -136,7 +136,17 @@ class RegisterModuleAutoloading extends Command
      */
     private function mergeConfigValue(array &$config, string $key, array $value) : void
     {
-        $value = array_unique(array_merge(array_get($config, $key, []), $value));
+        $existing = array_get($config, $key, []);
+
+        if (! $this->option('keep')) {
+            $existing = collect($existing)
+                ->reject(function ($directory, $name) {
+                    return starts_with($directory, config('module-loader.paths'));
+                })
+                ->toArray();
+        }
+
+        $value = array_unique(array_merge($existing, $value));
 
         ksort($value, SORT_ASC | SORT_NATURAL);
 

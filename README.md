@@ -97,7 +97,7 @@ composer require sebastiaanluca/laravel-module-loader
 
 If you're not using runtime autoloading (disabled by default). (link to config option to enable runtime autoloading)
 
-- Execute `php artisan module:refresh`
+- Execute `php artisan module:refresh` (optional `--keep` option)
 - Scans all your modules directories and writes autoload configuration to composer.json
 - Your existing composer.json is saved
 - Only writes classmap and PSR4 autoload and autoload-dev sections
