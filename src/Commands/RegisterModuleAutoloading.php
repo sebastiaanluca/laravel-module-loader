@@ -74,7 +74,7 @@ class RegisterModuleAutoloading extends Command
             $psrName = $name . '\\';
             $psrPath = substr(str_replace(base_path(), '', $path), 1) . '/';
 
-            $psr4 = array_merge($psr4, [$psrName => $psrPath]);
+            $psr4 = array_merge($psr4, [$psrName => $psrPath . 'src/']);
 
             if (file_exists($tests = $psrPath . 'tests/')) {
                 $psr4Dev = array_merge($psr4Dev, [$psrName . 'Tests\\' => $tests]);
