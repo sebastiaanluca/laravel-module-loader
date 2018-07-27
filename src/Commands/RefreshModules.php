@@ -30,7 +30,9 @@ class RefreshModules extends Command
      */
     public function handle() : void
     {
-        $this->call('modules:autoload', $this->arguments());
+        $this->call('modules:autoload', [
+            '--keep' => $this->option('keep'),
+        ]);
 
         $process = new Process('composer dumpautoload');
 
