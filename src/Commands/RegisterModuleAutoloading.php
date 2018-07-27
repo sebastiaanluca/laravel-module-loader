@@ -14,7 +14,7 @@ class RegisterModuleAutoloading extends Command
      *
      * @var string
      */
-    protected $signature = 'modules:autoload';
+    protected $signature = 'modules:autoload {--K|keep : Keep existing module autoload entries}';
 
     /**
      * The console command description.
@@ -72,19 +72,18 @@ class RegisterModuleAutoloading extends Command
 
         foreach ($modules as $name => $path) {
             $psrName = $name . '\\';
-            $psrPath = substr(str_replace(base_path(), '', $path), 1) . '/';
 
-            $psr4 = array_merge($psr4, [$psrName => $psrPath . 'src/']);
+            $psr4 = array_merge($psr4, [$psrName => $path . '/src/']);
 
-            if (file_exists($tests = $psrPath . 'tests/')) {
+            if (file_exists($tests = $path . '/tests/')) {
                 $psr4Dev = array_merge($psr4Dev, [$psrName . 'Tests\\' => $tests]);
             }
 
-            if (file_exists($factories = $psrPath . 'database/factories')) {
+            if (file_exists($factories = $path . '/database/factories')) {
                 $classmap[] = $factories;
             }
 
-            if (file_exists($seeders = $psrPath . 'database/seeds')) {
+            if (file_exists($seeders = $path . '/database/seeds')) {
                 $classmap[] = $seeders;
             }
         }
@@ -137,10 +136,31 @@ class RegisterModuleAutoloading extends Command
      */
     private function mergeConfigValue(array &$config, string $key, array $value) : void
     {
-        $this->setConfigValue(
-            $config,
-            $key,
-            array_unique(array_merge(array_get($config, $key, []), $value))
-        );
+        $existing = array_get($config, $key, []);
+
+        if (! $this->option('keep')) {
+            $existing = collect($existing)
+                ->reject(function ($directory, $name) {
+                    return starts_with($directory, config('module-loader.paths'));
+                })
+                ->toArray();
+        }
+
+        $value = array_unique(array_merge($existing, $value));
+
+        ksort($value, SORT_ASC | SORT_NATURAL);
+
+        $app = array_pull($value, 'App\\');
+        $tests = array_pull($value, 'Tests\\');
+
+        if ($app !== null) {
+            $value = array_prepend($value, $app, 'App\\');
+        }
+
+        if ($tests !== null) {
+            $value = array_prepend($value, $tests, 'Tests\\');
+        }
+
+        $this->setConfigValue($config, $key, $value);
     }
 }

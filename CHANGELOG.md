@@ -6,6 +6,20 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 0.2.5 (2018-07-27)
+
+### Added
+
+- Added option to remove or keep existing module autoload entries
+
+### Changed
+
+- Don't use full paths in module `paths` config
+
+### Fixed
+
+- Fixed hardcoded module path reference
+
 ## 0.2.4 (2018-07-27)
 
 ### Changed

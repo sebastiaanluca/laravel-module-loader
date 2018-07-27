@@ -12,7 +12,7 @@ return [
      */
     'paths' => [
 
-        base_path('modules'),
+        'modules',
 
     ],
 
