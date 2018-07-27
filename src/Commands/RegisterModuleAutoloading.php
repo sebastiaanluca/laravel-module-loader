@@ -137,10 +137,21 @@ class RegisterModuleAutoloading extends Command
      */
     private function mergeConfigValue(array &$config, string $key, array $value) : void
     {
-        $this->setConfigValue(
-            $config,
-            $key,
-            array_unique(array_merge(array_get($config, $key, []), $value))
-        );
+        $value = array_unique(array_merge(array_get($config, $key, []), $value));
+
+        ksort($value, SORT_ASC | SORT_NATURAL);
+
+        $app = array_pull($value, 'App\\');
+        $tests = array_pull($value, 'Tests\\');
+
+        if ($app !== null) {
+            $value = array_prepend($value, $app, 'App\\');
+        }
+
+        if ($tests !== null) {
+            $value = array_prepend($value, $tests, 'Tests\\');
+        }
+
+        $this->setConfigValue($config, $key, $value);
     }
 }
