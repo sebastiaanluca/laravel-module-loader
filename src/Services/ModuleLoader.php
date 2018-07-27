@@ -144,7 +144,7 @@ class ModuleLoader
             return;
         }
 
-        $find = [base_path('modules/' . $name . '/src'), '/', '.php'];
+        $find = [$path . '/src', '/', '.php'];
         $replace = [$name, '\\', ''];
 
         $provider = str_replace($find, $replace, $provider);

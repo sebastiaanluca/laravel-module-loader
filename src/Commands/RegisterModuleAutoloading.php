@@ -72,19 +72,18 @@ class RegisterModuleAutoloading extends Command
 
         foreach ($modules as $name => $path) {
             $psrName = $name . '\\';
-            $psrPath = substr(str_replace(base_path(), '', $path), 1) . '/';
 
-            $psr4 = array_merge($psr4, [$psrName => $psrPath . 'src/']);
+            $psr4 = array_merge($psr4, [$psrName => $path . '/src/']);
 
-            if (file_exists($tests = $psrPath . 'tests/')) {
+            if (file_exists($tests = $path . '/tests/')) {
                 $psr4Dev = array_merge($psr4Dev, [$psrName . 'Tests\\' => $tests]);
             }
 
-            if (file_exists($factories = $psrPath . 'database/factories')) {
+            if (file_exists($factories = $path . '/database/factories')) {
                 $classmap[] = $factories;
             }
 
-            if (file_exists($seeders = $psrPath . 'database/seeds')) {
+            if (file_exists($seeders = $path . '/database/seeds')) {
                 $classmap[] = $seeders;
             }
         }
