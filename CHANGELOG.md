@@ -6,6 +6,12 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 0.2.6 (2018-07-30)
+
+### Fixed
+
+- Check root project directory for modules
+
 ## 0.2.5 (2018-07-27)
 
 ### Added
