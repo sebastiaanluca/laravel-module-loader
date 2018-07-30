@@ -86,7 +86,7 @@ class ModuleLoader
                     throw ModuleLoaderException::duplicate($name);
                 }
 
-                $modules[$name] = str_replace(base_path() . '/', '', $directory);
+                $modules[$name] = $directory;
             }
         }
 
@@ -113,6 +113,8 @@ class ModuleLoader
      */
     private function autoload(string $name, string $path) : void
     {
+        $path = $this->getCleanPath($path);
+
         $this->getAutoloader()->addPsr4(
             $name . '\\',
             $path . '/src',
@@ -143,11 +145,6 @@ class ModuleLoader
         if ($provider === null) {
             return;
         }
-
-        $find = [$path . '/src', '/', '.php'];
-        $replace = [$name, '\\', ''];
-
-        $provider = str_replace($find, $replace, $provider);
 
         // Do not register providers that don't exist or
         // don't have their namespace loaded
@@ -186,19 +183,34 @@ class ModuleLoader
     }
 
     /**
-     * @param string $module
+     * @param string $name
      * @param string $directory
      *
      * @return string|null
      */
-    private function getServiceProvider(string $module, string $directory) : ?string
+    private function getServiceProvider(string $name, string $directory) : ?string
     {
-        $path = "{$directory}/src/Providers/{$module}ServiceProvider.php";
+        $path = "{$directory}/src/Providers/{$name}ServiceProvider.php";
 
         if (! $this->files->exists($path)) {
             return null;
         }
 
-        return $path;
+        $path = $this->getCleanPath($path);
+
+        $find = [$name . '/src', '/', '.php'];
+        $replace = [$name, '\\', ''];
+
+        return str_replace($find, $replace, $path);
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return string
+     */
+    private function getCleanPath(string $path) : string
+    {
+        return str_replace(base_path() . '/', '', $path);
     }
 }

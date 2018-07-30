@@ -73,6 +73,8 @@ class RegisterModuleAutoloading extends Command
         foreach ($modules as $name => $path) {
             $psrName = $name . '\\';
 
+            $path = $this->getCleanPath($path);
+
             $psr4 = array_merge($psr4, [$psrName => $path . '/src/']);
 
             if (file_exists($tests = $path . '/tests/')) {
@@ -162,5 +164,15 @@ class RegisterModuleAutoloading extends Command
         }
 
         $this->setConfigValue($config, $key, $value);
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return string
+     */
+    private function getCleanPath(string $path) : string
+    {
+        return str_replace(base_path() . '/', '', $path);
     }
 }
