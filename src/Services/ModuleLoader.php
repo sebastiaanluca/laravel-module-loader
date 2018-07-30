@@ -86,7 +86,7 @@ class ModuleLoader
                     throw ModuleLoaderException::duplicate($name);
                 }
 
-                $modules[$name] = $directory;
+                $modules[$name] = str_replace(base_path() . '/', '', $directory);
             }
         }
 
