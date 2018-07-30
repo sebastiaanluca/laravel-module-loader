@@ -6,6 +6,10 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 0.2.9 (2018-07-30)
+
+- Fixed root directory tweak (last try, I hope 💩)
+
 ## 0.2.8 (2018-07-30)
 
 - Fixed root directory tweak

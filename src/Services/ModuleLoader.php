@@ -198,7 +198,7 @@ class ModuleLoader
 
         $path = $this->getCleanPath($path);
 
-        $find = [$name . '/src', '/', '.php'];
+        $find = ['modules/' . $name . '/src', '/', '.php'];
         $replace = [$name, '\\', ''];
 
         return str_replace($find, $replace, $path);
