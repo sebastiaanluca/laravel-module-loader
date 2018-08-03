@@ -102,7 +102,7 @@ class ModuleLoader
     {
         return collect($modules)
             ->filter(function ($path, $name) {
-                return file_exists($path . '/src');
+                return is_dir($path . '/src');
             })
             ->toArray();
     }
@@ -121,7 +121,7 @@ class ModuleLoader
             true
         );
 
-        if (file_exists($testsPath = $path . 'tests/')) {
+        if (is_dir($testsPath = $path . 'tests/')) {
             $this->getAutoloader()->addPsr4(
                 $name . '\\Tests\\',
                 $path . '/tests',
@@ -129,7 +129,7 @@ class ModuleLoader
             );
         }
 
-        if (file_exists($databasePath = $path . '/database')) {
+        if (is_dir($databasePath = $path . '/database')) {
             $this->autoloadClassmap($databasePath);
         }
     }
