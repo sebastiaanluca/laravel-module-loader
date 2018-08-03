@@ -40,10 +40,10 @@ class ModuleProvider extends Provider
      */
     public function boot() : void
     {
+        parent::boot();
+
         $this->loadPublishableResources();
         $this->bootResources();
-
-        parent::boot();
     }
 
     /**

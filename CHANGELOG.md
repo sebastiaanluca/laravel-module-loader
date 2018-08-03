@@ -10,6 +10,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 - Moved event listener registration to the service provider `boot` method
 - Renamed the `mapModelMorphAliases()` method
+- Change order of called methods in module provider boot method
 
 ## 0.2.9 (2018-07-30)
 
