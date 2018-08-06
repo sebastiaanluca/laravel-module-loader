@@ -6,6 +6,17 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 0.2.10 (2018-08-06)
+
+### Changed
+
+- Moved event listener registration to the service provider `boot` method
+- Renamed the `mapModelMorphAliases()` method
+- Change order of called methods in module provider boot method
+- Correctly register module views
+- Correctly check if a module views' directory exists
+- Use the correct method to check if directories exist
+
 ## 0.2.9 (2018-07-30)
 
 - Fixed root directory tweak (last try, I hope 💩)

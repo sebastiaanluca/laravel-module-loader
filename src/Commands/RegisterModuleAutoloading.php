@@ -77,15 +77,15 @@ class RegisterModuleAutoloading extends Command
 
             $psr4 = array_merge($psr4, [$psrName => $path . '/src/']);
 
-            if (file_exists($tests = $path . '/tests/')) {
+            if (is_dir($tests = $path . '/tests/')) {
                 $psr4Dev = array_merge($psr4Dev, [$psrName . 'Tests\\' => $tests]);
             }
 
-            if (file_exists($factories = $path . '/database/factories')) {
+            if (is_dir($factories = $path . '/database/factories')) {
                 $classmap[] = $factories;
             }
 
-            if (file_exists($seeders = $path . '/database/seeds')) {
+            if (is_dir($seeders = $path . '/database/seeds')) {
                 $classmap[] = $seeders;
             }
         }

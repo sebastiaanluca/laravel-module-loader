@@ -40,10 +40,10 @@ class ModuleProvider extends Provider
      */
     public function boot() : void
     {
+        parent::boot();
+
         $this->loadPublishableResources();
         $this->bootResources();
-
-        parent::boot();
     }
 
     /**
@@ -106,8 +106,8 @@ class ModuleProvider extends Provider
 
         $views = $this->getModulePath() . '/resources/views';
 
-        if (file_exists($views)) {
-            $this->loadViewsFrom($views, $this->getLowercasePackageName());
+        if (is_dir($views)) {
+            $this->app['view']->addNamespace($this->getLowercasePackageName(), $views);
         }
     }
 

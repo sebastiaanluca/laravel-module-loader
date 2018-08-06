@@ -43,7 +43,6 @@ abstract class Provider extends ServiceProvider
      */
     public function register() : void
     {
-        $this->registerListeners();
     }
 
     /**
@@ -51,7 +50,8 @@ abstract class Provider extends ServiceProvider
      */
     public function boot() : void
     {
-        $this->mapMorphTypes();
+        $this->registerListeners();
+        $this->mapModelMorphAliases();
         $this->mapRoutes();
     }
 
@@ -74,7 +74,7 @@ abstract class Provider extends ServiceProvider
     /**
      * Map polymorphic models to their alias.
      */
-    protected function mapMorphTypes() : void
+    protected function mapModelMorphAliases() : void
     {
         Relation::morphMap($this->morphMap);
     }
