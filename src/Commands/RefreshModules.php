@@ -14,7 +14,8 @@ class RefreshModules extends Command
      *
      * @var string
      */
-    protected $signature = 'modules:refresh {--K|keep : Keep existing autoload entries for non-modules}';
+    protected $signature = 'modules:refresh
+                            {--K|keep : Keep existing autoload entries for non-modules}';
 
     /**
      * The console command description.
