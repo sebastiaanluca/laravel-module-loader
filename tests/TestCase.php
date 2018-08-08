@@ -3,21 +3,36 @@
 namespace SebastiaanLuca\Module\Tests;
 
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use SebastiaanLuca\Module\ModuleServiceProvider;
 
 class TestCase extends BaseTestCase
 {
     /**
-     * Get package providers.
+     * Asserts that two variables are equal regardless of their order.
      *
-     * @param  \Illuminate\Foundation\Application $app
-     *
-     * @return array
+     * @param mixed $expected
+     * @param mixed $actual
      */
-    protected function getPackageProviders($app) : array
+    public static function assertSameValues($expected, $actual) : void
     {
-        return [
-            ModuleServiceProvider::class,
-        ];
+        static::assertEquals(
+            $expected,
+            $actual,
+            '$canonicalize = true',
+            0.0,
+            10,
+            true
+        );
+    }
+
+    /**
+     * Define environment setup.
+     *
+     * @param \Illuminate\Foundation\Application $app
+     *
+     * @return void
+     */
+    protected function getEnvironmentSetUp($app) : void
+    {
+        app()->setBasePath(__DIR__ . '/resources/app');
     }
 }
