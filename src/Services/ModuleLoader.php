@@ -49,17 +49,27 @@ class ModuleLoader
      */
     public function load(bool $autoload = false) : void
     {
-        $this->modules = $this->scan();
-
+        // Runtime autoloading should be an option,
+        // even if service providers were cached
         if ($autoload) {
+            $this->modules = $this->scan();
+
             foreach ($this->modules as $name => $path) {
                 $this->autoload($name, $path);
             }
         }
 
-        foreach ($this->modules as $name => $path) {
-            $this->registerProvider($name, $path);
+        if ($this->useCache()) {
+            return;
         }
+
+        if ($this->modules === null) {
+            $this->modules = $this->scan();
+        }
+
+        $this->registerProviders(
+            $this->getProviders($this->modules)
+        );
     }
 
     /**
@@ -97,6 +107,54 @@ class ModuleLoader
         }
 
         return $this->filterNonModules($modules);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCachePath() : string
+    {
+        return base_path('bootstrap/cache/module-loader.php');
+    }
+
+    /**
+     * @param array $modules
+     *
+     * @return array
+     */
+    public function getProviders(array $modules) : array
+    {
+        $providers = [];
+
+        foreach ($modules as $name => $path) {
+            $provider = $this->getProvider($name, $path);
+
+            if (! $provider) {
+                continue;
+            }
+
+            $providers[] = $provider;
+        }
+
+        return $providers;
+    }
+
+    /**
+     * @return bool
+     */
+    private function useCache() : bool
+    {
+        if (! file_exists($cache = $this->getCachePath())) {
+            return false;
+        }
+
+        $providers = require $cache;
+
+        foreach ($providers as $provider) {
+            app()->register($provider);
+        }
+
+        return true;
     }
 
     /**
@@ -141,36 +199,19 @@ class ModuleLoader
     }
 
     /**
-     * @param string $name
-     * @param string $path
+     * @param array $modules
      */
-    private function registerProvider(string $name, string $path) : void
+    private function registerProviders(array $modules) : void
     {
-        $provider = $this->getServiceProvider($name, $path);
+        foreach ($modules as $name => $path) {
+            $provider = $this->getProvider($name, $path);
 
-        if ($provider === null) {
-            return;
+            if (! $provider) {
+                continue;
+            }
+
+            app()->register($provider);
         }
-
-        // Do not register providers that don't exist or
-        // don't have their namespace loaded
-        if (! class_exists($provider)) {
-            return;
-        }
-
-        app()->register($provider);
-    }
-
-    /**
-     * @return \Composer\Autoload\ClassLoader
-     */
-    private function getAutoloader() : ClassLoader
-    {
-        if ($this->autoloader) {
-            return $this->autoloader;
-        }
-
-        return $this->autoloader = require base_path('vendor/autoload.php');
     }
 
     /**
@@ -189,12 +230,24 @@ class ModuleLoader
     }
 
     /**
+     * @return \Composer\Autoload\ClassLoader
+     */
+    private function getAutoloader() : ClassLoader
+    {
+        if ($this->autoloader) {
+            return $this->autoloader;
+        }
+
+        return $this->autoloader = require base_path('vendor/autoload.php');
+    }
+
+    /**
      * @param string $name
      * @param string $directory
      *
      * @return string|null
      */
-    private function getServiceProvider(string $name, string $directory) : ?string
+    private function getProvider(string $name, string $directory) : ?string
     {
         $path = "{$directory}/src/Providers/{$name}ServiceProvider.php";
 
@@ -207,7 +260,15 @@ class ModuleLoader
         $find = ['modules/' . $name . '/src', '/', '.php'];
         $replace = [$name, '\\', ''];
 
-        return str_replace($find, $replace, $path);
+        $provider = str_replace($find, $replace, $path);
+
+        // Do not register providers that don't exist or
+        // don't have their namespace loaded
+        if (! class_exists($provider)) {
+            return null;
+        }
+
+        return $provider;
     }
 
     /**

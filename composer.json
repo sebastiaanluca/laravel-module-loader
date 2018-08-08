@@ -34,7 +34,10 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "SebastiaanLuca\\Module\\Tests\\": "tests/"
+            "SebastiaanLuca\\Module\\Tests\\": "tests/",
+            "Another\\": "tests/temp/modules/Another/src/",
+            "Missing\\": "tests/temp/modules/Missing/src/",
+            "MyModule\\": "tests/temp/modules/MyModule/src"
         }
     },
     "config": {

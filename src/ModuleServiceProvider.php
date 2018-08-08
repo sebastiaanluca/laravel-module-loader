@@ -6,6 +6,7 @@ namespace SebastiaanLuca\Module;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
+use SebastiaanLuca\Module\Commands\Cache;
 use SebastiaanLuca\Module\Commands\ClearCache;
 use SebastiaanLuca\Module\Commands\RefreshModules;
 use SebastiaanLuca\Module\Commands\RegisterModuleAutoloading;
@@ -32,6 +33,7 @@ class ModuleServiceProvider extends ServiceProvider
         $this->commands([
             RegisterModuleAutoloading::class,
             RefreshModules::class,
+            Cache::class,
             ClearCache::class,
         ]);
 

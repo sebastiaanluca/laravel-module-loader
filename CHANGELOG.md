@@ -6,6 +6,11 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+### Added
+
+- Added cache command
+- Added clear cache command
+
 ### Changed
 
 - Renamed `path` config entry to `directories`
