@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace SebastiaanLuca\Module\Tests\Feature\Commands;
 
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Filesystem\Filesystem;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use SebastiaanLuca\Module\Commands\CreateModule;
+use SebastiaanLuca\Module\ModuleServiceProvider;
 use SebastiaanLuca\Module\Tests\TestCase;
 
 class CreateModuleCommandTest extends TestCase
@@ -80,18 +80,6 @@ class CreateModuleCommandTest extends TestCase
     }
 
     /**
-     * Clean up the testing environment before the next test.
-     *
-     * @return void
-     */
-    protected function tearDown() : void
-    {
-        parent::tearDown();
-
-        app(Filesystem::class)->deleteDirectory(base_path());
-    }
-
-    /**
      * Get package providers.
      *
      * @param  \Illuminate\Foundation\Application $app
@@ -101,7 +89,7 @@ class CreateModuleCommandTest extends TestCase
     protected function getPackageProviders($app) : array
     {
         return [
-            \SebastiaanLuca\Module\ModuleServiceProvider::class,
+            ModuleServiceProvider::class,
         ];
     }
 }

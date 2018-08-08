@@ -2,6 +2,7 @@
 
 namespace SebastiaanLuca\Module\Tests;
 
+use Illuminate\Filesystem\Filesystem;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
@@ -33,6 +34,30 @@ class TestCase extends BaseTestCase
      */
     protected function getEnvironmentSetUp($app) : void
     {
-        app()->setBasePath(__DIR__ . '/resources/app');
+        app()->setBasePath(__DIR__ . '/temp');
+    }
+
+    /**
+     * Setup the test environment.
+     *
+     * @return void
+     */
+    protected function setUp() : void
+    {
+        parent::setUp();
+
+        app(Filesystem::class)->copyDirectory(__DIR__ . '/resources/app', base_path());
+    }
+
+    /**
+     * Clean up the testing environment before the next test.
+     *
+     * @return void
+     */
+    protected function tearDown() : void
+    {
+        parent::tearDown();
+
+        app(Filesystem::class)->deleteDirectory(base_path());
     }
 }
