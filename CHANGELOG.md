@@ -6,6 +6,10 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+### Fixed
+
+- Ignore module paths that don't exist
+
 ## 0.2.10 (2018-08-06)
 
 ### Changed

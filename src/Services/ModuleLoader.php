@@ -77,7 +77,13 @@ class ModuleLoader
         $modules = [];
 
         foreach ($paths as $path) {
-            $directories = $this->files->directories(base_path($path));
+            $path = base_path($path);
+
+            if (! $this->files->exists($path)) {
+                continue;
+            }
+
+            $directories = $this->files->directories($path);
 
             foreach ($directories as $directory) {
                 $name = studly_case(basename($directory));
