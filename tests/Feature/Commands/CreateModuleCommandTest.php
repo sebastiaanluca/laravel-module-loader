@@ -31,7 +31,7 @@ class CreateModuleCommandTest extends TestCase
     {
         app(Kernel::class)->registerCommand(app(CreateModule::class));
 
-        config()->set('module-loader.paths', [
+        config()->set('module-loader.directories', [
             'customDir',
             'modules',
             'other',
@@ -66,7 +66,7 @@ class CreateModuleCommandTest extends TestCase
     {
         app(Kernel::class)->registerCommand(app(CreateModule::class));
 
-        config()->set('module-loader.paths', []);
+        config()->set('module-loader.directories', []);
 
         $this->artisan('modules:create', ['name' => 'MyModule']);
 

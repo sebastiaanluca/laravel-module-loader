@@ -33,7 +33,7 @@ class CreateModule extends Command
     {
         $name = studly_case($this->argument('name'));
 
-        $moduleDir = $this->option('directory') ?? head(config('module-loader.paths'));
+        $moduleDir = $this->option('directory') ?? head(config('module-loader.directories'));
 
         if (! $moduleDir) {
             $this->error('No module directories configured nor any explicitly given!');
