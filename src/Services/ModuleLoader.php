@@ -68,7 +68,7 @@ class ModuleLoader
      */
     public function scan() : array
     {
-        $paths = $this->config['paths'];
+        $paths = $this->config['directories'];
 
         if ($paths === null || empty($paths)) {
             return [];

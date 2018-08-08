@@ -6,6 +6,10 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+### Changed
+
+- Renamed `path` config entry to `directories`
+
 ### Fixed
 
 - Ignore module paths that don't exist

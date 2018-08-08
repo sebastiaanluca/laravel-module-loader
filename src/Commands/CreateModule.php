@@ -15,7 +15,7 @@ class CreateModule extends Command
      */
     protected $signature = 'modules:create
                             {name : The studly cased name of the module}
-                            {--path= : The path to create the module in, taken from the list of paths in the configuration}';
+                            {--directory= : The directory in the root project to create the module in}';
 
     /**
      * The console command description.
@@ -33,10 +33,10 @@ class CreateModule extends Command
     {
         $name = studly_case($this->argument('name'));
 
-        $moduleDir = $this->option('path') ?? head(config('module-loader.paths'));
+        $moduleDir = $this->option('directory') ?? head(config('module-loader.paths'));
 
         if (! $moduleDir) {
-            $this->error('No module directories configured!');
+            $this->error('No module directories configured nor any explicitly given!');
 
             return;
         }
