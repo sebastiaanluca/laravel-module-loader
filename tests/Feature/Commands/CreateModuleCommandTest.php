@@ -6,11 +6,15 @@ namespace SebastiaanLuca\Module\Tests\Feature\Commands;
 
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Filesystem\Filesystem;
+use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use SebastiaanLuca\Module\Commands\CreateModule;
 use SebastiaanLuca\Module\Tests\TestCase;
 
 class CreateModuleCommandTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @test
      */
@@ -64,13 +68,15 @@ class CreateModuleCommandTest extends TestCase
      */
     public function it shows an error when creating a module without configured directories() : void
     {
-        app(Kernel::class)->registerCommand(app(CreateModule::class));
+        $command = Mockery::mock(CreateModule::class . '[error]');
+
+        $command->shouldReceive('error')->once()->with('No module directories configured nor any explicitly given!');
+
+        app(Kernel::class)->registerCommand($command);
 
         config()->set('module-loader.directories', []);
 
         $this->artisan('modules:create', ['name' => 'MyModule']);
-
-        // TODO: get output
     }
 
     /**
