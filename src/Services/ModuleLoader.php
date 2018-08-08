@@ -127,7 +127,7 @@ class ModuleLoader
             true
         );
 
-        if (is_dir($testsPath = $path . 'tests/')) {
+        if (is_dir($testsPath = $path . 'tests/') && app()->environment(config('module-loader.development_environments'))) {
             $this->getAutoloader()->addPsr4(
                 $name . '\\Tests\\',
                 $path . '/tests',

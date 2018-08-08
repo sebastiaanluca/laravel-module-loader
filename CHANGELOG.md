@@ -9,6 +9,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Changed
 
 - Renamed `path` config entry to `directories`
+- Only autoload test paths in development or test environments
 
 ### Fixed
 
