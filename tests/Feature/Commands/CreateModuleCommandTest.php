@@ -50,23 +50,28 @@ class CreateModuleCommandTest extends TestCase
     {
         app(Kernel::class)->registerCommand(app(CreateModule::class));
 
-        config()->set('module-loader.paths', [
-            'modules',
-            'customDir',
-            'other',
-        ]);
-
         $this->artisan('modules:create', [
             'name' => 'MyModule',
-            '--path' => 'other',
+            '--directory' => 'other',
         ]);
 
         $this->assertDirectoryExists(base_path('other/MyModule/src'));
         $this->assertFileExists(base_path('other/MyModule/src/Providers/MyModuleServiceProvider.php'));
     }
 
-    // TODO: test you can specify the path yourself (update config first with multiple paths)
-    // TODO: test it errors when the path is not found in the config
+    /**
+     * @test
+     */
+    public function it shows an error when creating a module without configured directories() : void
+    {
+        app(Kernel::class)->registerCommand(app(CreateModule::class));
+
+        config()->set('module-loader.paths', []);
+
+        $this->artisan('modules:create', ['name' => 'MyModule']);
+
+        // TODO: get output
+    }
 
     /**
      * Clean up the testing environment before the next test.
