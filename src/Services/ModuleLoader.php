@@ -199,17 +199,11 @@ class ModuleLoader
     }
 
     /**
-     * @param array $modules
+     * @param array $providers
      */
-    private function registerProviders(array $modules) : void
+    private function registerProviders(array $providers) : void
     {
-        foreach ($modules as $name => $path) {
-            $provider = $this->getProvider($name, $path);
-
-            if (! $provider) {
-                continue;
-            }
-
+        foreach ($providers as $provider) {
             app()->register($provider);
         }
     }

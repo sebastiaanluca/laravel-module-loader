@@ -19,6 +19,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Fixed
 
 - Ignore module paths that don't exist
+- Providers not getting registered
 
 ## 0.2.10 (2018-08-06)
 
