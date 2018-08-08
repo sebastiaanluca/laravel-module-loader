@@ -43,6 +43,28 @@ class CreateModuleCommandTest extends TestCase
         $this->assertFileExists(base_path('customDir/MyModule/src/Providers/MyModuleServiceProvider.php'));
     }
 
+    /**
+     * @test
+     */
+    public function it creates a module using the given path() : void
+    {
+        app(Kernel::class)->registerCommand(app(CreateModule::class));
+
+        config()->set('module-loader.paths', [
+            'modules',
+            'customDir',
+            'other',
+        ]);
+
+        $this->artisan('modules:create', [
+            'name' => 'MyModule',
+            '--path' => 'other',
+        ]);
+
+        $this->assertDirectoryExists(base_path('other/MyModule/src'));
+        $this->assertFileExists(base_path('other/MyModule/src/Providers/MyModuleServiceProvider.php'));
+    }
+
     // TODO: test you can specify the path yourself (update config first with multiple paths)
     // TODO: test it errors when the path is not found in the config
 
