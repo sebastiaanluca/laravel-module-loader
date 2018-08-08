@@ -29,7 +29,7 @@ class CreateModule extends Command
      *
      * @return void
      */
-    public function handle()
+    public function handle() : void
     {
         $name = studly_case($this->argument('name'));
 
