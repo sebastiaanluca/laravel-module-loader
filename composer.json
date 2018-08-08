@@ -29,12 +29,12 @@
     },
     "autoload": {
         "psr-4": {
-            "SebastiaanLuca\\Module\\": "src"
+            "SebastiaanLuca\\Module\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "SebastiaanLuca\\Module\\Tests\\": "tests"
+            "SebastiaanLuca\\Module\\Tests\\": "tests/"
         }
     },
     "config": {
