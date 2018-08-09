@@ -8,6 +8,7 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 use SebastiaanLuca\Module\Commands\Cache;
 use SebastiaanLuca\Module\Commands\ClearCache;
+use SebastiaanLuca\Module\Commands\CreateModule;
 use SebastiaanLuca\Module\Commands\RefreshModules;
 use SebastiaanLuca\Module\Commands\RegisterModuleAutoloading;
 use SebastiaanLuca\Module\Services\ModuleLoader;
@@ -31,6 +32,7 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->bind($this->getShortPackageName(), ModuleLoader::class);
 
         $this->commands([
+            CreateModule::class,
             RegisterModuleAutoloading::class,
             RefreshModules::class,
             Cache::class,
