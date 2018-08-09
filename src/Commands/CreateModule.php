@@ -15,7 +15,8 @@ class CreateModule extends Command
      */
     protected $signature = 'modules:create
                             {name : The studly cased name of the module}
-                            {--directory= : The directory in the root project to create the module in}';
+                            {--D|directory= : The directory in the root project to create the module in}
+                            {--K|keep : Keep existing module autoload entries}';
 
     /**
      * The console command description.
@@ -47,6 +48,15 @@ class CreateModule extends Command
             $name
         ));
 
+        if (is_dir($path)) {
+            $this->error(sprintf(
+                'Module %s already exists!',
+                $name
+            ));
+
+            return;
+        }
+
         mkdir($path, 0777, true);
 
         $provider = file_get_contents(__DIR__ . '/../../resources/stubs/DummyServiceProvider.php');
@@ -59,5 +69,11 @@ class CreateModule extends Command
             'Module %s created!',
             $name
         ));
+
+        if (! config('module-loader.runtime_autoloading')) {
+            $this->call('modules:refresh', [
+                '--keep' => $this->option('keep'),
+            ]);
+        }
     }
 }

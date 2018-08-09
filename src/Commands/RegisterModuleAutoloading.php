@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SebastiaanLuca\Module\Commands;
 
 use Illuminate\Console\Command;
+use SebastiaanLuca\Module\Exceptions\JsonException;
 use SebastiaanLuca\Module\Services\ModuleLoader;
 
 class RegisterModuleAutoloading extends Command
@@ -14,7 +15,8 @@ class RegisterModuleAutoloading extends Command
      *
      * @var string
      */
-    protected $signature = 'modules:autoload {--K|keep : Keep existing module autoload entries}';
+    protected $signature = 'modules:autoload
+                            {--K|keep : Keep existing module autoload entries}';
 
     /**
      * The console command description.
@@ -99,6 +101,8 @@ class RegisterModuleAutoloading extends Command
 
     /**
      * @param array $autoloadConfig
+     *
+     * @throws \SebastiaanLuca\Module\Exceptions\JsonException
      */
     private function writeAutoloadConfig(array $autoloadConfig) : void
     {
@@ -111,6 +115,10 @@ class RegisterModuleAutoloading extends Command
         $composerPath = base_path('composer.json');
 
         $config = json_decode(file_get_contents($composerPath), true, 512, JSON_OBJECT_AS_ARRAY | JSON_UNESCAPED_SLASHES);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw JsonException::invalidJson(json_last_error_msg());
+        }
 
         $this->mergeConfigValue($config, 'autoload.classmap', $classmap);
         $this->mergeConfigValue($config, 'autoload.psr-4', $psr4);
@@ -143,7 +151,7 @@ class RegisterModuleAutoloading extends Command
         if (! $this->option('keep')) {
             $existing = collect($existing)
                 ->reject(function ($directory, $name) {
-                    return starts_with($directory, config('module-loader.paths'));
+                    return starts_with($directory, config('module-loader.directories'));
                 })
                 ->toArray();
         }
@@ -161,6 +169,10 @@ class RegisterModuleAutoloading extends Command
 
         if ($tests !== null) {
             $value = array_prepend($value, $tests, 'Tests\\');
+        }
+
+        if (! $value || empty($value)) {
+            return;
         }
 
         $this->setConfigValue($config, $key, $value);

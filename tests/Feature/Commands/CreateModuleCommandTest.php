@@ -7,6 +7,7 @@ namespace SebastiaanLuca\Module\Tests\Feature\Commands;
 use Illuminate\Contracts\Console\Kernel;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
+use Mockery\MockInterface;
 use SebastiaanLuca\Module\Commands\CreateModule;
 use SebastiaanLuca\Module\ModuleServiceProvider;
 use SebastiaanLuca\Module\Tests\TestCase;
@@ -20,12 +21,12 @@ class CreateModuleCommandTest extends TestCase
      */
     public function it creates a module() : void
     {
-        app(Kernel::class)->registerCommand(app(CreateModule::class));
+        $this->mockCommand();
 
-        $this->artisan('modules:create', ['name' => 'MyModule']);
+        $this->artisan('modules:create', ['name' => 'NewModule']);
 
-        $this->assertDirectoryExists(base_path('modules/MyModule/src'));
-        $this->assertFileExists(base_path('modules/MyModule/src/Providers/MyModuleServiceProvider.php'));
+        $this->assertDirectoryExists(base_path('modules/NewModule/src'));
+        $this->assertFileExists(base_path('modules/NewModule/src/Providers/NewModuleServiceProvider.php'));
     }
 
     /**
@@ -33,7 +34,7 @@ class CreateModuleCommandTest extends TestCase
      */
     public function it creates a module using the first config path by default() : void
     {
-        app(Kernel::class)->registerCommand(app(CreateModule::class));
+        $this->mockCommand();
 
         config()->set('module-loader.directories', [
             'customDir',
@@ -41,10 +42,10 @@ class CreateModuleCommandTest extends TestCase
             'other',
         ]);
 
-        $this->artisan('modules:create', ['name' => 'MyModule']);
+        $this->artisan('modules:create', ['name' => 'NewModule']);
 
-        $this->assertDirectoryExists(base_path('customDir/MyModule/src'));
-        $this->assertFileExists(base_path('customDir/MyModule/src/Providers/MyModuleServiceProvider.php'));
+        $this->assertDirectoryExists(base_path('customDir/NewModule/src'));
+        $this->assertFileExists(base_path('customDir/NewModule/src/Providers/NewModuleServiceProvider.php'));
     }
 
     /**
@@ -52,15 +53,15 @@ class CreateModuleCommandTest extends TestCase
      */
     public function it creates a module using the given path() : void
     {
-        app(Kernel::class)->registerCommand(app(CreateModule::class));
+        $this->mockCommand();
 
         $this->artisan('modules:create', [
-            'name' => 'MyModule',
+            'name' => 'NewModule',
             '--directory' => 'other',
         ]);
 
-        $this->assertDirectoryExists(base_path('other/MyModule/src'));
-        $this->assertFileExists(base_path('other/MyModule/src/Providers/MyModuleServiceProvider.php'));
+        $this->assertDirectoryExists(base_path('other/NewModule/src'));
+        $this->assertFileExists(base_path('other/NewModule/src/Providers/NewModuleServiceProvider.php'));
     }
 
     /**
@@ -75,6 +76,20 @@ class CreateModuleCommandTest extends TestCase
         app(Kernel::class)->registerCommand($command);
 
         config()->set('module-loader.directories', []);
+
+        $this->artisan('modules:create', ['name' => 'NewModule']);
+    }
+
+    /**
+     * @test
+     */
+    public function it shows an error when creating a module that already exists() : void
+    {
+        $command = Mockery::mock(CreateModule::class . '[error]');
+
+        $command->shouldReceive('error')->once()->with('Module MyModule already exists!');
+
+        app(Kernel::class)->registerCommand($command);
 
         $this->artisan('modules:create', ['name' => 'MyModule']);
     }
@@ -91,5 +106,19 @@ class CreateModuleCommandTest extends TestCase
         return [
             ModuleServiceProvider::class,
         ];
+    }
+
+    /**
+     * @return \Mockery\MockInterface
+     */
+    private function mockCommand() : MockInterface
+    {
+        $command = Mockery::mock(CreateModule::class . '[call]');
+
+        $command->shouldReceive('call')->once()->with('modules:refresh', ['--keep' => false]);
+
+        app(Kernel::class)->registerCommand($command);
+
+        return $command;
     }
 }

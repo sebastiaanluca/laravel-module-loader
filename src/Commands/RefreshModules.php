@@ -15,7 +15,7 @@ class RefreshModules extends Command
      * @var string
      */
     protected $signature = 'modules:refresh
-                            {--K|keep : Keep existing autoload entries for non-modules}';
+                            {--K|keep : Keep existing module autoload entries}';
 
     /**
      * The console command description.
@@ -35,7 +35,10 @@ class RefreshModules extends Command
             '--keep' => $this->option('keep'),
         ]);
 
-        $process = new Process('composer dumpautoload');
+        $process = new Process(sprintf(
+            'cd %s && composer dumpautoload',
+            base_path()
+        ));
 
         $process->start();
 
