@@ -1,0 +1,9 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Another\\": "modules/Another/src/",
+            "Missing\\": "modules/Missing/src/",
+            "MyModule\\": "modules/MyModule/src"
+        }
+    }
+}

@@ -46,7 +46,7 @@ class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        app(Filesystem::class)->copyDirectory(__DIR__ . '/resources/app', base_path());
+        app(Filesystem::class)->copyDirectory(__DIR__ . '/resources/examples', base_path());
     }
 
     /**
