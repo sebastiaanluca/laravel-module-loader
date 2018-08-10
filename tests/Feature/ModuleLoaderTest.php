@@ -32,9 +32,9 @@ class ModuleLoaderTest extends TestCase
         $modules = $this->getModuleLoader()->scan();
 
         $expected = [
-            'Another' => '/Users/Sebastiaan/Workspace/Projects/laravel-module-loader/tests/temp/modules/Another',
-            'Missing' => '/Users/Sebastiaan/Workspace/Projects/laravel-module-loader/tests/temp/modules/Missing',
-            'MyModule' => '/Users/Sebastiaan/Workspace/Projects/laravel-module-loader/tests/temp/modules/MyModule',
+            'Another' => base_path('modules/Another'),
+            'Missing' => base_path('modules/Missing'),
+            'MyModule' => base_path('modules/MyModule'),
         ];
 
         $this->assertSameValues($expected, $modules);
@@ -64,9 +64,9 @@ class ModuleLoaderTest extends TestCase
     public function it returns all providers() : void
     {
         $providers = $this->getModuleLoader()->getProviders([
-            'Another' => '/Users/Sebastiaan/Workspace/Projects/laravel-module-loader/tests/temp/modules/Another',
-            'Missing' => '/Users/Sebastiaan/Workspace/Projects/laravel-module-loader/tests/temp/modules/Missing',
-            'MyModule' => '/Users/Sebastiaan/Workspace/Projects/laravel-module-loader/tests/temp/modules/MyModule',
+            'Another' => base_path('modules/Another'),
+            'Missing' => base_path('modules/Missing'),
+            'MyModule' => base_path('modules/MyModule'),
         ]);
 
         $expected = [
