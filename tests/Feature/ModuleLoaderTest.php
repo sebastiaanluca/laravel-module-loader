@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace SebastiaanLuca\Module\Tests\Feature;
 
 use Illuminate\Filesystem\Filesystem;
+use SebastiaanLuca\Module\Exceptions\ModuleLoaderException;
 use SebastiaanLuca\Module\Services\ModuleLoader;
 use SebastiaanLuca\Module\Tests\TestCase;
 
 class ModuleLoaderTest extends TestCase
 {
-    // TODO: exception on duplicate module
-
     /**
      * @test
      */
@@ -41,6 +40,19 @@ class ModuleLoaderTest extends TestCase
         ];
 
         $this->assertSameValues($expected, $modules);
+    }
+
+    /**
+     * @test
+     */
+    public function it throws an exception when theres a duplicate module() : void
+    {
+        mkdir(base_path('extra/Another'), 0777, true);
+
+        $this->expectException(ModuleLoaderException::class);
+        $this->expectExceptionMessage('A module named "Another" already exists.');
+
+        app(ModuleLoader::class)->load();
     }
 
     /**
@@ -83,6 +95,11 @@ class ModuleLoaderTest extends TestCase
         parent::setUp();
 
         config()->set('module-loader', require __DIR__ . '/../../config/module-loader.php');
+
+        config()->set('module-loader.directories', [
+            'modules',
+            'extra',
+        ]);
 
         $this->app->singleton(ModuleLoader::class, function () {
             return new ModuleLoader(
