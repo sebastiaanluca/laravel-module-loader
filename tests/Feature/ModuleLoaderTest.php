@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace SebastiaanLuca\Module\Tests\Feature;
 
-use Illuminate\Filesystem\Filesystem;
 use SebastiaanLuca\Module\Exceptions\ModuleLoaderException;
-use SebastiaanLuca\Module\Services\ModuleLoader;
 use SebastiaanLuca\Module\Tests\TestCase;
 
 class ModuleLoaderTest extends TestCase
@@ -16,7 +14,7 @@ class ModuleLoaderTest extends TestCase
      */
     public function it loads all modules() : void
     {
-        app(ModuleLoader::class)->load();
+        $this->getModuleLoader()->load();
 
         $expected = [
             'Another\\Providers\\AnotherServiceProvider' => true,
@@ -31,7 +29,7 @@ class ModuleLoaderTest extends TestCase
      */
     public function it scans and returns all modules() : void
     {
-        $modules = app(ModuleLoader::class)->scan();
+        $modules = $this->getModuleLoader()->scan();
 
         $expected = [
             'Another' => '/Users/Sebastiaan/Workspace/Projects/laravel-module-loader/tests/temp/modules/Another',
@@ -47,12 +45,17 @@ class ModuleLoaderTest extends TestCase
      */
     public function it throws an exception when theres a duplicate module() : void
     {
+        config()->set('module-loader.directories', [
+            'modules',
+            'extra',
+        ]);
+
         mkdir(base_path('extra/Another'), 0777, true);
 
         $this->expectException(ModuleLoaderException::class);
         $this->expectExceptionMessage('A module named "Another" already exists.');
 
-        app(ModuleLoader::class)->load();
+        $this->getModuleLoader()->load();
     }
 
     /**
@@ -60,7 +63,7 @@ class ModuleLoaderTest extends TestCase
      */
     public function it returns all providers() : void
     {
-        $providers = app(ModuleLoader::class)->getProviders([
+        $providers = $this->getModuleLoader()->getProviders([
             'Another' => '/Users/Sebastiaan/Workspace/Projects/laravel-module-loader/tests/temp/modules/Another',
             'Missing' => '/Users/Sebastiaan/Workspace/Projects/laravel-module-loader/tests/temp/modules/Missing',
             'MyModule' => '/Users/Sebastiaan/Workspace/Projects/laravel-module-loader/tests/temp/modules/MyModule',
@@ -81,31 +84,7 @@ class ModuleLoaderTest extends TestCase
     {
         $this->assertSame(
             base_path('bootstrap/cache/module-loader.php'),
-            app(ModuleLoader::class)->getCachePath()
+            $this->getModuleLoader()->getCachePath()
         );
-    }
-
-    /**
-     * Setup the test environment.
-     *
-     * @return void
-     */
-    protected function setUp() : void
-    {
-        parent::setUp();
-
-        config()->set('module-loader', require __DIR__ . '/../../config/module-loader.php');
-
-        config()->set('module-loader.directories', [
-            'modules',
-            'extra',
-        ]);
-
-        $this->app->singleton(ModuleLoader::class, function () {
-            return new ModuleLoader(
-                app(Filesystem::class),
-                config('module-loader')
-            );
-        });
     }
 }

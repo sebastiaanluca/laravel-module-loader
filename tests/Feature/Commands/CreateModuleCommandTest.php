@@ -6,16 +6,12 @@ namespace SebastiaanLuca\Module\Tests\Feature\Commands;
 
 use Illuminate\Contracts\Console\Kernel;
 use Mockery;
-use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
 use SebastiaanLuca\Module\Commands\CreateModule;
-use SebastiaanLuca\Module\ModuleServiceProvider;
 use SebastiaanLuca\Module\Tests\TestCase;
 
 class CreateModuleCommandTest extends TestCase
 {
-    use MockeryPHPUnitIntegration;
-
     /**
      * @test
      */
@@ -92,20 +88,6 @@ class CreateModuleCommandTest extends TestCase
         app(Kernel::class)->registerCommand($command);
 
         $this->artisan('modules:create', ['name' => 'MyModule']);
-    }
-
-    /**
-     * Get package providers.
-     *
-     * @param  \Illuminate\Foundation\Application $app
-     *
-     * @return array
-     */
-    protected function getPackageProviders($app) : array
-    {
-        return [
-            ModuleServiceProvider::class,
-        ];
     }
 
     /**

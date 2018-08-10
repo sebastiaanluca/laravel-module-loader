@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace SebastiaanLuca\Module\Tests\Feature\Commands;
 
-use SebastiaanLuca\Module\ModuleServiceProvider;
+use Illuminate\Contracts\Console\Kernel;
+use SebastiaanLuca\Module\Commands\Cache;
 use SebastiaanLuca\Module\Tests\TestCase;
 
 class CacheCommandTest extends TestCase
@@ -14,6 +15,8 @@ class CacheCommandTest extends TestCase
      */
     public function it caches all providers() : void
     {
+        app(Kernel::class)->registerCommand(app(Cache::class, [$this->getModuleLoader()]));
+
         $cache = base_path('bootstrap/cache/module-loader.php');
 
         $this->assertFileNotExists($cache);
@@ -21,19 +24,5 @@ class CacheCommandTest extends TestCase
         $this->artisan('modules:cache');
 
         $this->assertFileExists($cache);
-    }
-
-    /**
-     * Get package providers.
-     *
-     * @param \Illuminate\Foundation\Application $app
-     *
-     * @return array
-     */
-    protected function getPackageProviders($app) : array
-    {
-        return [
-            ModuleServiceProvider::class,
-        ];
     }
 }

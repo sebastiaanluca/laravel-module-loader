@@ -2,12 +2,22 @@
 
 namespace SebastiaanLuca\Module\Tests;
 
+use Composer\Autoload\ClassLoader;
 use Illuminate\Filesystem\Filesystem;
+use Mockery;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+use SebastiaanLuca\Module\Services\ModuleLoader;
 use Symfony\Component\Process\Process;
 
 class TestCase extends BaseTestCase
 {
+    use MocksInstances;
+
+    /**
+     * @var \Composer\Autoload\ClassLoader|\Mockery\MockInterface
+     */
+    private $autoloader;
+
     /**
      * Asserts that two variables are equal regardless of their order.
      *
@@ -24,6 +34,30 @@ class TestCase extends BaseTestCase
             10,
             true
         );
+    }
+
+    /**
+     * @return \Composer\Autoload\ClassLoader|\Mockery\MockInterface
+     */
+    protected function getAutoloader()
+    {
+        return $this->autoloader;
+    }
+
+    /**
+     * @return \SebastiaanLuca\Module\Services\ModuleLoader
+     */
+    protected function getModuleLoader() : ModuleLoader
+    {
+        $this->app->singleton(ModuleLoader::class, function () {
+            return new ModuleLoader(
+                app(Filesystem::class),
+                config('module-loader'),
+                $this->autoloader
+            );
+        });
+
+        return app(ModuleLoader::class);
     }
 
     /**
@@ -52,6 +86,11 @@ class TestCase extends BaseTestCase
         // Generate composer autoload config base on the temp composer.json
         // file after setting up our temporary app directory.
         $this->dumpautoload();
+
+        $this->autoloader = Mockery::mock(ClassLoader::class);
+
+        config()->set('module-loader', require __DIR__ . '/../config/module-loader.php');
+        config()->set('module-loader.development_environments', ['different_environment']);
     }
 
     /**

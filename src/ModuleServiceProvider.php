@@ -25,7 +25,8 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->singleton(ModuleLoader::class, function () {
             return new ModuleLoader(
                 app(Filesystem::class),
-                config($this->getShortPackageName())
+                config($this->getShortPackageName()),
+                require base_path('vendor/autoload.php')
             );
         });
 

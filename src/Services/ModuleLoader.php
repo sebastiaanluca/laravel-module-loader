@@ -21,23 +21,25 @@ class ModuleLoader
     private $config;
 
     /**
-     * @var array
-     */
-    private $modules;
-
-    /**
      * @var \Composer\Autoload\ClassLoader
      */
     private $autoloader;
 
     /**
+     * @var array
+     */
+    private $modules;
+
+    /**
      * @param \Illuminate\Filesystem\Filesystem $files
      * @param array $config
+     * @param \Composer\Autoload\ClassLoader $autoloader
      */
-    public function __construct(Filesystem $files, array $config)
+    public function __construct(Filesystem $files, array $config, ClassLoader $autoloader)
     {
         $this->files = $files;
         $this->config = $config;
+        $this->autoloader = $autoloader;
     }
 
     /**
@@ -177,24 +179,24 @@ class ModuleLoader
      */
     private function autoload(string $name, string $path) : void
     {
-        $path = $this->getCleanPath($path);
+        $psrPath = $this->getCleanPath($path);
 
-        $this->getAutoloader()->addPsr4(
+        $this->autoloader->addPsr4(
             $name . '\\',
-            $path . '/src',
+            $psrPath . '/src/',
             true
         );
 
-        if (is_dir($testsPath = $path . 'tests/') && app()->environment(config('module-loader.development_environments'))) {
-            $this->getAutoloader()->addPsr4(
+        if (is_dir($testsPath = $path . '/tests') && app()->environment($this->config['development_environments'])) {
+            $this->autoloader->addPsr4(
                 $name . '\\Tests\\',
-                $path . '/tests',
+                $psrPath . '/tests/',
                 true
             );
         }
 
-        if (is_dir($databasePath = $path . '/database')) {
-            $this->autoloadClassmap($databasePath);
+        if (is_dir($path . '/database')) {
+            $this->autoloadClassmap($path . '/database');
         }
     }
 
@@ -215,24 +217,10 @@ class ModuleLoader
     {
         $classmap = $this->files->directories($path);
 
-        $this->getAutoloader()->add('', $classmap);
-
         // Recursively load all non-namespaced classes
         foreach ($classmap as $directory) {
-            $this->autoloadClassmap($directory);
+            $this->autoloader->add('', $this->getCleanPath($directory));
         }
-    }
-
-    /**
-     * @return \Composer\Autoload\ClassLoader
-     */
-    private function getAutoloader() : ClassLoader
-    {
-        if ($this->autoloader) {
-            return $this->autoloader;
-        }
-
-        return $this->autoloader = require base_path('vendor/autoload.php');
     }
 
     /**
