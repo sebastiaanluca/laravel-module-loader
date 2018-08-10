@@ -66,7 +66,7 @@ class TestCase extends BaseTestCase
         app(Filesystem::class)->deleteDirectory(base_path());
     }
 
-    private function dumpautoload() : void
+    protected function dumpautoload() : void
     {
         $process = new Process(sprintf(
             'cd %s && composer dumpautoload',
