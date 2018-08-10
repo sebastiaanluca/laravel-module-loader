@@ -50,7 +50,7 @@ class CreateModule extends Command
 
         if (is_dir($path)) {
             $this->error(sprintf(
-                'Module %s already exists!',
+                '%s module already exists!',
                 $name
             ));
 
@@ -66,7 +66,7 @@ class CreateModule extends Command
         file_put_contents("{$path}/{$name}ServiceProvider.php", $provider);
 
         $this->info(sprintf(
-            'Module %s created!',
+            '%s module created!',
             $name
         ));
 

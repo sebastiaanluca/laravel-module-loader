@@ -87,7 +87,7 @@ class CreateModuleCommandTest extends TestCase
     {
         $command = Mockery::mock(CreateModule::class . '[error]');
 
-        $command->shouldReceive('error')->once()->with('Module MyModule already exists!');
+        $command->shouldReceive('error')->once()->with('MyModule module already exists!');
 
         app(Kernel::class)->registerCommand($command);
 
