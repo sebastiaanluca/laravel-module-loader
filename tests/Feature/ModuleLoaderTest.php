@@ -12,6 +12,23 @@ class ModuleLoaderTest extends TestCase
     /**
      * @test
      */
+    public function it scans all modules and doesnt load any providers for modules that are not active() : void
+    {
+        config()->set('module-loader.directories', [
+            'empty',
+        ]);
+
+        $this->getModuleLoader()->load();
+
+        $loaded = app()->getLoadedProviders();
+
+        $this->assertArrayNotHasKey('Another\\Providers\\AnotherServiceProvider', $loaded);
+        $this->assertArrayNotHasKey('MyModule\\Providers\\MyModuleServiceProvider', $loaded);
+    }
+
+    /**
+     * @test
+     */
     public function it scans all modules and registers all providers() : void
     {
         $this->getModuleLoader()->load();
