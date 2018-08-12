@@ -12,16 +12,14 @@ class ModuleLoaderTest extends TestCase
     /**
      * @test
      */
-    public function it loads all modules() : void
+    public function it scans all modules and registers all providers() : void
     {
         $this->getModuleLoader()->load();
 
-        $expected = [
-            'Another\\Providers\\AnotherServiceProvider' => true,
-            'MyModule\\Providers\\MyModuleServiceProvider' => true,
-        ];
+        $loaded = app()->getLoadedProviders();
 
-        $this->assertArraySubset($expected, app()->getLoadedProviders());
+        $this->assertArrayHasKey('Another\\Providers\\AnotherServiceProvider', $loaded);
+        $this->assertArrayHasKey('MyModule\\Providers\\MyModuleServiceProvider', $loaded);
     }
 
     /**
