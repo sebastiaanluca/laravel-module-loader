@@ -6,12 +6,15 @@ namespace SebastiaanLuca\Module\Tests\Feature\Commands;
 
 use Illuminate\Contracts\Console\Kernel;
 use Mockery;
+use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Mockery\MockInterface;
 use SebastiaanLuca\Module\Commands\CreateModule;
 use SebastiaanLuca\Module\Tests\TestCase;
 
 class CreateModuleCommandTest extends TestCase
 {
+    use MockeryPHPUnitIntegration;
+
     /**
      * @test
      */
