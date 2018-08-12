@@ -25,7 +25,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 - Check for valid composer.json entries before merging config
 - Don't write composer.json config when there was none in the first place
 - Show error if module already exists when creating it
-- Fixed ModuleException
+- Fixed wrong sprintf usage in ModuleException
 
 ## 0.2.10 (2018-08-06)
 
