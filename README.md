@@ -118,7 +118,7 @@ There's only one required step to get started and that is to *create a module*.
 
 Say you want to create a module to group all your *user* related classes and files, run:
 
-```php
+```
 php artisan modules:create User
 ```
 
@@ -138,13 +138,13 @@ To reduce the amount of files being read during application boot, you can opt to
 
 To cache all providers, run:
 
-```php
+```
 php artisan modules:cache
 ```
 
 To clear the cache file, execute:
 
-```php
+```
 php artisan modules:clear
 ```
 
@@ -154,7 +154,7 @@ php artisan modules:clear
 
 When you've manually created a new module, made some changes, added directories that need autoloading, and so on, you should refresh your modules:
 
-```php
+```
 php artisan modules:refresh
 ```
 
@@ -167,7 +167,7 @@ Your existing Composer configuration is not altered and no autoload entries are 
 
 If you wish to keep all autoload entries for __modules that do not exist__, you can use the `--keep` option:
 
-```php
+```
 php artisan modules:refresh --keep
 ``` 
 
@@ -266,7 +266,7 @@ $setting = config('shopping-cart.setting')
 
 If you don't want the configuration to reside in the module itself, you can either copy or move it to the root `/config` directory. Another option is to publish it like you would do for a package configuration file, i.e. let Laravel copy it for you:
 
-```php
+```
 php artisan vendor:publish
 ```
 
@@ -430,7 +430,7 @@ class MyModuleServiceProvider extends ModuleProvider
 
 To copy the package's configuration file to your root config directory, run:
 
-```php
+```
 php artisan vendor:publish
 ```
 
