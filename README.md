@@ -67,7 +67,35 @@ ShoppingCart/
 
 ## Table of contents
 
-TODO
+- [Requirements](#requirements)
+- [How to install](#how-to-install)
+- [Getting started](#getting-started)
+    - [Creating a module](#creating-a-module)
+    - [Caching in production environments](#caching-in-production-environments)
+- [Going into detail](#going-into-detail)
+    - [Scanning and registering modules](#scanning-and-registering-modules)
+    - [Using a module service provider](#using-a-module-service-provider)
+    - [Individual module configuration](#individual-module-configuration)
+        - [Publishing a module's configuration](#publishing-a-modules-configuration)
+    - [Using migrations](#using-migrations)
+    - [Using factories](#using-factories)
+    - [Using seeders](#using-seeders)
+    - [Using translations](#using-translations)
+    - [Using views](#using-views)
+    - [Simplified polymorphic model type mapping](#simplified-polymorphic-model-type-mapping)
+    - [Simplified event listener registration](#simplified-event-listener-registration)
+    - [Automatic router mapping](#automatic-router-mapping)
+- [Package configuration](#package-configuration)
+    - [Runtime autoloading](#runtime-autoloading)
+    - [Module directories](#module-directories)
+    - [Development environments](#development-environments)
+- [License](#license)
+- [Change log](#change-log)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [Security](#security)
+- [Credits](#credits)
+- [About](#about)
 
 ## Requirements
 
