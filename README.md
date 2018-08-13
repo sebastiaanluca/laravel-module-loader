@@ -227,7 +227,7 @@ class MyModuleServiceProvider extends ModuleProvider
 
 ### Individual module configuration
 
-*Optional; requires a [module service provider](using-a-module-service-provider)*
+*Optional; requires a [module service provider](#using-a-module-service-provider)*
 
 Each module can contain a configuration file which you can use to group related settings. The snake-cased naming and location of the configuration file is important if you want it auto-loaded. Take for instance a `ShoppingCart` module:
 
@@ -262,7 +262,7 @@ $setting = config('shopping-cart.setting')
 
 #### Publishing a module's configuration
 
-*Optional; requires a [module service provider](using-a-module-service-provider)*
+*Optional; requires a [module service provider](#using-a-module-service-provider)*
 
 If you don't want the configuration to reside in the module itself, you can either copy or move it to the root `/config` directory. Another option is to publish it like you would do for a package configuration file, i.e. let Laravel copy it for you:
 
@@ -276,7 +276,7 @@ Note that configuration files in the root `/config` directory take precedence ov
 
 ### Using migrations
 
-*Optional; requires a [module service provider](using-a-module-service-provider)*
+*Optional; requires a [module service provider](#using-a-module-service-provider)*
 
 Laravel Module Loader gives you 2 options when it comes to organizing migrations. Either you keep them in your default `/database/migrations` directory and maintain a chronological overview of all your migrations, or you store them contextually per module in e.g. `YourModule/database/migrations`.
 
@@ -284,19 +284,19 @@ Both locations are fine and interchangeable; i.e. you can combine both uses as t
 
 ### Using factories
 
-*Optional; requires a [module service provider](using-a-module-service-provider)*
+*Optional; requires a [module service provider](#using-a-module-service-provider)*
 
 Factories can be stored in your default `/database/factories` directory or per module in e.g. `YourModule/database/factories`. They are by default not namespaced and **only loaded in [development environments](#development-environments)** to prevent your application throwing errors when *autoload-dev* packages like Faker and so are missing.
 
 ### Using seeders
 
-*Optional; requires a [module service provider](using-a-module-service-provider)*
+*Optional; requires a [module service provider](#using-a-module-service-provider)*
 
 Seeders can be placed in your default `/database/seeds` directory or per module in `YourModule/database/seeds`. They are not namespaced and available globally, so watch out for identically named seeders across modules.
 
 ### Using translations
 
-*Optional; requires a [module service provider](using-a-module-service-provider)*
+*Optional; requires a [module service provider](#using-a-module-service-provider)*
 
 Translates are kept in the `/resources/lang` or `YourModule/resources/lang` module directory. If you use the latter and keep them within the module, remember to prefix your translation keys with the *snake cased* module name (as if you were using a package) to retrieve the correct value:
 
@@ -308,7 +308,7 @@ Translates are kept in the `/resources/lang` or `YourModule/resources/lang` modu
 
 ### Using views
 
-*Optional; requires a [module service provider](using-a-module-service-provider)*
+*Optional; requires a [module service provider](#using-a-module-service-provider)*
 
 As with translations, views follow the same pattern. You can keep them in the default `/resources/views` directory or in `YourModule/resources/views`. To use a view or include a partial, prefix the path with your *snake cased* module name:
 
@@ -322,7 +322,7 @@ view('my-module::dashboard')
 
 ### Simplified polymorphic model type mapping
 
-*Optional; requires a [module service provider](using-a-module-service-provider)*
+*Optional; requires a [module service provider](#using-a-module-service-provider)*
 
 Instead of manually calling `Relation::morphMap([])`, you can map the polymorphic types or aliases of your Eloquent models by defining a morph map array in your module service provider:
 
@@ -355,7 +355,7 @@ Be sure to check out my other [auto morph map](https://github.com/sebastiaanluca
 
 ### Simplified event listener registration
 
-*Optional; requires a [module service provider](using-a-module-service-provider)*
+*Optional; requires a [module service provider](#using-a-module-service-provider)*
 
 In the same way you can define a morph map in your module service provider, you can also define a list of event listeners or subscribers:
 
@@ -397,7 +397,7 @@ class MyModuleServiceProvider extends ModuleProvider
 
 ### Automatic router mapping
 
-*Optional; requires a [module service provider](using-a-module-service-provider)*
+*Optional; requires a [module service provider](#using-a-module-service-provider)*
 
 Handling and organizing routes in a medium or large Laravel application can get messy quite fast. To counter that ever-expanding list of routes, this package provides support for [sebastiaanluca/laravel-router](https://github.com/sebastiaanluca/laravel-router) to automatically register and map your contextual routes and routers:
 
