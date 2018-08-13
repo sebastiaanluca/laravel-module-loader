@@ -12,6 +12,7 @@ use SebastiaanLuca\Module\Commands\CreateModule;
 use SebastiaanLuca\Module\Commands\RefreshModules;
 use SebastiaanLuca\Module\Commands\RegisterModuleAutoloading;
 use SebastiaanLuca\Module\Services\ModuleLoader;
+use Symfony\Component\Process\Process;
 
 class ModuleServiceProvider extends ServiceProvider
 {
@@ -31,6 +32,10 @@ class ModuleServiceProvider extends ServiceProvider
         });
 
         $this->app->bind($this->getShortPackageName(), ModuleLoader::class);
+
+        $this->app->bind(Process::class, function ($app, $args) {
+            return new Process(...$args);
+        });
 
         $this->commands([
             CreateModule::class,
