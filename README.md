@@ -116,23 +116,17 @@ There's only one required step to get started and that is to *create a module*.
 
 ### Creating a module
 
-Say you want to create a module to group all your *user* related classes and files, run `php artisan modules:create User` and the package will:
+Say you want to create a module to group all your *user* related classes and files, run:
+
+```php
+php artisan modules:create User
+```
+
+and the package will:
 
 - scaffold your user module directories under your primary configured module directory;
 - generate a correctly named (optional) service provider to fully enable the power of this package;
 - and write its autoload information to your composer.json file.
-
-If you want the specify another module directory to create it in, pass it to the directory option:
-
-```php
-php artisan modules:create --directory=mydirectory
-```
-
-The *keep* option allows you to keep existing, but invalid or missing module entries in your composer.json file when refreshing modules:
-
-```php
-php artisan modules:create --keep
-```
 
 Of course you can also do all of this manually. Create a `User` and `User/src` directory in any of your module directories and run `php artisan modules:refresh` afterwards to add it to your composer.json file (or do so manually too).
 
