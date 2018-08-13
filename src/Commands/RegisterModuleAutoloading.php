@@ -75,20 +75,18 @@ class RegisterModuleAutoloading extends Command
         foreach ($modules as $name => $path) {
             $psrName = $name . '\\';
 
-            $path = $this->getCleanPath($path);
-
-            $psr4 = array_merge($psr4, [$psrName => $path . '/src/']);
+            $psr4 = array_merge($psr4, [$psrName => $this->getCleanPath($path) . '/src/']);
 
             if (is_dir($tests = $path . '/tests/')) {
-                $psr4Dev = array_merge($psr4Dev, [$psrName . 'Tests\\' => $tests]);
+                $psr4Dev = array_merge($psr4Dev, [$psrName . 'Tests\\' => $this->getCleanPath($tests)]);
             }
 
             if (is_dir($factories = $path . '/database/factories')) {
-                $classmap[] = $factories;
+                $classmap[] = $this->getCleanPath($factories);
             }
 
             if (is_dir($seeders = $path . '/database/seeds')) {
-                $classmap[] = $seeders;
+                $classmap[] = $this->getCleanPath($seeders);
             }
         }
 
@@ -114,7 +112,12 @@ class RegisterModuleAutoloading extends Command
 
         $composerPath = base_path('composer.json');
 
-        $config = json_decode(file_get_contents($composerPath), true, 512, JSON_OBJECT_AS_ARRAY | JSON_UNESCAPED_SLASHES);
+        if (file_exists($composerPath)) {
+            $config = json_decode(file_get_contents($composerPath), true, 512, JSON_OBJECT_AS_ARRAY | JSON_UNESCAPED_SLASHES);
+        }
+        else {
+            $config = [];
+        }
 
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw JsonException::invalidJson(json_last_error_msg());

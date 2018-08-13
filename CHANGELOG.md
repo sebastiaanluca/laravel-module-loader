@@ -26,6 +26,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 - Don't write composer.json config when there was none in the first place
 - Show error if module already exists when creating it
 - Fixed wrong sprintf usage in ModuleException
+- Fixed autoload config directories
 
 ## 0.2.10 (2018-08-06)
 
