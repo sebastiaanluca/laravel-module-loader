@@ -8,9 +8,9 @@ return [
     'runtime_autoloading' => false,
 
     /*
-     * An array of paths to scan for modules.
+     * An array of root project directories to scan for modules.
      */
-    'paths' => [
+    'directories' => [
 
         'modules',
 

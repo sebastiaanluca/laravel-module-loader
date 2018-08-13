@@ -17,7 +17,7 @@ class ModuleLoaderException extends RuntimeException
     {
         return new static(sprintf(
             'A module named "%s" already exists.',
-            [$name]
+            $name
         ));
     }
 }

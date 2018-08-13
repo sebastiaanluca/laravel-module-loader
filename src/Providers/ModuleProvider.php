@@ -26,6 +26,8 @@ class ModuleProvider extends Provider
 
     /**
      * Register the application services.
+     *
+     * @return void
      */
     public function register() : void
     {
@@ -37,6 +39,8 @@ class ModuleProvider extends Provider
 
     /**
      * Bootstrap the application services.
+     *
+     * @return void
      */
     public function boot() : void
     {
@@ -48,6 +52,8 @@ class ModuleProvider extends Provider
 
     /**
      * Merge the default module configuration file with its published counterpart.
+     *
+     * @return void
      */
     protected function registerConfiguration() : void
     {
@@ -68,6 +74,8 @@ class ModuleProvider extends Provider
     /**
      * Register directories containing Eloquent model factories if enabled in the current
      * environment.
+     *
+     * @return void
      */
     protected function registerFactories() : void
     {
@@ -84,6 +92,8 @@ class ModuleProvider extends Provider
 
     /**
      * Register all publishable module assets.
+     *
+     * @return void
      */
     protected function loadPublishableResources() : void
     {
@@ -97,6 +107,8 @@ class ModuleProvider extends Provider
 
     /**
      * Prepare all module assets.
+     *
+     * @return void
      */
     protected function bootResources() : void
     {

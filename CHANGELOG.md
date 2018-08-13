@@ -6,6 +6,30 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 1.0.0 (2018-08-14)
+
+### Added
+
+- Added cache command
+- Added clear cache command
+
+### Changed
+
+- Renamed `path` config entry to `directories`
+- Only autoload test paths in development or test environments
+- Refresh modules after creating a new one
+
+### Fixed
+
+- Ignore module paths that don't exist
+- Providers not getting registered
+- Register autoloading command not correctly using config paths
+- Check for valid composer.json entries before merging config
+- Don't write composer.json config when there was none in the first place
+- Show error if module already exists when creating it
+- Fixed wrong sprintf usage in ModuleException
+- Fixed autoload config directories
+
 ## 0.2.10 (2018-08-06)
 
 ### Changed

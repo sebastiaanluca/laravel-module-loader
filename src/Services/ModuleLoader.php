@@ -21,23 +21,25 @@ class ModuleLoader
     private $config;
 
     /**
-     * @var array
-     */
-    private $modules;
-
-    /**
      * @var \Composer\Autoload\ClassLoader
      */
     private $autoloader;
 
     /**
+     * @var array
+     */
+    private $modules;
+
+    /**
      * @param \Illuminate\Filesystem\Filesystem $files
      * @param array $config
+     * @param \Composer\Autoload\ClassLoader $autoloader
      */
-    public function __construct(Filesystem $files, array $config)
+    public function __construct(Filesystem $files, array $config, ClassLoader $autoloader)
     {
         $this->files = $files;
         $this->config = $config;
+        $this->autoloader = $autoloader;
     }
 
     /**
@@ -49,17 +51,27 @@ class ModuleLoader
      */
     public function load(bool $autoload = false) : void
     {
-        $this->modules = $this->scan();
-
+        // Runtime autoloading should be an option,
+        // even if service providers were cached
         if ($autoload) {
+            $this->modules = $this->scan();
+
             foreach ($this->modules as $name => $path) {
                 $this->autoload($name, $path);
             }
         }
 
-        foreach ($this->modules as $name => $path) {
-            $this->registerProvider($name, $path);
+        if ($this->useCache()) {
+            return;
         }
+
+        if ($this->modules === null) {
+            $this->modules = $this->scan();
+        }
+
+        $this->registerProviders(
+            $this->getProviders($this->modules)
+        );
     }
 
     /**
@@ -68,7 +80,7 @@ class ModuleLoader
      */
     public function scan() : array
     {
-        $paths = $this->config['paths'];
+        $paths = $this->config['directories'];
 
         if ($paths === null || empty($paths)) {
             return [];
@@ -77,7 +89,13 @@ class ModuleLoader
         $modules = [];
 
         foreach ($paths as $path) {
-            $directories = $this->files->directories(base_path($path));
+            $path = base_path($path);
+
+            if (! $this->files->exists($path)) {
+                continue;
+            }
+
+            $directories = $this->files->directories($path);
 
             foreach ($directories as $directory) {
                 $name = studly_case(basename($directory));
@@ -91,6 +109,54 @@ class ModuleLoader
         }
 
         return $this->filterNonModules($modules);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCachePath() : string
+    {
+        return base_path('bootstrap/cache/module-loader.php');
+    }
+
+    /**
+     * @param array $modules
+     *
+     * @return array
+     */
+    public function getProviders(array $modules) : array
+    {
+        $providers = [];
+
+        foreach ($modules as $name => $path) {
+            $provider = $this->getProvider($name, $path);
+
+            if (! $provider) {
+                continue;
+            }
+
+            $providers[] = $provider;
+        }
+
+        return $providers;
+    }
+
+    /**
+     * @return bool
+     */
+    private function useCache() : bool
+    {
+        if (! file_exists($cache = $this->getCachePath())) {
+            return false;
+        }
+
+        $providers = require $cache;
+
+        foreach ($providers as $provider) {
+            app()->register($provider);
+        }
+
+        return true;
     }
 
     /**
@@ -113,58 +179,35 @@ class ModuleLoader
      */
     private function autoload(string $name, string $path) : void
     {
-        $path = $this->getCleanPath($path);
+        $psrPath = $this->getCleanPath($path);
 
-        $this->getAutoloader()->addPsr4(
+        $this->autoloader->addPsr4(
             $name . '\\',
-            $path . '/src',
+            $psrPath . '/src/',
             true
         );
 
-        if (is_dir($testsPath = $path . 'tests/')) {
-            $this->getAutoloader()->addPsr4(
+        if (is_dir($testsPath = $path . '/tests') && app()->environment($this->config['development_environments'])) {
+            $this->autoloader->addPsr4(
                 $name . '\\Tests\\',
-                $path . '/tests',
+                $psrPath . '/tests/',
                 true
             );
         }
 
-        if (is_dir($databasePath = $path . '/database')) {
-            $this->autoloadClassmap($databasePath);
+        if (is_dir($path . '/database')) {
+            $this->autoloadClassmap($path . '/database');
         }
     }
 
     /**
-     * @param string $name
-     * @param string $path
+     * @param array $providers
      */
-    private function registerProvider(string $name, string $path) : void
+    private function registerProviders(array $providers) : void
     {
-        $provider = $this->getServiceProvider($name, $path);
-
-        if ($provider === null) {
-            return;
+        foreach ($providers as $provider) {
+            app()->register($provider);
         }
-
-        // Do not register providers that don't exist or
-        // don't have their namespace loaded
-        if (! class_exists($provider)) {
-            return;
-        }
-
-        app()->register($provider);
-    }
-
-    /**
-     * @return \Composer\Autoload\ClassLoader
-     */
-    private function getAutoloader() : ClassLoader
-    {
-        if ($this->autoloader) {
-            return $this->autoloader;
-        }
-
-        return $this->autoloader = require base_path('vendor/autoload.php');
     }
 
     /**
@@ -174,11 +217,9 @@ class ModuleLoader
     {
         $classmap = $this->files->directories($path);
 
-        $this->getAutoloader()->add('', $classmap);
-
         // Recursively load all non-namespaced classes
         foreach ($classmap as $directory) {
-            $this->autoloadClassmap($directory);
+            $this->autoloader->add('', $this->getCleanPath($directory));
         }
     }
 
@@ -188,7 +229,7 @@ class ModuleLoader
      *
      * @return string|null
      */
-    private function getServiceProvider(string $name, string $directory) : ?string
+    private function getProvider(string $name, string $directory) : ?string
     {
         $path = "{$directory}/src/Providers/{$name}ServiceProvider.php";
 
@@ -201,7 +242,15 @@ class ModuleLoader
         $find = ['modules/' . $name . '/src', '/', '.php'];
         $replace = [$name, '\\', ''];
 
-        return str_replace($find, $replace, $path);
+        $provider = str_replace($find, $replace, $path);
+
+        // Do not register providers that don't exist or
+        // don't have their namespace loaded
+        if (! class_exists($provider)) {
+            return null;
+        }
+
+        return $provider;
     }
 
     /**
