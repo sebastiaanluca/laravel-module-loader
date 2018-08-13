@@ -459,7 +459,7 @@ For instance you can group personal and work-related modules in their separate f
 The *development environments* configuration option allows you to change the list of environments…
 
 - factories should be loaded in;
-- and tests are autoloaded in (if [runtime autoloading](runtime-autoloading) is enabled).
+- and tests are autoloaded in (if [runtime autoloading](#runtime-autoloading) is enabled).
 
 The app environment is read from your `.env` file through the Laravel application config.
 
