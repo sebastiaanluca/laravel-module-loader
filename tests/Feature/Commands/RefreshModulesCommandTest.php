@@ -20,7 +20,7 @@ class RefreshModulesCommandTest extends TestCase
      */
     public function it scans and updates all modules() : void
     {
-        $this->app->bind(Process::class, function ($app, $args) {
+        $this->app->bind('module-loader.process', function ($app, $args) {
             $this->assertSame([sprintf('cd %s && composer dumpautoload', base_path())], $args);
 
             $mock = Mockery::mock(Process::class . '[start,getIterator]', $args);

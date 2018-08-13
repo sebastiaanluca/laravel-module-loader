@@ -33,7 +33,7 @@ class ModuleServiceProvider extends ServiceProvider
 
         $this->app->bind($this->getShortPackageName(), ModuleLoader::class);
 
-        $this->app->bind(Process::class, function ($app, $args) {
+        $this->app->bind('module-loader.process', function ($app, $args) {
             return new Process(...$args);
         });
 
