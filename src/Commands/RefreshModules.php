@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SebastiaanLuca\Module\Commands;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Process\Process;
 
 class RefreshModules extends Command
 {
@@ -34,10 +35,10 @@ class RefreshModules extends Command
             '--keep' => $this->option('keep'),
         ]);
 
-        $process = app()->make(
-            'module-loader.process',
-            [sprintf('cd %s && composer dumpautoload', base_path())]
-        );
+        $process = new Process(sprintf(
+            'cd %s && composer dumpautoload',
+            base_path()
+        ));
 
         $process->start();
 
