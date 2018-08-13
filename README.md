@@ -286,7 +286,7 @@ Both locations are fine and interchangeable; i.e. you can combine both uses as t
 
 *Optional; requires a [module service provider](#using-a-module-service-provider)*
 
-Factories can be stored in your default `/database/factories` directory or per module in e.g. `YourModule/database/factories`. They are by default not namespaced and **only loaded in [development environments](#development-environments)** to prevent your application throwing errors when *autoload-dev* packages like Faker and so are missing.
+Factories can be stored in your default `/database/factories` directory or per module in e.g. `YourModule/database/factories`. They are by default not namespaced and **only loaded in [development environments](#development-environments)** to prevent your application throwing errors when *autoload-dev* packages like Faker and so are are not installed on production systems.
 
 ### Using seeders
 
@@ -298,7 +298,7 @@ Seeders can be placed in your default `/database/seeds` directory or per module 
 
 *Optional; requires a [module service provider](#using-a-module-service-provider)*
 
-Translates are kept in the `/resources/lang` or `YourModule/resources/lang` module directory. If you use the latter and keep them within the module, remember to prefix your translation keys with the *snake cased* module name (as if you were using a package) to retrieve the correct value:
+Translations are kept in the `/resources/lang` or `YourModule/resources/lang` module directory. If you use the latter and keep them within the module, remember to prefix your translation keys with the *snake cased* module name (as if you were using a package) to retrieve the correct value:
 
 ```php
 @lang('your-module::dashboard.intro')
