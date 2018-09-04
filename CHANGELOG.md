@@ -6,6 +6,12 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 1.1.0 (2018-09-04)
+
+### Added
+
+- Run tests against Laravel 5.7
+
 ## 1.0.0 (2018-08-14)
 
 ### Added
