@@ -81,12 +81,16 @@ class RegisterModuleAutoloading extends Command
                 $psr4Dev = array_merge($psr4Dev, [$psrName . 'Tests\\' => $this->getCleanPath($tests)]);
             }
 
-            if (is_dir($factories = $path . '/database/factories')) {
-                $classmap[] = $this->getCleanPath($factories);
+            if (is_dir($migrations = $path . '/database/migrations')) {
+                $classmap[] = $this->getCleanPath($migrations);
             }
 
             if (is_dir($seeders = $path . '/database/seeds')) {
                 $classmap[] = $this->getCleanPath($seeders);
+            }
+
+            if (is_dir($factories = $path . '/database/factories')) {
+                $classmap[] = $this->getCleanPath($factories);
             }
         }
 

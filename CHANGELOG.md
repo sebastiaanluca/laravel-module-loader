@@ -6,6 +6,12 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 1.1.1 (2018-10-22)
+
+### Fixed
+
+- Fixed module migration directories not being added to composer.json classmap autoloading config
+
 ## 1.1.0 (2018-09-04)
 
 ### Added
