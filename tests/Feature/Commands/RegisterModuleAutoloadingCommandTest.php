@@ -68,6 +68,7 @@ class RegisterModuleAutoloadingCommandTest extends TestCase
                     'MyModule\\' => 'modules/MyModule/src/',
                 ],
                 'classmap' => [
+                    'modules/MyModule/database/migrations',
                     'modules/MyModule/database/seeds',
                 ],
             ],
@@ -114,6 +115,7 @@ class RegisterModuleAutoloadingCommandTest extends TestCase
                     'MyModule\\' => 'modules/MyModule/src/',
                 ],
                 'classmap' => [
+                    'modules/MyModule/database/migrations',
                     'modules/MyModule/database/seeds',
                 ],
             ],
