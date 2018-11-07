@@ -25,6 +25,11 @@ class ModuleProvider extends Provider
     private $packageName;
 
     /**
+     * @var array
+     */
+    protected $providers = [];
+
+    /**
      * Register the application services.
      *
      * @return void
@@ -33,6 +38,7 @@ class ModuleProvider extends Provider
     {
         $this->registerConfiguration();
         $this->registerFactories();
+        $this->registerProviders();
 
         parent::register();
     }
@@ -186,5 +192,15 @@ class ModuleProvider extends Provider
     protected function getLowercasePackageName() : string
     {
         return mb_strtolower($this->getPackageName());
+    }
+
+    /**
+     * @return void
+     */
+    protected function registerProviders() : void
+    {
+        foreach ($this->providers as $provider) {
+            $this->app->register($provider);
+        }
     }
 }

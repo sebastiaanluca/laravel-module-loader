@@ -84,6 +84,8 @@ abstract class Provider extends ServiceProvider
      */
     protected function mapRoutes() : void
     {
+        if($this->app->routesAreCached() === true) return;
+
         foreach ($this->routers as $router) {
             $this->app->make($router);
         }
