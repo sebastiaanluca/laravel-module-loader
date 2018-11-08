@@ -6,6 +6,10 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+### Added
+
+- Prevent registering routes when they are already cached
+
 ### Changed
 
 - Have Travis test using PHP 7.3
