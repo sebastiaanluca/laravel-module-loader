@@ -6,6 +6,10 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+### Fixed
+
+- Correctly tagged laravel version requirements
+
 ## 1.1.1 (2018-10-22)
 
 ### Fixed
