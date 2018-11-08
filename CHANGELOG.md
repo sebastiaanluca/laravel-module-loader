@@ -6,6 +6,10 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+### Changed
+
+- Have Travis test using PHP 7.3
+
 ### Fixed
 
 - Correctly tagged laravel version requirements
