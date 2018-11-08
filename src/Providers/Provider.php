@@ -52,7 +52,10 @@ abstract class Provider extends ServiceProvider
     {
         $this->registerListeners();
         $this->mapModelMorphAliases();
-        $this->mapRoutes();
+
+        if (! $this->app->routesAreCached()) {
+            $this->mapRoutes();
+        }
     }
 
     /**
