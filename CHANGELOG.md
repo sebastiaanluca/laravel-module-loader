@@ -13,6 +13,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Fixed
 
 - Correctly tagged laravel version requirements
+- Correctly cached Travis Composer cache to speed up testing
 
 ## 1.1.1 (2018-10-22)
 
