@@ -11,6 +11,13 @@ use Illuminate\Support\ServiceProvider;
 abstract class Provider extends ServiceProvider
 {
     /**
+     * The additional providers to be automatically registered.
+     *
+     * @var array
+     */
+    protected $providers = [];
+
+    /**
      * The polymorphic models to map to their alias.
      *
      * @var array
@@ -43,6 +50,7 @@ abstract class Provider extends ServiceProvider
      */
     public function register() : void
     {
+        $this->registerProviders();
     }
 
     /**
@@ -55,6 +63,18 @@ abstract class Provider extends ServiceProvider
 
         if (! $this->app->routesAreCached()) {
             $this->mapRoutes();
+        }
+    }
+
+    /**
+     * Register all additional service providers.
+     *
+     * @return void
+     */
+    protected function registerProviders() : void
+    {
+        foreach ($this->providers as $provider) {
+            $this->app->register($provider);
         }
     }
 
