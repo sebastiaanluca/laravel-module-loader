@@ -19,6 +19,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 - Correctly tagged laravel version requirements
 - Correctly cached Travis Composer cache to speed up testing
+- Fixed lowercase package and config name
 
 ## 1.1.1 (2018-10-22)
 

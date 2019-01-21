@@ -273,7 +273,7 @@ php artisan vendor:publish
 
 Then choose `* YourModule (configuration)` from the list.
 
-Note that configuration files in the root `/config` directory take precedence over the ones in your module. If a same key is encountered in both files, the one from within your module will be omitted.
+Note that both configuration files will be merged ,but the one in the root `/config` directory will take precedence over the one in your module. If a same key is encountered in both files, the one from within your module will be ignored.
 
 ### Using migrations
 
