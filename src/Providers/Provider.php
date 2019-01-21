@@ -11,7 +11,7 @@ use Illuminate\Support\ServiceProvider;
 abstract class Provider extends ServiceProvider
 {
     /**
-     * The additional providers to be automatically registered.
+     * The additional providers to register.
      *
      * @var array
      */
