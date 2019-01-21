@@ -31,7 +31,10 @@ class ModuleProvider extends Provider
      */
     public function register() : void
     {
-        $this->registerConfiguration();
+        if (! $this->app->configurationIsCached()) {
+            $this->registerConfiguration();
+        }
+
         $this->registerFactories();
 
         parent::register();
