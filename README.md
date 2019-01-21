@@ -85,6 +85,7 @@ ShoppingCart/
     - [Simplified polymorphic model type mapping](#simplified-polymorphic-model-type-mapping)
     - [Simplified event listener registration](#simplified-event-listener-registration)
     - [Automatic router mapping](#automatic-router-mapping)
+    - [Automatic service provider registration](#automatic-service-provider-registration)
 - [Package configuration](#package-configuration)
     - [Runtime autoloading](#runtime-autoloading)
     - [Module directories](#module-directories)
@@ -422,6 +423,39 @@ class MyModuleServiceProvider extends ModuleProvider
     protected $routers = [
         UserAuthRouter::class,
         UserDashboardRouter::class,
+    ];
+}
+```
+
+### Automatic service provider registration
+
+*Optional; requires a [module service provider](#using-a-module-service-provider)*
+
+To counter a module's service provider from getting out of control in terms of lines of code and methods, it might be best to **split it into multiple other service providers** that each have a single task. For instance, a `ModuleEventProvider` can be used to map all events of the module, while another `ModuleRouteProvider` can contain all the routes or routers to easily map upon application boot.
+
+Of course those providers will still need to be registered. You can do so manually in the module's default provider, but also automatically using a list:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace MyModule\Providers;
+
+use MyModule\Providers\ModuleEventProvider;
+use MyModule\Providers\ModuleRouteProvider;
+use SebastiaanLuca\Module\Providers\ModuleProvider;
+
+class MyModuleServiceProvider extends ModuleProvider
+{
+    /**
+     * The additional providers to register.
+     *
+     * @var array
+     */
+    protected $providers = [
+        ModuleEventProvider::class,
+        ModuleRouteProvider::class,
     ];
 }
 ```

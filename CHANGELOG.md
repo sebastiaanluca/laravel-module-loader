@@ -9,6 +9,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Added
 
 - Prevent registering routes when they are already cached
+- Automatically register additional service providers
 
 ### Changed
 

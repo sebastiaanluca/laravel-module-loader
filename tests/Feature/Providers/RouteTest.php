@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
+namespace SebastiaanLuca\Module\Tests\Feature\Providers;
+
 use Illuminate\Support\Facades\Route;
+use Mockery;
 use Orchestra\Testbench\TestCase;
 use SebastiaanLuca\Module\Providers\ModuleProvider;
 use SebastiaanLuca\Module\Tests\MocksInstances;
