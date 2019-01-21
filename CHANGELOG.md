@@ -6,6 +6,30 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 2.0.0 (2019-01-21)
+
+### Added
+
+- Prevent registering routes when they are already cached
+- Prevent merging configuration when its already cached
+- Automatically register additional service providers
+
+### Changed
+
+- Have Travis test using PHP 7.3
+
+### Fixed
+
+- Correctly tagged laravel version requirements
+- Correctly cached Travis Composer cache to speed up testing
+- Fixed lowercase package and config name
+
+## 1.1.2 (2018-10-22)
+
+### Fixed
+
+- Fixed autoload test
+
 ## 1.1.1 (2018-10-22)
 
 ### Fixed

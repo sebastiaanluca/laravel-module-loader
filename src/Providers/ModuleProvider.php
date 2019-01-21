@@ -31,7 +31,10 @@ class ModuleProvider extends Provider
      */
     public function register() : void
     {
-        $this->registerConfiguration();
+        if (! $this->app->configurationIsCached()) {
+            $this->registerConfiguration();
+        }
+
         $this->registerFactories();
 
         parent::register();
@@ -185,6 +188,6 @@ class ModuleProvider extends Provider
      */
     protected function getLowercasePackageName() : string
     {
-        return mb_strtolower($this->getPackageName());
+        return mb_strtolower(str_slug(snake_case($this->getPackageName())));
     }
 }

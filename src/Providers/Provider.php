@@ -11,6 +11,13 @@ use Illuminate\Support\ServiceProvider;
 abstract class Provider extends ServiceProvider
 {
     /**
+     * The additional providers to register.
+     *
+     * @var array
+     */
+    protected $providers = [];
+
+    /**
      * The polymorphic models to map to their alias.
      *
      * @var array
@@ -40,23 +47,45 @@ abstract class Provider extends ServiceProvider
 
     /**
      * Register the application services.
+     *
+     * @return void
      */
     public function register() : void
     {
+        $this->registerProviders();
     }
 
     /**
      * Bootstrap the application services.
+     *
+     * @return void
      */
     public function boot() : void
     {
         $this->registerListeners();
         $this->mapModelMorphAliases();
-        $this->mapRoutes();
+
+        if (! $this->app->routesAreCached()) {
+            $this->mapRoutes();
+        }
+    }
+
+    /**
+     * Register all additional service providers.
+     *
+     * @return void
+     */
+    protected function registerProviders() : void
+    {
+        foreach ($this->providers as $provider) {
+            $this->app->register($provider);
+        }
     }
 
     /**
      * Register predefined listeners event listeners.
+     *
+     * @return void
      */
     protected function registerListeners() : void
     {
@@ -73,6 +102,8 @@ abstract class Provider extends ServiceProvider
 
     /**
      * Map polymorphic models to their alias.
+     *
+     * @return void
      */
     protected function mapModelMorphAliases() : void
     {
@@ -81,6 +112,8 @@ abstract class Provider extends ServiceProvider
 
     /**
      * Map out all predefined module routes.
+     *
+     * @return void
      */
     protected function mapRoutes() : void
     {
