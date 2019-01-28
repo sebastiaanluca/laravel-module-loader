@@ -239,10 +239,17 @@ class ModuleLoader
 
         $path = $this->getCleanPath($path);
 
-        $find = ['modules/' . $name . '/src', '/', '.php'];
+        $find = [$name . '/src', '/', '.php'];
         $replace = [$name, '\\', ''];
 
         $provider = str_replace($find, $replace, $path);
+
+        // Support multiple module directories
+        $directories = array_map(function (string $directory) {
+            return $directory . '\\';
+        }, $this->config['directories']);
+
+        $provider = str_replace($directories, [], $provider);
 
         // Do not register providers that don't exist or
         // don't have their namespace loaded
