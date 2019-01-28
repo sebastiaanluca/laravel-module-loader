@@ -6,6 +6,8 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 2.0.1 (2019-01-28)
+
 ### Fixed
 
 - Undo a hardcoded directory string replace to support multiple module directories
