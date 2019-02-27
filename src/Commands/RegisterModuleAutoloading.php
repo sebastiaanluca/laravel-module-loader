@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace SebastiaanLuca\Module\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use SebastiaanLuca\Module\Exceptions\JsonException;
 use SebastiaanLuca\Module\Services\ModuleLoader;
 
@@ -143,7 +145,7 @@ class RegisterModuleAutoloading extends Command
      */
     private function setConfigValue(array &$config, string $key, array $value) : void
     {
-        array_set($config, $key, $value);
+        Arr::set($config, $key, $value);
     }
 
     /**
@@ -153,12 +155,12 @@ class RegisterModuleAutoloading extends Command
      */
     private function mergeConfigValue(array &$config, string $key, array $value) : void
     {
-        $existing = array_get($config, $key, []);
+        $existing = Arr::get($config, $key, []);
 
         if (! $this->option('keep')) {
             $existing = collect($existing)
                 ->reject(function ($directory, $name) {
-                    return starts_with($directory, config('module-loader.directories'));
+                    return Str::startsWith($directory, config('module-loader.directories'));
                 })
                 ->toArray();
         }
@@ -167,15 +169,15 @@ class RegisterModuleAutoloading extends Command
 
         ksort($value, SORT_ASC | SORT_NATURAL);
 
-        $app = array_pull($value, 'App\\');
-        $tests = array_pull($value, 'Tests\\');
+        $app = Arr::pull($value, 'App\\');
+        $tests = Arr::pull($value, 'Tests\\');
 
         if ($app !== null) {
-            $value = array_prepend($value, $app, 'App\\');
+            $value = Arr::prepend($value, $app, 'App\\');
         }
 
         if ($tests !== null) {
-            $value = array_prepend($value, $tests, 'Tests\\');
+            $value = Arr::prepend($value, $tests, 'Tests\\');
         }
 
         if (! $value || empty($value)) {

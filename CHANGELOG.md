@@ -6,6 +6,12 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 3.0.3 (2019-02-27)
+
+### Changed
+
+- Replaced `str_`, `array_`, and `_case` references
+
 ## 3.0.0 (2019-02-27)
 
 ### Added
