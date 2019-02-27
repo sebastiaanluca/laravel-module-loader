@@ -15,6 +15,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Removed
 
 - Dropped support for Laravel 5.7 and lower
+- Removed obsolete mockery/mockery dependency
 
 ## 2.0.1 (2019-01-28)
 

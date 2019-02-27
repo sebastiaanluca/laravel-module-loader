@@ -11,8 +11,6 @@ use Symfony\Component\Process\Process;
 
 class TestCase extends BaseTestCase
 {
-    use MocksInstances;
-
     /**
      * @var \Composer\Autoload\ClassLoader|\Mockery\MockInterface
      */

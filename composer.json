@@ -23,7 +23,6 @@
     },
     "require-dev": {
         "kint-php/kint": "^3.1",
-        "mockery/mockery": "^1.2",
         "orchestra/testbench": "~3.8.0",
         "phpunit/phpunit": "^8.0"
     },
@@ -51,6 +50,14 @@
         }
     },
     "scripts": {
-        "test": "vendor/bin/phpunit"
+        "test": "vendor/bin/phpunit",
+        "test-lowest": [
+            "composer update --prefer-lowest --prefer-dist --no-interaction --ansi",
+            "@test"
+        ],
+        "test-stable": [
+            "composer update --prefer-stable --prefer-dist --no-interaction --ansi",
+            "@test"
+        ]
     }
 }
