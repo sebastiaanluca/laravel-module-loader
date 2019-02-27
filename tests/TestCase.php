@@ -24,13 +24,9 @@ class TestCase extends BaseTestCase
      */
     public static function assertSameValues($expected, $actual) : void
     {
-        static::assertEquals(
+        static::assertEqualsCanonicalizing(
             $expected,
-            $actual,
-            '$canonicalize = true',
-            0.0,
-            10,
-            true
+            $actual
         );
     }
 
