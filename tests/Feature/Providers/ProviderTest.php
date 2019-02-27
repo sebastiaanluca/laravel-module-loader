@@ -7,12 +7,9 @@ namespace SebastiaanLuca\Module\Tests\Feature\Providers;
 use Illuminate\Support\ServiceProvider;
 use Orchestra\Testbench\TestCase;
 use SebastiaanLuca\Module\Providers\ModuleProvider;
-use SebastiaanLuca\Module\Tests\MocksInstances;
 
 class ProviderTest extends TestCase
 {
-    use MocksInstances;
-
     /**
      * @test
      */

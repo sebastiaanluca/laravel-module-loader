@@ -8,12 +8,9 @@ use Illuminate\Support\Facades\Route;
 use Mockery;
 use Orchestra\Testbench\TestCase;
 use SebastiaanLuca\Module\Providers\ModuleProvider;
-use SebastiaanLuca\Module\Tests\MocksInstances;
 
 class RouteTest extends TestCase
 {
-    use MocksInstances;
-
     /**
      * @test
      */
