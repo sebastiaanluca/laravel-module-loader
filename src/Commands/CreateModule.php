@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SebastiaanLuca\Module\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class CreateModule extends Command
 {
@@ -32,7 +33,7 @@ class CreateModule extends Command
      */
     public function handle() : void
     {
-        $name = studly_case($this->argument('name'));
+        $name = Str::studly($this->argument('name'));
 
         $moduleDir = $this->option('directory') ?? head(config('module-loader.directories'));
 

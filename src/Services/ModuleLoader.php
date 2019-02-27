@@ -6,6 +6,7 @@ namespace SebastiaanLuca\Module\Services;
 
 use Composer\Autoload\ClassLoader;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 use SebastiaanLuca\Module\Exceptions\ModuleLoaderException;
 
 class ModuleLoader
@@ -98,7 +99,7 @@ class ModuleLoader
             $directories = $this->files->directories($path);
 
             foreach ($directories as $directory) {
-                $name = studly_case(basename($directory));
+                $name = Str::studly(basename($directory));
 
                 if (array_key_exists($name, $modules)) {
                     throw ModuleLoaderException::duplicate($name);

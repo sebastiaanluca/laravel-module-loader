@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SebastiaanLuca\Module\Providers;
 
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Str;
 use ReflectionClass;
 
 class ModuleProvider extends Provider
@@ -188,6 +189,6 @@ class ModuleProvider extends Provider
      */
     protected function getLowercasePackageName() : string
     {
-        return mb_strtolower(str_slug(snake_case($this->getPackageName())));
+        return mb_strtolower(Str::slug(Str::snake($this->getPackageName())));
     }
 }
