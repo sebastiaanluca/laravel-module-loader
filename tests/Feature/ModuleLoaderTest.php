@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SebastiaanLuca\Module\Tests\Feature;
 
 use SebastiaanLuca\Module\Exceptions\ModuleLoaderException;
+use SebastiaanLuca\Module\Services\ModuleLoader;
 use SebastiaanLuca\Module\Tests\TestCase;
 
 class ModuleLoaderTest extends TestCase
@@ -99,7 +100,7 @@ class ModuleLoaderTest extends TestCase
     {
         $this->assertSame(
             base_path('bootstrap/cache/module-loader.php'),
-            $this->getModuleLoader()->getCachePath()
+            ModuleLoader::getCachePath()
         );
     }
 }

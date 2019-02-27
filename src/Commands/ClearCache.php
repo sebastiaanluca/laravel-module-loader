@@ -22,30 +22,13 @@ class ClearCache extends Command
     protected $description = 'Remove the module loader cache file';
 
     /**
-     * @var \SebastiaanLuca\Module\Services\ModuleLoader
-     */
-    protected $loader;
-
-    /**
-     * Create a new command instance.
-     *
-     * @param \SebastiaanLuca\Module\Services\ModuleLoader $loader
-     */
-    public function __construct(ModuleLoader $loader)
-    {
-        parent::__construct();
-
-        $this->loader = $loader;
-    }
-
-    /**
      * Execute the console command.
      *
      * @return void
      */
     public function handle() : void
     {
-        @unlink($this->loader->getCachePath());
+        @unlink(ModuleLoader::getCachePath());
 
         $this->info('Module service providers cache cleared!');
     }

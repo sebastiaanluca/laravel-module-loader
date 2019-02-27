@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SebastiaanLuca\Module\Tests\Feature;
 
+use SebastiaanLuca\Module\Services\ModuleLoader;
 use SebastiaanLuca\Module\Tests\TestCase;
 
 class ModuleLoaderCacheTest extends TestCase
@@ -15,7 +16,7 @@ class ModuleLoaderCacheTest extends TestCase
     {
         $loader = $this->getModuleLoader();
 
-        $cache = $loader->getCachePath();
+        $cache = ModuleLoader::getCachePath();
 
         $copy = copy(__DIR__ . '/../resources/cache.php', $cache);
 

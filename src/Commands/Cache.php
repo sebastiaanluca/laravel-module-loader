@@ -45,9 +45,11 @@ class Cache extends Command
      */
     public function handle() : void
     {
+        // TODO: use action to scan for modules
         $modules = $this->loader->scan();
-        $cache = $this->loader->getCachePath();
+        $cache = ModuleLoader::getCachePath();
 
+        // TODO: move to action
         $providers = $this->loader->getProviders($modules);
 
         file_put_contents(

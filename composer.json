@@ -18,8 +18,8 @@
         }
     ],
     "require": {
-        "laravel/framework": "~5.6.0|~5.7.0",
-        "php": "^7.2"
+        "php": "^7.2",
+        "laravel/framework": "~5.6.0|~5.7.0"
     },
     "require-dev": {
         "kint-php/kint": "^2.2",

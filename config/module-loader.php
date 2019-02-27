@@ -17,6 +17,15 @@ return [
     ],
 
     /*
+     * Optionally prefix module namespaces to group them under a parent namespace.
+     */
+    'namespaces' => [
+
+        'modules' => null,
+
+    ],
+
+    /*
      * Eloquent factories should only be registered in local development
      * environments. You can add your production environment to enable
      * them there too.

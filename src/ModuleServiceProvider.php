@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SebastiaanLuca\Module;
 
-use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 use SebastiaanLuca\Module\Commands\Cache;
 use SebastiaanLuca\Module\Commands\ClearCache;
@@ -24,9 +23,7 @@ class ModuleServiceProvider extends ServiceProvider
 
         $this->app->singleton(ModuleLoader::class, function () {
             return new ModuleLoader(
-                app(Filesystem::class),
-                config($this->getShortPackageName()),
-                require base_path('vendor/autoload.php')
+                config($this->getShortPackageName())
             );
         });
 
