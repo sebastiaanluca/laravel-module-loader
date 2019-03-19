@@ -24,7 +24,6 @@ matrix:
   fast_finish: true
 
 before_install:
-- phpenv config-rm xdebug.ini
 - composer validate --strict
 - travis_retry composer self-update
 - if [[ -n ${MINIMUM_STABILITY} ]]; then composer config minimum-stability ${MINIMUM_STABILITY}; echo "Minimum stability set to ${MINIMUM_STABILITY}"; else echo "Minimum stability left unchanged"; fi

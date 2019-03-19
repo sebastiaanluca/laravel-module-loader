@@ -15,6 +15,7 @@
          failOnWarning="true"
          stopOnError="false"
          cacheResult="false"
+         cacheTokens="false"
 >
     <testsuites>
         <testsuite name="Feature Tests">

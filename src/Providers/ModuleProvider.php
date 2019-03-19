@@ -89,9 +89,11 @@ class ModuleProvider extends Provider
             return;
         }
 
-        $this->app->make(Factory::class)->load(
-            $this->getModulePath() . '/database/factories'
-        );
+        if (! is_dir($factoriesPath = $this->getModulePath() . '/database/factories')) {
+            return;
+        }
+
+        $this->app->make(Factory::class)->load($factoriesPath);
     }
 
     /**
@@ -101,10 +103,12 @@ class ModuleProvider extends Provider
      */
     protected function loadPublishableResources() : void
     {
+        if (! is_dir($configPath = $this->getClassDirectory() . '/../../config')) {
+            return;
+        }
+
         $this->publishes(
-            [
-                "{$this->getClassDirectory()}/../../config" => config_path("{$this->getPackageName()}.php"),
-            ],
+            [$configPath => config_path("{$this->getPackageName()}.php")],
             "* {$this->getPackageName()} (configuration)"
         );
     }
@@ -116,14 +120,17 @@ class ModuleProvider extends Provider
      */
     protected function bootResources() : void
     {
-        $this->loadMigrationsFrom($this->getModulePath() . '/database/migrations');
-        $this->loadTranslationsFrom($this->getModulePath() . '/resources/lang', $this->getLowercasePackageName());
-        $this->loadJsonTranslationsFrom($this->getModulePath() . '/resources/lang');
+        if (is_dir($migrationsPath = $this->getModulePath() . '/database/migrations')) {
+            $this->loadMigrationsFrom($migrationsPath);
+        }
 
-        $views = $this->getModulePath() . '/resources/views';
+        if (is_dir($translationsPath = $this->getModulePath() . '/resources/lang')) {
+            $this->loadTranslationsFrom($translationsPath, $this->getLowercasePackageName());
+            $this->loadJsonTranslationsFrom($translationsPath);
+        }
 
-        if (is_dir($views)) {
-            $this->app['view']->addNamespace($this->getLowercasePackageName(), $views);
+        if (is_dir($viewsPath = $this->getModulePath() . '/resources/views')) {
+            $this->app['view']->addNamespace($this->getLowercasePackageName(), $viewsPath);
         }
     }
 
