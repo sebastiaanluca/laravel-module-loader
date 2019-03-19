@@ -6,6 +6,12 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+## 3.0.4 (2019-03-19)
+
+### Changed
+
+- Check if asset directories exist before loading them
+
 ## 3.0.3 (2019-02-27)
 
 ### Changed
