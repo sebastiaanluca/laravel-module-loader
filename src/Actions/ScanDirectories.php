@@ -39,8 +39,6 @@ class ScanDirectories
             ->flatMap(function (ModulesDirectory $directory) {
                 return app(ScanModulesInDirectory::class)->execute($directory);
             })
-            // REMOVE
-            ->dd()
             ->all();
     }
 }

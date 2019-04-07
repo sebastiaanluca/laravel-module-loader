@@ -57,9 +57,7 @@ class ModuleLoader
             return;
         }
 
-        dd(
-            app(ListProviders::class)->execute($this->getModules())
-        );
+        app(ListProviders::class)->execute($this->getModules());
 
         // TODO
         //        $this->registerProviders(

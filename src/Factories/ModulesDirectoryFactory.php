@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SebastiaanLuca\Module\Factories;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use SebastiaanLuca\Module\Entities\ModulesDirectory;
 
@@ -42,7 +43,7 @@ class ModulesDirectoryFactory
      */
     private static function getNamespaceForDirectory(string $directory) : ?string
     {
-        return array_get(
+        return Arr::get(
             config('module-loader.namespaces'),
             $directory
         );
