@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SebastiaanLuca\Module\Factories;
 
+use Illuminate\Support\Str;
 use SebastiaanLuca\Module\Entities\Module;
 use SebastiaanLuca\Module\Entities\ModulesDirectory;
 
@@ -18,12 +19,13 @@ class ModuleFactory
     public static function createFromPathAndDirectory(string $path, ModulesDirectory $directory) : Module
     {
         return new Module([
-            'name' => studly_case(basename($path)),
-            'absolute_path' => $path,
+            'name' => $name = Str::studly(basename($path)),
+            'absolutePath' => $path,
+            'relativePath' => $directory->relativePath . DIRECTORY_SEPARATOR . $name,
             'directory' => $directory,
-            //            'namespace' => static::getModuleNamespace($name, $directory),
-            //            'service_provider_name' => $provider = static::getServiceProviderName($name),
-            //            'service_provider_path' => static::getServiceProviderPath($path, $name),
+            'namespace' => static::getModuleNamespace($name, $directory),
+            'serviceProviderPath' => $providerPath = static::getServiceProviderPath($path, $name),
+            'serviceProviderName' => static::getServiceProviderName($providerPath),
         ]);
     }
 
@@ -43,12 +45,13 @@ class ModuleFactory
     }
 
     /**
-     * @param string $name
+     * @param string $path
      *
      * @return string
      */
-    private static function getServiceProviderName(string $name) : string
+    private static function getServiceProviderName(string $path) : string
     {
+        return basename($path, '.php');
     }
 
     /**

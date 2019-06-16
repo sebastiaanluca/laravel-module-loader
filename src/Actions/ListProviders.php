@@ -22,6 +22,6 @@ class ListProviders
                 return (new DetermineProvider($module))->execute();
             })
             ->reject(null)
-            ->values();
+            ->all();
     }
 }

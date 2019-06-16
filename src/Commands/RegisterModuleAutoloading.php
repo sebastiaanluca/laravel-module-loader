@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace SebastiaanLuca\Module\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use SebastiaanLuca\Module\Exceptions\JsonException;
 use SebastiaanLuca\Module\Services\ModuleLoader;
 
@@ -49,7 +51,7 @@ class RegisterModuleAutoloading extends Command
      */
     public function handle() : void
     {
-        $modules = $this->modules->scan();
+        $modules = $this->modules->getModules();
 
         $this->writeAutoloadConfig(
             $this->getAutoloadConfig($modules)
@@ -72,25 +74,26 @@ class RegisterModuleAutoloading extends Command
         $psr4 = [];
         $psr4Dev = [];
 
-        foreach ($modules as $name => $path) {
-            $psrName = $name . '\\';
+        /** @var \SebastiaanLuca\Module\Entities\Module $module */
+        foreach ($modules as $module) {
+            $psrName = $module->namespace . '\\';
 
-            $psr4 = array_merge($psr4, [$psrName => $this->getCleanPath($path) . '/src/']);
+            $psr4 = array_merge($psr4, [$psrName => $module->relativePath . '/src/']);
 
-            if (is_dir($tests = $path . '/tests/')) {
-                $psr4Dev = array_merge($psr4Dev, [$psrName . 'Tests\\' => $this->getCleanPath($tests)]);
+            if (is_dir($tests = $module->absolutePath . '/tests')) {
+                $psr4Dev = array_merge($psr4Dev, [$psrName . 'Tests\\' => $module->relativePath . '/tests/']);
             }
 
-            if (is_dir($migrations = $path . '/database/migrations')) {
-                $classmap[] = $this->getCleanPath($migrations);
+            if (is_dir($migrations = $module->absolutePath . '/database/migrations')) {
+                $classmap[] = $module->relativePath . '/database/migrations';
             }
 
-            if (is_dir($seeders = $path . '/database/seeds')) {
-                $classmap[] = $this->getCleanPath($seeders);
+            if (is_dir($seeders = $module->absolutePath . '/database/seeds')) {
+                $classmap[] = $module->relativePath . '/database/seeds';
             }
 
-            if (is_dir($factories = $path . '/database/factories')) {
-                $classmap[] = $this->getCleanPath($factories);
+            if (is_dir($factories = $module->absolutePath . '/database/factories')) {
+                $classmap[] = $module->relativePath . '/database/factories';
             }
         }
 
@@ -143,7 +146,7 @@ class RegisterModuleAutoloading extends Command
      */
     private function setConfigValue(array &$config, string $key, array $value) : void
     {
-        array_set($config, $key, $value);
+        Arr::set($config, $key, $value);
     }
 
     /**
@@ -153,12 +156,12 @@ class RegisterModuleAutoloading extends Command
      */
     private function mergeConfigValue(array &$config, string $key, array $value) : void
     {
-        $existing = array_get($config, $key, []);
+        $existing = Arr::get($config, $key, []);
 
         if (! $this->option('keep')) {
             $existing = collect($existing)
                 ->reject(function ($directory, $name) {
-                    return starts_with($directory, config('module-loader.directories'));
+                    return Str::startsWith($directory, config('module-loader.directories'));
                 })
                 ->toArray();
         }
@@ -167,15 +170,15 @@ class RegisterModuleAutoloading extends Command
 
         ksort($value, SORT_ASC | SORT_NATURAL);
 
-        $app = array_pull($value, 'App\\');
-        $tests = array_pull($value, 'Tests\\');
+        $app = Arr::pull($value, 'App\\');
+        $tests = Arr::pull($value, 'Tests\\');
 
         if ($app !== null) {
-            $value = array_prepend($value, $app, 'App\\');
+            $value = Arr::prepend($value, $app, 'App\\');
         }
 
         if ($tests !== null) {
-            $value = array_prepend($value, $tests, 'Tests\\');
+            $value = Arr::prepend($value, $tests, 'Tests\\');
         }
 
         if (! $value || empty($value)) {
@@ -183,15 +186,5 @@ class RegisterModuleAutoloading extends Command
         }
 
         $this->setConfigValue($config, $key, $value);
-    }
-
-    /**
-     * @param string $path
-     *
-     * @return string
-     */
-    private function getCleanPath(string $path) : string
-    {
-        return str_replace(base_path() . '/', '', $path);
     }
 }

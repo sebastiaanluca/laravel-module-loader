@@ -18,8 +18,8 @@ class ModulesDirectoryFactory
     public static function createFromDirectory(string $directory) : ModulesDirectory
     {
         return new ModulesDirectory([
-            'relative_path' => $directory,
-            'absolute_path' => base_path($directory),
+            'relativePath' => $directory,
+            'absolutePath' => base_path($directory),
             'namespace' => static::getNamespaceForDirectory($directory),
         ]);
     }

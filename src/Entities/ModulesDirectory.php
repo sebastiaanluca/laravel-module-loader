@@ -9,12 +9,12 @@ final class ModulesDirectory extends Entity
     /**
      * @var string
      */
-    public $relative_path;
+    public $relativePath;
 
     /**
      * @var string
      */
-    public $absolute_path;
+    public $absolutePath;
 
     /**
      * @var string|null
@@ -26,6 +26,6 @@ final class ModulesDirectory extends Entity
      */
     public function isValid() : bool
     {
-        return file_exists($this->absolute_path);
+        return file_exists($this->absolutePath);
     }
 }

@@ -14,7 +14,7 @@ final class Module extends Entity
     /**
      * @var string
      */
-    public $absolute_path;
+    public $absolutePath;
 
     /**
      * @var \SebastiaanLuca\Module\Entities\ModulesDirectory
@@ -29,21 +29,18 @@ final class Module extends Entity
     /**
      * @var string
      */
-    public $service_provider_name;
+    public $serviceProviderName;
 
     /**
      * @var string
      */
-    public $service_provider_path;
+    public $serviceProviderPath;
 
     /**
      * @return bool
      */
     public function isValid() : bool
     {
-        return is_dir($this->absolute_path . '/src');
+        return is_dir($this->absolutePath . '/src');
     }
-
-    // TODO: auto-generate and assign namespace, service provider name, and service provider path on creation
-    //  Move here from factory
 }

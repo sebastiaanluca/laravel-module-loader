@@ -7,24 +7,13 @@ namespace SebastiaanLuca\Module\Actions;
 class RegisterProviders
 {
     /**
-     * @var array
-     */
-    private $providers;
-
-    /**
      * @param array $providers
-     */
-    public function __construct(array $providers)
-    {
-        $this->providers = $providers;
-    }
-
-    /**
+     *
      * @return void
      */
-    public function execute() : void
+    public function execute(array $providers) : void
     {
-        foreach ($this->providers as $provider) {
+        foreach ($providers as $provider) {
             app()->register($provider);
         }
     }

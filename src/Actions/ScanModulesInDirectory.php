@@ -30,7 +30,7 @@ class ScanModulesInDirectory
      */
     public function execute(ModulesDirectory $directory) : array
     {
-        collect($this->files->directories($directory->absolute_path))
+        return collect($this->files->directories($directory->absolutePath))
             ->map(function (string $path) use ($directory) {
                 return ModuleFactory::createFromPathAndDirectory(
                     $path,
@@ -38,19 +38,6 @@ class ScanModulesInDirectory
                 );
             })
             ->filter->isValid()
-            // REMOVE
-            ->dd();
-
-        //        $modules = $this->files->directories($path);
-
-        //        foreach ($modules as $directory) {
-        //            $module = ModuleFactory::createFromDirectory($directory);
-        //
-        //            if (array_key_exists($module->namespace, $modules)) {
-        //                throw ModuleLoaderException::duplicate($module->namespace);
-        //            }
-        //
-        //            $modules[$module->namespace] = $module;
-        //        }
+            ->all();
     }
 }

@@ -28,9 +28,7 @@ class DetermineProvider
     {
         //        $path = "{$this->module->path}/src/Providers/{$this->module->name}ServiceProvider.php";
 
-        $path = $this->module->service_provider_path;
-
-        dd($path);
+        $path = $this->module->serviceProviderPath;
 
         if (! file_exists($path)) {
             return null;
@@ -38,20 +36,21 @@ class DetermineProvider
 
         $path = $this->getCleanPath($path);
 
-        $find = [$this->name . '/src', '/', '.php'];
-        $replace = [$this->name, '\\', ''];
+        $find = [
+            $this->module->directory->relativePath . DIRECTORY_SEPARATOR . $this->module->name . DIRECTORY_SEPARATOR . 'src',
+            DIRECTORY_SEPARATOR,
+            '.php',
+        ];
+
+        $replace = [
+            $this->module->directory->namespace . '\\' . $this->module->name,
+            '\\',
+            '',
+        ];
 
         $provider = str_replace($find, $replace, $path);
 
-        // Support multiple module directories
-        $directories = array_map(function (string $path) {
-            return $path . '\\';
-        }, $this->config['directories']);
-
-        $provider = str_replace($directories, [], $provider);
-
-        // Do not register providers that don't exist or
-        // don't have their namespace loaded
+        // Do not register providers that don't exist
         if (! class_exists($provider)) {
             return null;
         }
@@ -66,6 +65,6 @@ class DetermineProvider
      */
     private function getCleanPath(string $path) : string
     {
-        return str_replace(base_path() . '/', '', $path);
+        return str_replace(base_path() . DIRECTORY_SEPARATOR, '', $path);
     }
 }

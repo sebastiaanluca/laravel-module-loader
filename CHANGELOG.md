@@ -10,6 +10,10 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 - Added option to prefix/group module namespaces
 
+### Changed
+
+- Internal rewrite of all classes and actions
+
 ### Removed
 
 - Removed runtime autoloading

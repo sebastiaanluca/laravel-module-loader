@@ -6,6 +6,7 @@ namespace SebastiaanLuca\Module\Services;
 
 use Illuminate\Support\Collection;
 use SebastiaanLuca\Module\Actions\ListProviders;
+use SebastiaanLuca\Module\Actions\RegisterProviders;
 use SebastiaanLuca\Module\Actions\ScanDirectories;
 use SebastiaanLuca\Module\Factories\ModulesDirectoryFactory;
 
@@ -48,26 +49,33 @@ class ModuleLoader
             return;
         }
 
-        app(ListProviders::class)->execute($this->getModules());
-
-        // TODO
-        //        $this->registerProviders(
-        //            $this->getProviders(
-        //                $this->getModules()
-        //            )
-        //        );
+        app(RegisterProviders::class)->execute(
+            app(ListProviders::class)->execute(
+                $this->getModules()
+            )
+        );
     }
 
     /**
      * @return array
      */
-    private function getModules() : array
+    public function getModules() : array
     {
         if ($this->modules === null) {
             $this->modules = app(ScanDirectories::class)->execute($this->getModuleDirectories());
         }
 
         return $this->modules;
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function getModuleDirectories() : Collection
+    {
+        return ModulesDirectoryFactory::createCollectionFromArray(
+            $this->config['directories']
+        );
     }
 
     /**
@@ -79,23 +87,8 @@ class ModuleLoader
             return false;
         }
 
-        $providers = require $cache;
-
-        // TODO: move to reusable action
-        foreach ($providers as $provider) {
-            app()->register($provider);
-        }
+        app(RegisterProviders::class)->execute(require $cache);
 
         return true;
-    }
-
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    private function getModuleDirectories() : Collection
-    {
-        return ModulesDirectoryFactory::createCollectionFromArray(
-            $this->config['directories']
-        );
     }
 }
