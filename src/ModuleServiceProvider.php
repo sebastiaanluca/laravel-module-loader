@@ -37,9 +37,7 @@ class ModuleServiceProvider extends ServiceProvider
             ClearCache::class,
         ]);
 
-        app(ModuleLoader::class)->load(
-            $autoload = config($this->getShortPackageName() . '.runtime_autoloading')
-        );
+        app(ModuleLoader::class)->load();
     }
 
     /**

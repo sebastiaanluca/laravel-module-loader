@@ -6,6 +6,14 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ## Unreleased
 
+### Added
+
+- Added option to prefix/group module namespaces
+
+### Removed
+
+- Removed runtime autoloading
+
 ## 2.0.1 (2019-01-28)
 
 ### Fixed

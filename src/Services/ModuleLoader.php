@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace SebastiaanLuca\Module\Services;
 
 use Illuminate\Support\Collection;
-use SebastiaanLuca\Module\Actions\AutoloadModules;
 use SebastiaanLuca\Module\Actions\ListProviders;
 use SebastiaanLuca\Module\Actions\ScanDirectories;
 use SebastiaanLuca\Module\Factories\ModulesDirectoryFactory;
@@ -41,18 +40,10 @@ class ModuleLoader
     /**
      * Scan and load all modules.
      *
-     * @param bool $autoload
-     *
      * @return void
      */
-    public function load(bool $autoload = false) : void
+    public function load() : void
     {
-        // Runtime autoloading should be an option, even if
-        // service providers were cached.
-        if ($autoload) {
-            app(AutoloadModules::class)->execute($this->getModules());
-        }
-
         if ($this->useCache()) {
             return;
         }

@@ -3,26 +3,19 @@
 return [
 
     /*
-     * Scan and autoload your modules at runtime.
-     */
-    'runtime_autoloading' => false,
-
-    /*
      * An array of project directories to scan for modules.
      */
+
     'directories' => [
-
         'modules',
-
     ],
 
     /*
      * Optionally prefix module namespaces to group them under a parent namespace.
      */
+
     'namespaces' => [
-
         'modules' => null,
-
     ],
 
     /*
@@ -30,6 +23,7 @@ return [
      * environments. You can add your production environment to enable
      * them there too.
      */
+
     'development_environments' => [
         'local',
         'dev',

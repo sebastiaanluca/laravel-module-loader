@@ -59,14 +59,13 @@ class DetermineProvider
         return $provider;
     }
 
-
-        /**
-         * @param string $path
-         *
-         * @return string
-         */
-        private function getCleanPath(string $path) : string
-        {
-            return str_replace(base_path() . '/', '', $path);
-        }
+    /**
+     * @param string $path
+     *
+     * @return string
+     */
+    private function getCleanPath(string $path) : string
+    {
+        return str_replace(base_path() . '/', '', $path);
+    }
 }
