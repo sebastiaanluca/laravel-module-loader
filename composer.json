@@ -1,7 +1,7 @@
 {
     "name": "sebastiaanluca/laravel-module-loader",
     "type": "library",
-    "description": "A lightweight package to split your code into individual modules.",
+    "description": "A lightweight package to organize your code into individual modules.",
     "keywords": [
         "Laravel",
         "module",

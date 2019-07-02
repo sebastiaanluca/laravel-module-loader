@@ -1,14 +1,15 @@
-# A lightweight package to split your code into contextual modules
+# A lightweight package to organize your code into contextual modules
 
-<a href="https://packagist.org/packages/sebastiaanluca/laravel-module-loader"><img src="https://poser.pugx.org/sebastiaanluca/laravel-module-loader/version" alt="Latest stable release"></img></a>
-<a href="LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="Software license"></img></a>
-<a href="https://travis-ci.org/sebastiaanluca/laravel-module-loader"><img src="https://img.shields.io/travis/sebastiaanluca/laravel-module-loader/master.svg" alt="Build status"></img></a>
-<a href="https://packagist.org/packages/sebastiaanluca/laravel-module-loader"><img src="https://img.shields.io/packagist/dt/sebastiaanluca/laravel-module-loader.svg" alt="Total downloads"></img></a>
+[![Latest stable release][version-badge]][link-packagist]
+[![Software license][license-badge]](LICENSE.md)
+[![Build status][travis-badge]][link-travis]
+[![Total downloads][downloads-badge]][link-packagist]
+[![Total stars][stars-badge]][link-github]
 
-<a href="https://blog.sebastiaanluca.com"><img src="https://img.shields.io/badge/link-blog-lightgrey.svg" alt="Read my blog"></img></a>
-<a href="https://packagist.org/packages/sebastiaanluca"><img src="https://img.shields.io/badge/link-other_packages-lightgrey.svg" alt="View my other packages and projects"></img></a>
-<a href="https://twitter.com/sebastiaanluca"><img src="https://img.shields.io/twitter/follow/sebastiaanluca.svg?style=social" alt="Follow @sebastiaanluca on Twitter"></img></a>
-<a href="https://twitter.com/intent/tweet?text=A%20lightweight%20Laravel%20package%20to%20split%20your%20code%20into%20individual%20modules.%20Via%20@sebastiaanluca%20https://github.com/sebastiaanluca/laravel-module-loader"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social" alt="Share this package on Twitter"></img></a>
+[![Read my blog][blog-link-badge]][link-blog]
+[![View my other packages and projects][packages-link-badge]][link-packages]
+[![Follow @sebastiaanluca on Twitter][twitter-profile-badge]][link-twitter]
+[![Share this package on Twitter][twitter-share-badge]][link-twitter-share]
 
 **Laravel Module Loader helps you organize your project by splitting your domain code in contextual modules.**
 
@@ -531,6 +532,18 @@ My name is Sebastiaan and I'm a freelance back-end developer specializing in bui
 
 Have a project that could use some guidance? Send me an e-mail at [hello@sebastiaanluca.com][link-author-email]!
 
+[version-badge]: https://img.shields.io/packagist/v/sebastiaanluca/laravel-module-loader.svg?label=stable
+[license-badge]: https://img.shields.io/badge/license-MIT-informational.svg
+[travis-badge]: https://img.shields.io/travis/sebastiaanluca/laravel-module-loader/master.svg
+[downloads-badge]: https://img.shields.io/packagist/dt/sebastiaanluca/laravel-module-loader.svg?color=brightgreen
+[stars-badge]: https://img.shields.io/github/stars/sebastiaanluca/laravel-module-loader.svg?color=brightgreen
+
+[blog-link-badge]: https://img.shields.io/badge/link-blog-lightgrey.svg
+[packages-link-badge]: https://img.shields.io/badge/link-other_packages-lightgrey.svg
+[twitter-profile-badge]: https://img.shields.io/twitter/follow/sebastiaanluca.svg?style=social
+[twitter-share-badge]: https://img.shields.io/twitter/url/http/shields.io.svg?style=social
+
+[link-github]: https://github.com/sebastiaanluca/laravel-module-loader
 [link-packagist]: https://packagist.org/packages/sebastiaanluca/laravel-module-loader
 [link-travis]: https://travis-ci.org/sebastiaanluca/laravel-module-loader
 [link-contributors]: ../../contributors
@@ -538,5 +551,7 @@ Have a project that could use some guidance? Send me an e-mail at [hello@sebasti
 [link-portfolio]: https://www.sebastiaanluca.com
 [link-blog]: https://blog.sebastiaanluca.com
 [link-packages]: https://packagist.org/packages/sebastiaanluca
+[link-twitter]: https://twitter.com/sebastiaanluca
+[link-twitter-share]: https://twitter.com/intent/tweet?text=A%20lightweight%20Laravel%20package%20to%20organize%20your%20code%20into%20individual%20modules.%20Via%20@sebastiaanluca%20https://github.com/sebastiaanluca/laravel-module-loader
 [link-github-profile]: https://github.com/sebastiaanluca
 [link-author-email]: mailto:hello@sebastiaanluca.com
