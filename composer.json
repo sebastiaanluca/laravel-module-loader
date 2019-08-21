@@ -25,7 +25,7 @@
         "kint-php/kint": "^3.1",
         "orchestra/testbench": "3.8.*|^4.0",
         "phpunit/phpunit": "^8.3",
-        "sebastiaanluca/php-codesniffer-ruleset": "^0.4.2"
+        "sebastiaanluca/php-codesniffer-ruleset": "^0.4.3"
     },
     "autoload": {
         "psr-4": {
