@@ -106,6 +106,8 @@ class RegisterModuleAutoloading extends Command
     /**
      * @param array $autoloadConfig
      *
+     * @return void
+     *
      * @throws \SebastiaanLuca\Module\Exceptions\JsonException
      */
     private function writeAutoloadConfig(array $autoloadConfig) : void
@@ -118,11 +120,10 @@ class RegisterModuleAutoloading extends Command
 
         $composerPath = base_path('composer.json');
 
+        $config = [];
+
         if (file_exists($composerPath)) {
             $config = json_decode(file_get_contents($composerPath), true, 512, JSON_OBJECT_AS_ARRAY | JSON_UNESCAPED_SLASHES);
-        }
-        else {
-            $config = [];
         }
 
         if (json_last_error() !== JSON_ERROR_NONE) {
@@ -142,6 +143,8 @@ class RegisterModuleAutoloading extends Command
      * @param array $config
      * @param string $key
      * @param array $value
+     *
+     * @return void
      */
     private function setConfigValue(array &$config, string $key, array $value) : void
     {
@@ -152,6 +155,8 @@ class RegisterModuleAutoloading extends Command
      * @param array $config
      * @param string $key
      * @param array $value
+     *
+     * @return void
      */
     private function mergeConfigValue(array &$config, string $key, array $value) : void
     {
@@ -180,7 +185,7 @@ class RegisterModuleAutoloading extends Command
             $value = Arr::prepend($value, $tests, 'Tests\\');
         }
 
-        if (! $value || empty($value)) {
+        if ($value === null || count($value) === 0) {
             return;
         }
 

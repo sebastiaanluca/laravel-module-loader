@@ -5,5 +5,7 @@
     <file>./src</file>
     <file>./tests</file>
 
+    <exclude-pattern>./tests/resources</exclude-pattern>
+
     <rule ref="./vendor/sebastiaanluca/php-codesniffer-ruleset/ruleset.xml"/>
 </ruleset>

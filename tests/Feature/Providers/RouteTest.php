@@ -7,7 +7,7 @@ namespace SebastiaanLuca\Module\Tests\Feature\Providers;
 use Illuminate\Support\Facades\Route;
 use Mockery;
 use Orchestra\Testbench\TestCase;
-use SebastiaanLuca\Module\Providers\ModuleProvider;
+use SebastiaanLuca\Module\Tests\Feature\Concerns\RouteTestServiceProvider;
 
 class RouteTest extends TestCase
 {
@@ -37,20 +37,5 @@ class RouteTest extends TestCase
         $this->app->register(RouteTestServiceProvider::class);
 
         Route::shouldNotHaveReceived('view');
-    }
-}
-
-class RouteTestServiceProvider extends ModuleProvider
-{
-    protected $routers = [
-        RouteTestRouter::class,
-    ];
-}
-
-class RouteTestRouter
-{
-    public function __construct()
-    {
-        Route::view('test', 'myview');
     }
 }

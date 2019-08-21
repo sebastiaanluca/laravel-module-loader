@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace SebastiaanLuca\Module\Tests\Feature\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Orchestra\Testbench\TestCase;
-use SebastiaanLuca\Module\Providers\ModuleProvider;
+use SebastiaanLuca\Module\Tests\Feature\Concerns\ProviderTestProvider;
+use SebastiaanLuca\Module\Tests\Feature\Concerns\ProviderTestServiceProvider;
 
 class ProviderTest extends TestCase
 {
@@ -29,15 +29,4 @@ class ProviderTest extends TestCase
             'The additional provider was not registered.'
         );
     }
-}
-
-class ProviderTestServiceProvider extends ModuleProvider
-{
-    protected $providers = [
-        ProviderTestProvider::class,
-    ];
-}
-
-class ProviderTestProvider extends ServiceProvider
-{
 }

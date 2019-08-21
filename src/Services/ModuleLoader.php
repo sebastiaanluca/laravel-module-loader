@@ -77,13 +77,14 @@ class ModuleLoader
 
     /**
      * @return array
+     *
      * @throws \SebastiaanLuca\Module\Exceptions\ModuleLoaderException
      */
     public function scan() : array
     {
         $paths = $this->config['directories'];
 
-        if ($paths === null || empty($paths)) {
+        if ($paths === null || count($paths) === 0) {
             return [];
         }
 
@@ -151,7 +152,7 @@ class ModuleLoader
             return false;
         }
 
-        $providers = require $cache;
+        $providers = include $cache;
 
         foreach ($providers as $provider) {
             app()->register($provider);
@@ -177,6 +178,8 @@ class ModuleLoader
     /**
      * @param string $name
      * @param string $path
+     *
+     * @return void
      */
     private function autoload(string $name, string $path) : void
     {
@@ -203,6 +206,8 @@ class ModuleLoader
 
     /**
      * @param array $providers
+     *
+     * @return void
      */
     private function registerProviders(array $providers) : void
     {
@@ -213,6 +218,8 @@ class ModuleLoader
 
     /**
      * @param string $path
+     *
+     * @return void
      */
     private function autoloadClassmap(string $path) : void
     {
@@ -232,7 +239,7 @@ class ModuleLoader
      */
     private function getProvider(string $name, string $directory) : ?string
     {
-        $path = "{$directory}/src/Providers/{$name}ServiceProvider.php";
+        $path = sprintf('%s/src/Providers/%sServiceProvider.php', $directory, $name);
 
         if (! $this->files->exists($path)) {
             return null;

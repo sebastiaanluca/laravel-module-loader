@@ -63,7 +63,7 @@ class ModuleProvider extends Provider
     {
         $name = $this->getLowercasePackageName();
 
-        $configuration = "{$this->getModulePath()}/config/{$name}.php";
+        $configuration = sprintf('%s/config/%s.php', $this->getModulePath(), $name);
 
         if (! file_exists($configuration)) {
             return;
@@ -108,8 +108,8 @@ class ModuleProvider extends Provider
         }
 
         $this->publishes(
-            [$configPath => config_path("{$this->getPackageName()}.php")],
-            "* {$this->getPackageName()} (configuration)"
+            [$configPath => config_path($this->getPackageName() . '.php')],
+            sprintf('* %s (configuration)', $this->getPackageName())
         );
     }
 
@@ -165,7 +165,7 @@ class ModuleProvider extends Provider
             return $this->classDirectory;
         }
 
-        $reflection = new ReflectionClass(get_class($this));
+        $reflection = new ReflectionClass(static::class);
 
         $this->classDirectory = dirname($reflection->getFileName());
 
