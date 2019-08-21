@@ -64,7 +64,7 @@ class CreateModule extends Command
 
         $provider = str_replace('Dummy', $name, $provider);
 
-        file_put_contents("{$path}/{$name}ServiceProvider.php", $provider);
+        file_put_contents(sprintf('%s/%sServiceProvider.php', $path, $name), $provider);
 
         $this->info(sprintf(
             '%s module created!',

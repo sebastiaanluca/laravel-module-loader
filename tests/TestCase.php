@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SebastiaanLuca\Module\Tests;
 
 use Composer\Autoload\ClassLoader;
@@ -83,7 +85,7 @@ class TestCase extends BaseTestCase
 
         $this->autoloader = Mockery::mock(ClassLoader::class);
 
-        config()->set('module-loader', require __DIR__ . '/../config/module-loader.php');
+        config()->set('module-loader', include __DIR__ . '/../config/module-loader.php');
         config()->set('module-loader.development_environments', ['different_environment']);
     }
 

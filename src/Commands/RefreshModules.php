@@ -35,10 +35,12 @@ class RefreshModules extends Command
             '--keep' => $this->option('keep'),
         ]);
 
-        $process = new Process(sprintf(
-            'cd %s && composer dumpautoload',
-            base_path()
-        ));
+        $process = new Process([
+            sprintf(
+                'cd %s && composer dumpautoload',
+                base_path()
+            ),
+        ]);
 
         $process->start();
 

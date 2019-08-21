@@ -1,3 +1,5 @@
-<?php return array (
+<?php
+
+return [
     1 => 'MyModule\\Providers\\MyModuleServiceProvider',
-);
+];

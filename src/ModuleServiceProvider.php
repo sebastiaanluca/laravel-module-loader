@@ -17,6 +17,8 @@ class ModuleServiceProvider extends ServiceProvider
 {
     /**
      * Register the application services.
+     *
+     * @return void
      */
     public function register() : void
     {
@@ -26,7 +28,7 @@ class ModuleServiceProvider extends ServiceProvider
             return new ModuleLoader(
                 app(Filesystem::class),
                 config($this->getShortPackageName()),
-                require base_path('vendor/autoload.php')
+                include base_path('vendor/autoload.php')
             );
         });
 
@@ -47,6 +49,8 @@ class ModuleServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap the application services.
+     *
+     * @return void
      */
     public function boot() : void
     {
@@ -55,6 +59,8 @@ class ModuleServiceProvider extends ServiceProvider
 
     /**
      * Register the package configuration.
+     *
+     * @return void
      */
     private function configure() : void
     {
