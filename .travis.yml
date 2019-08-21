@@ -1,45 +1,43 @@
 language: php
 
 php:
-- "7.2"
-- "7.3"
-- 7.4snapshot
+  - "7.2"
+  - "7.3"
+  - 7.4snapshot
 
 cache:
   directories:
-  - $HOME/.composer/cache/files
+    - $HOME/.composer/cache/files
 
 env:
   matrix:
-  - LARAVEL_VERSION="5.8.*" COMPOSER_FLAGS="--prefer-lowest"
-  - LARAVEL_VERSION="5.8.*" COMPOSER_FLAGS="--prefer-stable"
-  - LARAVEL_VERSION="dev-master" ORCHESTRA_VERSION="dev-master" COMPOSER_FLAGS="--prefer-lowest" MINIMUM_STABILITY="dev"
-  - LARAVEL_VERSION="dev-master" ORCHESTRA_VERSION="dev-master" COMPOSER_FLAGS="--prefer-stable" MINIMUM_STABILITY="dev"
+    - LARAVEL_VERSION="5.8.*" COMPOSER_FLAGS="--prefer-lowest"
+    - LARAVEL_VERSION="5.8.*" COMPOSER_FLAGS="--prefer-stable"
+    - LARAVEL_VERSION="^6.0" COMPOSER_FLAGS="--prefer-lowest"
+    - LARAVEL_VERSION="^6.0" COMPOSER_FLAGS="--prefer-stable"
+    - LARAVEL_VERSION="dev-master" ORCHESTRA_VERSION="dev-master" COMPOSER_FLAGS="--prefer-lowest" MINIMUM_STABILITY="dev"
+    - LARAVEL_VERSION="dev-master" ORCHESTRA_VERSION="dev-master" COMPOSER_FLAGS="--prefer-stable" MINIMUM_STABILITY="dev"
 
 matrix:
   allow_failures:
-  - php: 7.4snapshot
-  - env: LARAVEL_VERSION="dev-master" ORCHESTRA_VERSION="dev-master" COMPOSER_FLAGS="--prefer-lowest" MINIMUM_STABILITY="dev"
-  - env: LARAVEL_VERSION="dev-master" ORCHESTRA_VERSION="dev-master" COMPOSER_FLAGS="--prefer-stable" MINIMUM_STABILITY="dev"
+    - php: 7.4snapshot
+    - env: LARAVEL_VERSION="dev-master" ORCHESTRA_VERSION="dev-master" COMPOSER_FLAGS="--prefer-lowest" MINIMUM_STABILITY="dev"
+    - env: LARAVEL_VERSION="dev-master" ORCHESTRA_VERSION="dev-master" COMPOSER_FLAGS="--prefer-stable" MINIMUM_STABILITY="dev"
   fast_finish: true
 
 before_install:
-- composer validate --strict
-- travis_retry composer self-update
-- if [[ -n ${MINIMUM_STABILITY} ]]; then composer config minimum-stability ${MINIMUM_STABILITY}; echo "Minimum stability set to ${MINIMUM_STABILITY}"; else echo "Minimum stability left unchanged"; fi
-- if [[ -n ${ORCHESTRA_VERSION} ]]; then composer require orchestra/testbench=${ORCHESTRA_VERSION} --dev --no-update; else echo "orchestra/testbench version requirement left unchanged"; fi
-- composer require laravel/framework=${LARAVEL_VERSION} --no-update
+  - composer validate --strict
+  - travis_retry composer self-update
+  - if [[ -n ${MINIMUM_STABILITY} ]]; then composer config minimum-stability ${MINIMUM_STABILITY}; echo "Minimum stability set to ${MINIMUM_STABILITY}"; else echo "Minimum stability left unchanged"; fi
+  - if [[ -n ${ORCHESTRA_VERSION} ]]; then composer require orchestra/testbench=${ORCHESTRA_VERSION} --dev --no-update; else echo "orchestra/testbench version requirement left unchanged"; fi
+  - composer require laravel/framework=${LARAVEL_VERSION} --no-update
 
 install:
-- travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
+  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
 
 script:
-- vendor/bin/phpunit
-
-branches:
-  only:
-  - master
-  - develop
+  - vendor/bin/phpcs --runtime-set ignore_warnings_on_exit 1
+  - vendor/bin/phpunit
 
 notifications:
   email:

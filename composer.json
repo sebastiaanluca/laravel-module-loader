@@ -18,13 +18,14 @@
         }
     ],
     "require": {
-        "laravel/framework": "~5.8.0",
-        "php": "^7.2"
+        "php": "^7.2",
+        "laravel/framework": "5.8.*|^6.0"
     },
     "require-dev": {
         "kint-php/kint": "^3.1",
-        "orchestra/testbench": "~3.8.0",
-        "phpunit/phpunit": "^8.0"
+        "orchestra/testbench": "3.8.*|^4.0",
+        "phpunit/phpunit": "^8.3",
+        "sebastiaanluca/php-codesniffer-ruleset": "^0.4.2"
     },
     "autoload": {
         "psr-4": {
