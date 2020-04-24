@@ -13,6 +13,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Removed
 
 - Dropped support for Laravel 5
+- Dropped support for Laravel 6
 - Dropped support for PHP 7.2
 
 ## 4.0.0 (2019-08-21)
