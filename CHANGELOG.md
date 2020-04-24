@@ -4,7 +4,16 @@ All Notable changes to `sebastiaanluca/laravel-module-loader` will be documented
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
-## Unreleased
+## 5.0.0 (2020-04-24)
+
+### Added
+
+- Added support for Laravel 7
+
+### Removed
+
+- Dropped support for Laravel 5
+- Dropped support for PHP 7.2
 
 ## 4.0.0 (2019-08-21)
 
@@ -181,7 +190,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ### Changed
 
-- Allow user to switch between default or runtime module autoloading 
+- Allow user to switch between default or runtime module autoloading
 
 ## 0.1.0 (2018-07-25)
 
