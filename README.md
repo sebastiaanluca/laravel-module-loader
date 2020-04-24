@@ -100,8 +100,8 @@ ShoppingCart/
 
 ## Requirements
 
-- PHP 7.2 or higher
-- Laravel 5.8 or higher
+- PHP 7.3 or higher
+- Laravel 7.0 or higher
 
 ## How to install
 
@@ -170,7 +170,7 @@ If you wish to keep all autoload entries for __modules that do not exist__, you 
 
 ```
 php artisan modules:refresh --keep
-``` 
+```
 
 ### Using a module service provider
 
@@ -189,7 +189,7 @@ A module should contain a service provider if you want your module to support:
 - automatic event listener or subscriber registration;
 - and automatic [router mapping](https://github.com/sebastiaanluca/laravel-router).
 
-When you create a module, a service provider is generated for you. If you want to create a provider yourself and have it automatically be registered on framework boot, create a class extending the correct base provider in your module's `src/Providers` directory. 
+When you create a module, a service provider is generated for you. If you want to create a provider yourself and have it automatically be registered on framework boot, create a class extending the correct base provider in your module's `src/Providers` directory.
 
 Pay extra attention to the _studly cased_ naming of your provider, as it's only registered on boot if the class name starts with your module name.
 
