@@ -19,11 +19,11 @@
     ],
     "require": {
         "php": "^7.3",
-        "laravel/framework": "^7.0"
+        "laravel/framework": "^7.0|^8.0"
     },
     "require-dev": {
         "kint-php/kint": "^3.3",
-        "orchestra/testbench": "^4.0|^5.1",
+        "orchestra/testbench": "^5.1|^6.0",
         "phpunit/phpunit": "^8.5"
     },
     "autoload": {
