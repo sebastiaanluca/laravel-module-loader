@@ -100,8 +100,8 @@ ShoppingCart/
 
 ## Requirements
 
-- PHP 7.3 or higher
-- Laravel 7.0 or higher
+- PHP 8 or higher
+- Laravel 8 or higher
 
 ## How to install
 
