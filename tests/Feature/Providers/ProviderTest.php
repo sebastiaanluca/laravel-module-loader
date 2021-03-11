@@ -13,7 +13,7 @@ class ProviderTest extends TestCase
     /**
      * @test
      */
-    public function it registers all additional providers() : void
+    public function it registers all additional providers(): void
     {
         $this->assertArrayNotHasKey(
             ProviderTestProvider::class,

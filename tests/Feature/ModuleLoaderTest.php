@@ -12,7 +12,7 @@ class ModuleLoaderTest extends TestCase
     /**
      * @test
      */
-    public function it scans all modules and doesnt load any providers for modules that are not active() : void
+    public function it scans all modules and doesnt load any providers for modules that are not active(): void
     {
         config()->set('module-loader.directories', [
             'empty',
@@ -29,7 +29,7 @@ class ModuleLoaderTest extends TestCase
     /**
      * @test
      */
-    public function it scans all modules and registers all providers() : void
+    public function it scans all modules and registers all providers(): void
     {
         $this->getModuleLoader()->load();
 
@@ -42,7 +42,7 @@ class ModuleLoaderTest extends TestCase
     /**
      * @test
      */
-    public function it scans and returns all modules() : void
+    public function it scans and returns all modules(): void
     {
         $modules = $this->getModuleLoader()->scan();
 
@@ -58,7 +58,7 @@ class ModuleLoaderTest extends TestCase
     /**
      * @test
      */
-    public function it throws an exception when theres a duplicate module() : void
+    public function it throws an exception when theres a duplicate module(): void
     {
         config()->set('module-loader.directories', [
             'modules',
@@ -76,7 +76,7 @@ class ModuleLoaderTest extends TestCase
     /**
      * @test
      */
-    public function it returns all providers() : void
+    public function it returns all providers(): void
     {
         $providers = $this->getModuleLoader()->getProviders([
             'Another' => base_path('modules/Another'),
@@ -95,7 +95,7 @@ class ModuleLoaderTest extends TestCase
     /**
      * @test
      */
-    public function it returns the cache path() : void
+    public function it returns the cache path(): void
     {
         $this->assertSame(
             base_path('bootstrap/cache/module-loader.php'),

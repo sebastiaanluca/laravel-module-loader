@@ -15,7 +15,7 @@ class CreateModuleCommandTest extends TestCase
     /**
      * @test
      */
-    public function it creates a module() : void
+    public function it creates a module(): void
     {
         $this->mockCommand();
 
@@ -28,7 +28,7 @@ class CreateModuleCommandTest extends TestCase
     /**
      * @test
      */
-    public function it creates a module using the first config path by default() : void
+    public function it creates a module using the first config path by default(): void
     {
         $this->mockCommand();
 
@@ -47,7 +47,7 @@ class CreateModuleCommandTest extends TestCase
     /**
      * @test
      */
-    public function it creates a module using the given path() : void
+    public function it creates a module using the given path(): void
     {
         $this->mockCommand();
 
@@ -63,9 +63,9 @@ class CreateModuleCommandTest extends TestCase
     /**
      * @test
      */
-    public function it shows an error when creating a module without configured directories() : void
+    public function it shows an error when creating a module without configured directories(): void
     {
-        $command = Mockery::mock(CreateModule::class . '[error]');
+        $command = Mockery::mock(CreateModule::class.'[error]');
 
         $command->shouldReceive('error')->once()->with('No module directories configured nor any explicitly given!');
 
@@ -79,9 +79,9 @@ class CreateModuleCommandTest extends TestCase
     /**
      * @test
      */
-    public function it shows an error when creating a module that already exists() : void
+    public function it shows an error when creating a module that already exists(): void
     {
-        $command = Mockery::mock(CreateModule::class . '[error]');
+        $command = Mockery::mock(CreateModule::class.'[error]');
 
         $command->shouldReceive('error')->once()->with('MyModule module already exists!');
 
@@ -93,9 +93,9 @@ class CreateModuleCommandTest extends TestCase
     /**
      * @return \Mockery\MockInterface
      */
-    private function mockCommand() : MockInterface
+    private function mockCommand(): MockInterface
     {
-        $command = Mockery::mock(CreateModule::class . '[call]');
+        $command = Mockery::mock(CreateModule::class.'[call]');
 
         $command->shouldReceive('call')->once()->with('modules:refresh', ['--keep' => false]);
 

@@ -11,13 +11,13 @@ class ModuleLoaderCacheTest extends TestCase
     /**
      * @test
      */
-    public function it loads all cached modules() : void
+    public function it loads all cached modules(): void
     {
         $loader = $this->getModuleLoader();
 
         $cache = $loader->getCachePath();
 
-        $copy = copy(__DIR__ . '/../resources/cache.php', $cache);
+        $copy = copy(__DIR__.'/../resources/cache.php', $cache);
 
         $this->assertTrue($copy);
         $this->assertFileExists($cache);

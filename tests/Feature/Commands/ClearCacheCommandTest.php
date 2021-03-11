@@ -13,16 +13,16 @@ class ClearCacheCommandTest extends TestCase
     /**
      * @test
      */
-    public function it clears the cache() : void
+    public function it clears the cache(): void
     {
         app(Kernel::class)->registerCommand(app(ClearCache::class, [$this->getModuleLoader()]));
 
         touch($cache = base_path('bootstrap/cache/module-loader.php'));
 
-        $this->assertFileExists($cache);
+        static::assertFileExists($cache);
 
         $this->artisan('modules:clear');
 
-        $this->assertFileNotExists($cache);
+        static::assertFileDoesNotExist($cache);
     }
 }

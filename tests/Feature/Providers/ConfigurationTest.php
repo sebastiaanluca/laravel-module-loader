@@ -11,7 +11,7 @@ class ConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function it registers the configuration() : void
+    public function it registers the configuration(): void
     {
         $this->getModuleLoader()->load();
 
@@ -21,11 +21,11 @@ class ConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function it does not register the configuration when already cached() : void
+    public function it does not register the configuration when already cached(): void
     {
         file_put_contents(
             $this->app->getCachedConfigPath(),
-            '<?php return ' . var_export([], true) . ';' . PHP_EOL
+            '<?php return '.var_export([], true).';'.PHP_EOL
         );
 
         $this->getModuleLoader()->load();

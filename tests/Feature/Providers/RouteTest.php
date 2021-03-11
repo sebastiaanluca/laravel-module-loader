@@ -14,7 +14,7 @@ class RouteTest extends TestCase
     /**
      * @test
      */
-    public function it registers all routes in routers() : void
+    public function it registers all routes in routers(): void
     {
         Route::spy();
 
@@ -26,7 +26,7 @@ class RouteTest extends TestCase
     /**
      * @test
      */
-    public function it uses the cached routes() : void
+    public function it uses the cached routes(): void
     {
         Route::spy();
 

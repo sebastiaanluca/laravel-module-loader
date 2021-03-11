@@ -13,7 +13,7 @@ class CacheCommandTest extends TestCase
     /**
      * @test
      */
-    public function it caches all providers() : void
+    public function it caches all providers(): void
     {
         app(Kernel::class)->registerCommand(app(Cache::class, [$this->getModuleLoader()]));
 
