@@ -22,8 +22,8 @@ class ModuleLoaderTest extends TestCase
 
         $loaded = app()->getLoadedProviders();
 
-        $this->assertArrayNotHasKey('Another\\Providers\\AnotherServiceProvider', $loaded);
-        $this->assertArrayNotHasKey('MyModule\\Providers\\MyModuleServiceProvider', $loaded);
+        static::assertArrayNotHasKey('Another\\Providers\\AnotherServiceProvider', $loaded);
+        static::assertArrayNotHasKey('MyModule\\Providers\\MyModuleServiceProvider', $loaded);
     }
 
     /**
@@ -35,8 +35,8 @@ class ModuleLoaderTest extends TestCase
 
         $loaded = app()->getLoadedProviders();
 
-        $this->assertArrayHasKey('Another\\Providers\\AnotherServiceProvider', $loaded);
-        $this->assertArrayHasKey('MyModule\\Providers\\MyModuleServiceProvider', $loaded);
+        static::assertArrayHasKey('Another\\Providers\\AnotherServiceProvider', $loaded);
+        static::assertArrayHasKey('MyModule\\Providers\\MyModuleServiceProvider', $loaded);
     }
 
     /**
@@ -52,7 +52,7 @@ class ModuleLoaderTest extends TestCase
             'MyModule' => base_path('modules/MyModule'),
         ];
 
-        $this->assertSameValues($expected, $modules);
+        static::assertSameValues($expected, $modules);
     }
 
     /**
@@ -89,7 +89,7 @@ class ModuleLoaderTest extends TestCase
             1 => 'MyModule\\Providers\\MyModuleServiceProvider',
         ];
 
-        $this->assertSameValues($expected, $providers);
+        static::assertSameValues($expected, $providers);
     }
 
     /**
@@ -97,7 +97,7 @@ class ModuleLoaderTest extends TestCase
      */
     public function it returns the cache path(): void
     {
-        $this->assertSame(
+        static::assertSame(
             base_path('bootstrap/cache/module-loader.php'),
             $this->getModuleLoader()->getCachePath()
         );

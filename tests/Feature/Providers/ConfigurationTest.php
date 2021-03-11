@@ -15,7 +15,7 @@ class ConfigurationTest extends TestCase
     {
         $this->getModuleLoader()->load();
 
-        $this->assertSame('value', config('my-module.key'));
+        static::assertSame('value', config('my-module.key'));
     }
 
     /**
@@ -33,6 +33,6 @@ class ConfigurationTest extends TestCase
         // We can only check if the module's config wasn't written as we never
         // load the Laravel framework in our tests (which loads the config from
         // cache).
-        $this->assertNull(config('my-module.key'));
+        static::assertNull(config('my-module.key'));
     }
 }

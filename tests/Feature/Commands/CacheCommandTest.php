@@ -19,10 +19,10 @@ class CacheCommandTest extends TestCase
 
         $cache = base_path('bootstrap/cache/module-loader.php');
 
-        $this->assertFileNotExists($cache);
+        static::assertFileDoesNotExist($cache);
 
         $this->artisan('modules:cache');
 
-        $this->assertFileExists($cache);
+        static::assertFileExists($cache);
     }
 }

@@ -19,14 +19,14 @@ class ModuleLoaderCacheTest extends TestCase
 
         $copy = copy(__DIR__.'/../resources/cache.php', $cache);
 
-        $this->assertTrue($copy);
-        $this->assertFileExists($cache);
+        static::assertTrue($copy);
+        static::assertFileExists($cache);
 
         $loader->load();
 
         $loaded = app()->getLoadedProviders();
 
-        $this->assertArrayHasKey('MyModule\\Providers\\MyModuleServiceProvider', $loaded);
-        $this->assertArrayNotHasKey('Another\\Providers\\AnotherServiceProvider', $loaded);
+        static::assertArrayHasKey('MyModule\\Providers\\MyModuleServiceProvider', $loaded);
+        static::assertArrayNotHasKey('Another\\Providers\\AnotherServiceProvider', $loaded);
     }
 }

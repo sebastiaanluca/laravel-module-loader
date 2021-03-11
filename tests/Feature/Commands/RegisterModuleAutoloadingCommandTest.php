@@ -79,7 +79,7 @@ class RegisterModuleAutoloadingCommandTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expected, $config);
+        static::assertSame($expected, $config);
     }
 
     /**
@@ -126,6 +126,6 @@ class RegisterModuleAutoloadingCommandTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expected, $config);
+        static::assertSame($expected, $config);
     }
 }

@@ -15,7 +15,7 @@ class ProviderTest extends TestCase
      */
     public function it registers all additional providers(): void
     {
-        $this->assertArrayNotHasKey(
+        static::assertArrayNotHasKey(
             ProviderTestProvider::class,
             $this->app->getLoadedProviders(),
             'The additional provider was already registered.'
@@ -23,7 +23,7 @@ class ProviderTest extends TestCase
 
         $this->app->register(ProviderTestServiceProvider::class);
 
-        $this->assertArrayHasKey(
+        static::assertArrayHasKey(
             ProviderTestProvider::class,
             $this->app->getLoadedProviders(),
             'The additional provider was not registered.'

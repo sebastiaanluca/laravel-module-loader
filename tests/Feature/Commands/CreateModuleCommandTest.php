@@ -21,8 +21,8 @@ class CreateModuleCommandTest extends TestCase
 
         $this->artisan('modules:create', ['name' => 'NewModule']);
 
-        $this->assertDirectoryExists(base_path('modules/NewModule/src'));
-        $this->assertFileExists(base_path('modules/NewModule/src/Providers/NewModuleServiceProvider.php'));
+        static::assertDirectoryExists(base_path('modules/NewModule/src'));
+        static::assertFileExists(base_path('modules/NewModule/src/Providers/NewModuleServiceProvider.php'));
     }
 
     /**
@@ -40,8 +40,8 @@ class CreateModuleCommandTest extends TestCase
 
         $this->artisan('modules:create', ['name' => 'NewModule']);
 
-        $this->assertDirectoryExists(base_path('customDir/NewModule/src'));
-        $this->assertFileExists(base_path('customDir/NewModule/src/Providers/NewModuleServiceProvider.php'));
+        static::assertDirectoryExists(base_path('customDir/NewModule/src'));
+        static::assertFileExists(base_path('customDir/NewModule/src/Providers/NewModuleServiceProvider.php'));
     }
 
     /**
@@ -56,8 +56,8 @@ class CreateModuleCommandTest extends TestCase
             '--directory' => 'other',
         ]);
 
-        $this->assertDirectoryExists(base_path('other/NewModule/src'));
-        $this->assertFileExists(base_path('other/NewModule/src/Providers/NewModuleServiceProvider.php'));
+        static::assertDirectoryExists(base_path('other/NewModule/src'));
+        static::assertFileExists(base_path('other/NewModule/src/Providers/NewModuleServiceProvider.php'));
     }
 
     /**
