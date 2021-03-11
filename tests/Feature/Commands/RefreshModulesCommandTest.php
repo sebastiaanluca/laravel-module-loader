@@ -14,9 +14,9 @@ class RefreshModulesCommandTest extends TestCase
     /**
      * @test
      */
-    public function it scans and updates all modules() : void
+    public function it scans and updates all modules(): void
     {
-        $command = Mockery::mock(RefreshModules::class . '[call]');
+        $command = Mockery::mock(RefreshModules::class.'[call]');
 
         $command->shouldReceive('call')->once()->with('modules:autoload', ['--keep' => false]);
 

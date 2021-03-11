@@ -4,6 +4,19 @@ All Notable changes to `sebastiaanluca/laravel-module-loader` will be documented
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## 7.0.0 (2021-03-11)
+
+### Added
+
+- Added support for PHP 8
+- Added support for Laravel 8
+
+### Removed
+
+- Dropped support for PHP 7.4 and lower
+- Dropped support for Laravel 7 and lower
+- Replaced Travis CI with GitHub Action
+
 ## 6.0.0 (2020-10-19)
 
 ### Added

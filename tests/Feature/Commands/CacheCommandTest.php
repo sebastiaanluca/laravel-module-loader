@@ -13,16 +13,16 @@ class CacheCommandTest extends TestCase
     /**
      * @test
      */
-    public function it caches all providers() : void
+    public function it caches all providers(): void
     {
         app(Kernel::class)->registerCommand(app(Cache::class, [$this->getModuleLoader()]));
 
         $cache = base_path('bootstrap/cache/module-loader.php');
 
-        $this->assertFileNotExists($cache);
+        static::assertFileDoesNotExist($cache);
 
         $this->artisan('modules:cache');
 
-        $this->assertFileExists($cache);
+        static::assertFileExists($cache);
     }
 }

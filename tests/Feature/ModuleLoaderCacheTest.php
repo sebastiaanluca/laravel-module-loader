@@ -11,22 +11,22 @@ class ModuleLoaderCacheTest extends TestCase
     /**
      * @test
      */
-    public function it loads all cached modules() : void
+    public function it loads all cached modules(): void
     {
         $loader = $this->getModuleLoader();
 
         $cache = $loader->getCachePath();
 
-        $copy = copy(__DIR__ . '/../resources/cache.php', $cache);
+        $copy = copy(__DIR__.'/../resources/cache.php', $cache);
 
-        $this->assertTrue($copy);
-        $this->assertFileExists($cache);
+        static::assertTrue($copy);
+        static::assertFileExists($cache);
 
         $loader->load();
 
         $loaded = app()->getLoadedProviders();
 
-        $this->assertArrayHasKey('MyModule\\Providers\\MyModuleServiceProvider', $loaded);
-        $this->assertArrayNotHasKey('Another\\Providers\\AnotherServiceProvider', $loaded);
+        static::assertArrayHasKey('MyModule\\Providers\\MyModuleServiceProvider', $loaded);
+        static::assertArrayNotHasKey('Another\\Providers\\AnotherServiceProvider', $loaded);
     }
 }

@@ -15,7 +15,7 @@ class RegisterModuleAutoloadingCommandTest extends TestCase
     /**
      * @test
      */
-    public function it scans all modules and writes the composer autoload config() : void
+    public function it scans all modules and writes the composer autoload config(): void
     {
         unlink(base_path('composer.json'));
 
@@ -28,7 +28,7 @@ class RegisterModuleAutoloadingCommandTest extends TestCase
             'Another' => base_path('modules/Another'),
         ]);
 
-        $command = Mockery::mock(RegisterModuleAutoloading::class . '[info]', [$loader]);
+        $command = Mockery::mock(RegisterModuleAutoloading::class.'[info]', [$loader]);
 
         $command->shouldReceive('info')->once()->with('Wrote composer.json autoload configuration for 1 modules');
 
@@ -40,7 +40,7 @@ class RegisterModuleAutoloadingCommandTest extends TestCase
     /**
      * @test
      */
-    public function it scans all modules and overwrites the existing composer autoload config() : void
+    public function it scans all modules and overwrites the existing composer autoload config(): void
     {
         @mkdir(base_path('modules/Extra/tests'), 0777, true);
 
@@ -51,7 +51,7 @@ class RegisterModuleAutoloadingCommandTest extends TestCase
             'Extra' => base_path('modules/Extra'),
         ]);
 
-        $command = Mockery::mock(RegisterModuleAutoloading::class . '[info]', [$loader]);
+        $command = Mockery::mock(RegisterModuleAutoloading::class.'[info]', [$loader]);
 
         $command->shouldReceive('info')->once()->with('Wrote composer.json autoload configuration for 2 modules');
 
@@ -79,13 +79,13 @@ class RegisterModuleAutoloadingCommandTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expected, $config);
+        static::assertSame($expected, $config);
     }
 
     /**
      * @test
      */
-    public function it scans all modules and updates the existing composer autoload config() : void
+    public function it scans all modules and updates the existing composer autoload config(): void
     {
         @mkdir(base_path('modules/Extra/tests'), 0777, true);
 
@@ -96,7 +96,7 @@ class RegisterModuleAutoloadingCommandTest extends TestCase
             'Extra' => base_path('modules/Extra'),
         ]);
 
-        $command = Mockery::mock(RegisterModuleAutoloading::class . '[info]', [$loader]);
+        $command = Mockery::mock(RegisterModuleAutoloading::class.'[info]', [$loader]);
 
         $command->shouldReceive('info')->once()->with('Wrote composer.json autoload configuration for 2 modules');
 
@@ -126,6 +126,6 @@ class RegisterModuleAutoloadingCommandTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expected, $config);
+        static::assertSame($expected, $config);
     }
 }

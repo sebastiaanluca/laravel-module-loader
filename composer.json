@@ -13,18 +13,18 @@
         {
             "name": "Sebastiaan Luca",
             "email": "hello@sebastiaanluca.com",
-            "homepage": "https://www.sebastiaanluca.com",
+            "homepage": "https://sebastiaanluca.com",
             "role": "Author"
         }
     ],
     "require": {
-        "php": "^7.3",
-        "laravel/framework": "^7.0|^8.0"
+        "php": "^8.0",
+        "laravel/framework": "^8.0"
     },
     "require-dev": {
-        "kint-php/kint": "^3.3",
-        "orchestra/testbench": "^5.1|^6.0",
-        "phpunit/phpunit": "^8.5"
+        "mockery/mockery": "^1.3.4",
+        "orchestra/testbench": "^6.4",
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
@@ -49,8 +49,9 @@
             ]
         }
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "scripts": {
-        "composer-validate": "@composer validate --no-check-all --strict --ansi",
         "test": "vendor/bin/phpunit",
         "test-lowest": [
             "composer update --prefer-lowest --prefer-dist --no-interaction --ansi",
@@ -59,12 +60,6 @@
         "test-stable": [
             "composer update --prefer-stable --prefer-dist --no-interaction --ansi",
             "@test"
-        ],
-        "check": [
-            "@composer-validate",
-            "@test"
         ]
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }

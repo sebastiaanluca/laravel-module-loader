@@ -2,10 +2,10 @@
 
 <a href="https://packagist.org/packages/sebastiaanluca/laravel-module-loader"><img src="https://poser.pugx.org/sebastiaanluca/laravel-module-loader/version" alt="Latest stable release"></img></a>
 <a href="LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="Software license"></img></a>
-<a href="https://travis-ci.org/sebastiaanluca/laravel-module-loader"><img src="https://img.shields.io/travis/sebastiaanluca/laravel-module-loader/master.svg" alt="Build status"></img></a>
+<a href="https://github.com/sebastiaanluca/laravel-module-loader/actions/workflows/test.yml?query=branch%3Amaster"><img src="https://github.com/sebastiaanluca/laravel-module-loader/actions/workflows/test.yml/badge.svg?branch=master" alt="Build status"></img></a>
 <a href="https://packagist.org/packages/sebastiaanluca/laravel-module-loader"><img src="https://img.shields.io/packagist/dt/sebastiaanluca/laravel-module-loader.svg" alt="Total downloads"></img></a>
 
-<a href="https://blog.sebastiaanluca.com"><img src="https://img.shields.io/badge/link-blog-lightgrey.svg" alt="Read my blog"></img></a>
+<a href="https://sebastiaanluca.com/blog"><img src="https://img.shields.io/badge/link-blog-lightgrey.svg" alt="Read my blog"></img></a>
 <a href="https://packagist.org/packages/sebastiaanluca"><img src="https://img.shields.io/badge/link-other_packages-lightgrey.svg" alt="View my other packages and projects"></img></a>
 <a href="https://twitter.com/sebastiaanluca"><img src="https://img.shields.io/twitter/follow/sebastiaanluca.svg?style=social" alt="Follow @sebastiaanluca on Twitter"></img></a>
 <a href="https://twitter.com/intent/tweet?text=A%20lightweight%20Laravel%20package%20to%20split%20your%20code%20into%20individual%20modules.%20Via%20@sebastiaanluca%20https://github.com/sebastiaanluca/laravel-module-loader"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social" alt="Share this package on Twitter"></img></a>
@@ -100,8 +100,8 @@ ShoppingCart/
 
 ## Requirements
 
-- PHP 7.3 or higher
-- Laravel 7.0 or higher
+- PHP 8 or higher
+- Laravel 8 or higher
 
 ## How to install
 
@@ -531,12 +531,10 @@ My name is Sebastiaan and I'm a freelance back-end developer specializing in bui
 
 Have a project that could use some guidance? Send me an e-mail at [hello@sebastiaanluca.com][link-author-email]!
 
-[link-packagist]: https://packagist.org/packages/sebastiaanluca/laravel-module-loader
-[link-travis]: https://travis-ci.org/sebastiaanluca/laravel-module-loader
 [link-contributors]: ../../contributors
 
-[link-portfolio]: https://www.sebastiaanluca.com
-[link-blog]: https://blog.sebastiaanluca.com
+[link-portfolio]: https://sebastiaanluca.com
+[link-blog]: https://sebastiaanluca.com/blog
 [link-packages]: https://packagist.org/packages/sebastiaanluca
 [link-github-profile]: https://github.com/sebastiaanluca
 [link-author-email]: mailto:hello@sebastiaanluca.com

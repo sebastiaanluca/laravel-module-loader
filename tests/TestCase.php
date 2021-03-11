@@ -24,7 +24,7 @@ class TestCase extends BaseTestCase
      * @param mixed $expected
      * @param mixed $actual
      */
-    public static function assertSameValues($expected, $actual) : void
+    public static function assertSameValues($expected, $actual): void
     {
         static::assertEqualsCanonicalizing(
             $expected,
@@ -43,7 +43,7 @@ class TestCase extends BaseTestCase
     /**
      * @return \SebastiaanLuca\Module\Services\ModuleLoader
      */
-    protected function getModuleLoader() : ModuleLoader
+    protected function getModuleLoader(): ModuleLoader
     {
         $this->app->singleton(ModuleLoader::class, function () {
             return new ModuleLoader(
@@ -63,9 +63,9 @@ class TestCase extends BaseTestCase
      *
      * @return void
      */
-    protected function getEnvironmentSetUp($app) : void
+    protected function getEnvironmentSetUp($app): void
     {
-        app()->setBasePath(__DIR__ . '/temp');
+        app()->setBasePath(__DIR__.'/temp');
     }
 
     /**
@@ -73,11 +73,11 @@ class TestCase extends BaseTestCase
      *
      * @return void
      */
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        app(Filesystem::class)->copyDirectory(__DIR__ . '/resources/setup', base_path());
+        app(Filesystem::class)->copyDirectory(__DIR__.'/resources/setup', base_path());
 
         // Generate composer autoload config base on the temp composer.json
         // file after setting up our temporary app directory.
@@ -85,7 +85,7 @@ class TestCase extends BaseTestCase
 
         $this->autoloader = Mockery::mock(ClassLoader::class);
 
-        config()->set('module-loader', include __DIR__ . '/../config/module-loader.php');
+        config()->set('module-loader', include __DIR__.'/../config/module-loader.php');
         config()->set('module-loader.development_environments', ['different_environment']);
     }
 
@@ -94,18 +94,18 @@ class TestCase extends BaseTestCase
      *
      * @return void
      */
-    protected function tearDown() : void
+    protected function tearDown(): void
     {
         parent::tearDown();
 
         app(Filesystem::class)->deleteDirectory(base_path());
     }
 
-    protected function dumpautoload() : void
+    protected function dumpautoload(): void
     {
         $process = new Process([
-            'cd '. base_path(),
-            'composer dumpautoload'
+            'cd '.base_path(),
+            'composer dumpautoload',
         ]);
 
         $process->run();
